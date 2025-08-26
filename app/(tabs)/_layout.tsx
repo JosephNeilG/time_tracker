@@ -17,9 +17,12 @@ const _layout = () => {
 				tabBarIconStyle: {
 					marginVertical: 7,
 				},
+				sceneStyle: {
+					backgroundColor: "#FFFFFF",
+				},
 			}}>
 			<Tabs.Screen
-				name="track"
+				name="index"
 				options={{
 					title: "Track",
 					tabBarIcon: ({ color, size }) => (

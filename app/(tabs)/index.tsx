@@ -1,12 +1,12 @@
 import React from "react";
 import { Text, View } from "react-native";
 
-const Track = () => {
+const Index = () => {
 	return (
 		<View>
-			<Text>Track</Text>
+			<Text>index</Text>
 		</View>
 	);
 };
 
-export default Track;
+export default Index;

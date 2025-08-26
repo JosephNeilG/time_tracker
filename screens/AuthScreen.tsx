@@ -1,0 +1,106 @@
+import Button from "@/components/Button";
+import AuthPrompt from "@/components/forms/AuthPrompt";
+import AppTextInput from "@/components/forms/TextInput";
+import Icon from "@/components/Icon";
+import Screen from "@/components/Screen";
+import Separator from "@/components/Separator";
+import TextGroup from "@/components/TextGroup";
+import { COLORS } from "@/constants/Colors";
+import Checkbox from "expo-checkbox";
+import React, { useState } from "react";
+import {
+	KeyboardAvoidingView,
+	Platform,
+	ScrollView,
+	Text,
+	TouchableOpacity,
+	View,
+} from "react-native";
+
+const AuthScreen = () => {
+	const [is_checked, setChecked] = useState(false);
+
+	return (
+		<Screen style={{ justifyContent: "center" }}>
+			<KeyboardAvoidingView
+				behavior="position"
+				keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 100}>
+				<ScrollView showsVerticalScrollIndicator={false}>
+					<View className="flex-1 items-center p-7 ">
+						<Icon name="clock-time-four" />
+						<TextGroup
+							title="TimeTracker"
+							sub_title="Track your sprint tasks efficiently"
+							style={{ marginBottom: 25 }}
+						/>
+						<TextGroup
+							title="Welcome back"
+							title_size={20}
+							sub_title="Sign in to continue tracking your tasks"
+						/>
+
+						<Button
+							icon_name="google"
+							text="Continue with Google"
+							style={{ marginVertical: 25 }}
+						/>
+
+						<Separator text="or" />
+
+						<AppTextInput
+							label="Email"
+							placeholder="Enter your email"
+							keyboardType="email-address"
+							textContentType="emailAddress"
+							autoCapitalize="none"
+							autoCorrect={false}
+						/>
+						<AppTextInput
+							label="Password"
+							placeholder="Enter your password"
+							textContentType="password"
+							autoCorrect={false}
+							autoCapitalize="none"
+							is_password
+						/>
+
+						<View className="w-full flex-row items-center justify-between mt-1 mb-4">
+							<View className="flex-row items-center">
+								<Checkbox
+									value={is_checked}
+									onValueChange={setChecked}
+									color={
+										is_checked ? COLORS.primary : undefined
+									}
+								/>
+								<Text className="ml-2 text-lg text-tertiary ">
+									Remember me
+								</Text>
+							</View>
+
+							<TouchableOpacity activeOpacity={0.7}>
+								<Text className="text-lg text-tertiary ">
+									Forgot password?
+								</Text>
+							</TouchableOpacity>
+						</View>
+
+						<Button
+							text="Sign In"
+							background_color={COLORS.primary}
+							text_color="white"
+						/>
+
+						<AuthPrompt
+							question="Don't have an account?"
+							action_text="Sign up"
+							onPress={() => console.log("Pressed")}
+						/>
+					</View>
+				</ScrollView>
+			</KeyboardAvoidingView>
+		</Screen>
+	);
+};
+
+export default AuthScreen;
