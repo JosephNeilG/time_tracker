@@ -1,12 +1,8 @@
+import AuthScreen from "@/screens/AuthScreen";
 import React from "react";
-import { Text, View } from "react-native";
 
 const Index = () => {
-	return (
-		<View>
-			<Text>index</Text>
-		</View>
-	);
+	return <AuthScreen />;
 };
 
 export default Index;

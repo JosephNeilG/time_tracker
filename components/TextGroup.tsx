@@ -18,11 +18,11 @@ const TextGroup = ({
 	return (
 		<View className="items-center mt-4" style={style}>
 			<Text
-				className="text-3xl font-medium color-primary mb-1"
+				className="text-3xl font-medium text-primary mb-2 text-center"
 				style={{ fontSize: title_size }}>
 				{title}
 			</Text>
-			<Text className="text-lg color-secondary font-medium">
+			<Text className="text-xl text-secondary font-medium text-center">
 				{sub_title}
 			</Text>
 		</View>

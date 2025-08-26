@@ -1,6 +1,8 @@
-// src/constants/theme.ts
 export const COLORS = {
 	primary: "#111928",
 	secondary: "#6B7580",
-	tertiary: "#414851",
+	dark100: "#414851",
+	dark200: "#9EA2AE",
+	light100: "#F3F4F6",
+	white: "#fff",
 };

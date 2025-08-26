@@ -1,31 +1,43 @@
 import { COLORS } from "@/constants/Colors";
-import { FontAwesome6 } from "@expo/vector-icons";
 import React from "react";
 import { StyleProp, Text, TouchableOpacity, ViewStyle } from "react-native";
 
 interface ButtonProps {
 	text: string;
-	icon_name?: keyof typeof FontAwesome6.glyphMap;
+	IconComponent?: React.ElementType;
+	icon_name?: string;
+	icon_size?: number;
 	icon_color?: string;
 	background_color?: string;
 	text_color?: string;
 	style?: StyleProp<ViewStyle>;
+	width?: number | string;
+	onPress?: () => void;
 }
 
 const Button = ({
 	text,
+	IconComponent,
 	icon_name,
-	icon_color = COLORS.tertiary,
+	icon_size = 17,
+	icon_color = COLORS.dark100,
 	background_color = "transparent",
 	text_color = COLORS.primary,
 	style,
+	width = "100%",
+	onPress,
 }: ButtonProps) => {
 	return (
 		<TouchableOpacity
-			className="w-full border-[0.5px] border-secondary py-4 rounded-lg flex-row items-center gap-4 justify-center"
-			style={[{ backgroundColor: background_color }, style]}>
-			{icon_name && (
-				<FontAwesome6 name={icon_name} size={17} color={icon_color} />
+			onPress={onPress}
+			className="border-[0.5px] border-secondary py-4 rounded-lg flex-row items-center gap-4 justify-center"
+			style={[{ backgroundColor: background_color, width }, style]}>
+			{IconComponent && icon_name && (
+				<IconComponent
+					name={icon_name}
+					size={icon_size}
+					color={icon_color}
+				/>
 			)}
 
 			<Text className="text-xl font-medium" style={{ color: text_color }}>

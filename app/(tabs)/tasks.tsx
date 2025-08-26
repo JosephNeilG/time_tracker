@@ -1,10 +1,11 @@
+import TasksScreen from "@/screens/TasksScreen";
 import React from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 
 const Tasks = () => {
 	return (
 		<View>
-			<Text>Tasks</Text>
+			<TasksScreen />
 		</View>
 	);
 };

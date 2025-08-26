@@ -6,6 +6,7 @@ import Screen from "@/components/Screen";
 import Separator from "@/components/Separator";
 import TextGroup from "@/components/TextGroup";
 import { COLORS } from "@/constants/Colors";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Checkbox from "expo-checkbox";
 import React, { useState } from "react";
 import {
@@ -26,8 +27,11 @@ const AuthScreen = () => {
 				behavior="position"
 				keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 100}>
 				<ScrollView showsVerticalScrollIndicator={false}>
-					<View className="flex-1 items-center p-7 ">
-						<Icon name="clock-time-four" />
+					<View className="flex-1 items-center p-7">
+						<Icon
+							IconSet={MaterialCommunityIcons}
+							name="clock-time-four"
+						/>
 						<TextGroup
 							title="TimeTracker"
 							sub_title="Track your sprint tasks efficiently"
@@ -73,13 +77,13 @@ const AuthScreen = () => {
 										is_checked ? COLORS.primary : undefined
 									}
 								/>
-								<Text className="ml-2 text-lg text-tertiary ">
+								<Text className="ml-2 text-lg text-dark-100">
 									Remember me
 								</Text>
 							</View>
 
 							<TouchableOpacity activeOpacity={0.7}>
-								<Text className="text-lg text-tertiary ">
+								<Text className="text-lg text-dark-100">
 									Forgot password?
 								</Text>
 							</TouchableOpacity>
@@ -88,7 +92,7 @@ const AuthScreen = () => {
 						<Button
 							text="Sign In"
 							background_color={COLORS.primary}
-							text_color="white"
+							text_color={COLORS.white}
 						/>
 
 						<AuthPrompt

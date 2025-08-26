@@ -6,10 +6,11 @@ interface IconProps {
 	container_color?: string;
 	size?: number;
 	is_circle?: boolean;
-	name: keyof typeof MaterialCommunityIcons.glyphMap;
+	name: string;
 	icon_size?: number;
 	icon_color?: string;
 	style?: ViewStyle;
+	IconSet?: React.ComponentType<any>;
 }
 
 const Icon = ({
@@ -20,6 +21,7 @@ const Icon = ({
 	icon_size = 35,
 	icon_color = "#fff",
 	style,
+	IconSet = MaterialCommunityIcons,
 }: IconProps) => {
 	return (
 		<View
@@ -33,11 +35,7 @@ const Icon = ({
 				},
 				style,
 			]}>
-			<MaterialCommunityIcons
-				name={name}
-				size={icon_size}
-				color={icon_color}
-			/>
+			<IconSet name={name} size={icon_size} color={icon_color} />
 		</View>
 	);
 };
