@@ -6,7 +6,7 @@ import Screen from "@/components/Screen";
 import Separator from "@/components/Separator";
 import TextGroup from "@/components/TextGroup";
 import { COLORS } from "@/constants/Colors";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { FontAwesome6, MaterialCommunityIcons } from "@expo/vector-icons";
 import Checkbox from "expo-checkbox";
 import React, { useState } from "react";
 import {
@@ -45,6 +45,7 @@ const AuthScreen = () => {
 
 						<Button
 							icon_name="google"
+							IconComponent={FontAwesome6}
 							text="Continue with Google"
 							style={{ marginVertical: 25 }}
 						/>

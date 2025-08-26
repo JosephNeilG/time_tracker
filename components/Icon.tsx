@@ -11,6 +11,8 @@ interface IconProps {
 	icon_color?: string;
 	style?: ViewStyle;
 	IconSet?: React.ComponentType<any>;
+	borderWidth?: number;
+	borderColor?: string;
 }
 
 const Icon = ({
@@ -22,6 +24,8 @@ const Icon = ({
 	icon_color = "#fff",
 	style,
 	IconSet = MaterialCommunityIcons,
+	borderWidth,
+	borderColor,
 }: IconProps) => {
 	return (
 		<View
@@ -32,6 +36,8 @@ const Icon = ({
 					width: size,
 					height: size,
 					borderRadius: is_circle ? size / 2 : 12,
+					borderWidth,
+					borderColor,
 				},
 				style,
 			]}>
