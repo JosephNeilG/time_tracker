@@ -1,17 +1,42 @@
+import { COLORS } from "@/constants/Colors";
 import React from "react";
-import { StyleProp, Text, View, ViewStyle } from "react-native";
+import { StyleProp, Text, TextStyle, View, ViewStyle } from "react-native";
 
 interface TaskOverviewItemProps {
-	value: string | number;
-	label: string;
+	title: string | number;
+	subtitle: string;
 	style?: StyleProp<ViewStyle>;
+	title_size?: number;
+	title_color?: string;
+	align?: "left" | "center" | "right";
 }
 
-const TaskOverviewItem = ({ value, label, style }: TaskOverviewItemProps) => {
+const TaskOverviewItem = ({
+	title,
+	subtitle,
+	style,
+	title_size = 14,
+	title_color = COLORS.dark100,
+	align = "left",
+}: TaskOverviewItemProps) => {
+	const textAlign: TextStyle["textAlign"] = align;
+
 	return (
-		<View className="flex-1" style={style}>
-			<Text className="text-dark-100 text-base font-medium">{value}</Text>
-			<Text className="text-dark-100 text-base font-medium">{label}</Text>
+		<View style={style}>
+			<Text
+				className="font-medium"
+				style={{
+					fontSize: title_size,
+					color: title_color,
+					textAlign,
+				}}>
+				{title}
+			</Text>
+			<Text
+				className="text-dark-100 text-base font-medium"
+				style={{ textAlign }}>
+				{subtitle}
+			</Text>
 		</View>
 	);
 };

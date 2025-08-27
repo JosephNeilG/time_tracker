@@ -29,7 +29,7 @@ const CardBody = ({
 	task_time_estimate: subtitleRight,
 	title_color = COLORS.primary,
 	title_decoration,
-	subtitle_color = COLORS.secondary,
+	subtitle_color = COLORS.dark100,
 	media_status_icon = "play",
 	media_status_icon_color = COLORS.secondary,
 	media_status_icon_bg_color = "transparent",

@@ -21,7 +21,7 @@ const DotSeparator = ({
 					height: size,
 					backgroundColor: color,
 					borderRadius: size / 2,
-					marginHorizontal: 4,
+					marginHorizontal: 1,
 				},
 				style,
 			]}

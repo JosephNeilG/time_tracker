@@ -36,27 +36,31 @@ const TasksScreen = () => {
 									Sprint 2025-01
 								</Text>
 							</CardHeader>
-							<View className="flex-row justify-between items-center mb-3">
+							<View className="flex-row justify-between items-center mb-3 pr-6">
 								<TaskOverviewItem
-									value="12 tasks"
-									label="assigned"
+									title="12 tasks"
+									subtitle="assigned"
 								/>
 
-								<DotSeparator />
+								<View className="flex-row items-center">
+									<DotSeparator />
 
-								<TaskOverviewItem
-									value={5}
-									label="completed"
-									style={{ marginLeft: 10 }}
-								/>
+									<TaskOverviewItem
+										title={5}
+										subtitle="completed"
+										style={{ marginLeft: 10 }}
+									/>
+								</View>
 
-								<DotSeparator />
+								<View className="flex-row items-center">
+									<DotSeparator />
 
-								<TaskOverviewItem
-									value="42h"
-									label="logged"
-									style={{ marginLeft: 10 }}
-								/>
+									<TaskOverviewItem
+										title="42h"
+										subtitle="logged"
+										style={{ marginLeft: 10 }}
+									/>
+								</View>
 							</View>
 							<Progress.Bar
 								progress={0.56}
