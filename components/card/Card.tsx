@@ -4,32 +4,23 @@ import { StyleProp, View, ViewStyle } from "react-native";
 
 interface CardProps {
 	children: ReactNode;
-	backgroundColor?: string;
+	background_color?: string;
 	style?: StyleProp<ViewStyle>;
-	padding?: number;
-	borderRadius?: number;
-	borderWidth?: number;
 	borderColor?: string;
 }
 
 const Card = ({
 	children,
-	backgroundColor,
-	padding = 16,
-	borderRadius = 8,
-	borderWidth = 0,
-	borderColor = COLORS.dark100,
+	background_color,
+	borderColor = COLORS.dark200,
 	style,
 }: CardProps) => {
 	return (
 		<View
-			className="w-full mb-4"
+			className="w-full mb-4 p-4 rounded-lg border-[0.5px]"
 			style={[
 				{
-					backgroundColor: backgroundColor ?? "transparent",
-					padding,
-					borderRadius,
-					borderWidth,
+					backgroundColor: background_color ?? "transparent",
 					borderColor,
 				},
 				style,

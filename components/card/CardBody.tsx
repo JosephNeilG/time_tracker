@@ -1,61 +1,50 @@
-import DotSeparator from "@/components/DotSeparator";
-import { COLORS } from "@/constants/Colors";
 import { FontAwesome6 } from "@expo/vector-icons";
 import React from "react";
 import { Text, TextStyle, TouchableOpacity, View } from "react-native";
+
+import DotSeparator from "@/components/DotSeparator";
+import { COLORS } from "@/constants/Colors";
 import Icon from "../Icon";
 
 interface CardBodyProps {
-	leftIconName: keyof typeof FontAwesome6.glyphMap;
-	leftIconColor?: string;
-	leftIconBackground?: string;
-	leftIconSize?: number;
-	leftIconInnerSize?: number;
-	title: string;
-	subtitleLeft: string;
-	subtitleRight: string;
-	titleColor?: string;
-	titleDecoration?: TextStyle["textDecorationLine"];
-	subtitleColor?: string;
-	rightIconName: keyof typeof FontAwesome6.glyphMap;
-	rightIconColor?: string;
-	rightIconBackground?: string;
-	rightIconSize?: number;
-	rightIconInnerSize?: number;
-	rightIconBorderWidth?: number;
-	rightIconBorderColor?: string;
+	category_icon_name: keyof typeof FontAwesome6.glyphMap;
+	category_icon_background?: string;
+	task_title: string;
+	title_color?: string;
+	title_decoration?: TextStyle["textDecorationLine"];
+	task_category_name: string;
+	task_time_estimate: string;
+	subtitle_color?: string;
+	media_status_icon?: keyof typeof FontAwesome6.glyphMap;
+	media_status_icon_color?: string;
+	media_status_icon_bg_color?: string;
+	media_status_icon_border_color?: string;
 }
 
 const CardBody = ({
-	leftIconName,
-	leftIconColor = COLORS.light100,
-	leftIconBackground = COLORS.light300,
-	leftIconSize = 45,
-	leftIconInnerSize = 18,
-	title,
-	subtitleLeft,
-	subtitleRight,
-	titleColor = COLORS.primary,
-	titleDecoration,
-	subtitleColor = COLORS.secondary,
-	rightIconName,
-	rightIconColor = COLORS.light100,
-	rightIconBackground = COLORS.dark100,
-	rightIconSize = 35,
-	rightIconInnerSize = 15,
-	rightIconBorderWidth = 0,
-	rightIconBorderColor = "transparent",
+	category_icon_name,
+	category_icon_background = COLORS.light300,
+	task_title,
+	task_category_name,
+	task_time_estimate: subtitleRight,
+	title_color = COLORS.primary,
+	title_decoration,
+	subtitle_color = COLORS.secondary,
+	media_status_icon = "play",
+	media_status_icon_color = COLORS.secondary,
+	media_status_icon_bg_color = "transparent",
+	media_status_icon_border_color = COLORS.dark200,
 }: CardBodyProps) => {
 	return (
 		<View className="flex-row items-center justify-between">
 			<View className="flex-row gap-3 flex-1 items-center">
 				<Icon
-					name={leftIconName}
+					name={category_icon_name}
 					IconSet={FontAwesome6}
-					container_color={leftIconBackground}
-					icon_color={leftIconColor}
-					size={leftIconSize}
-					icon_size={leftIconInnerSize}
+					container_color={category_icon_background}
+					icon_color={COLORS.light100}
+					size={45}
+					icon_size={18}
 					style={{ borderRadius: 9 }}
 				/>
 
@@ -63,26 +52,26 @@ const CardBody = ({
 					<Text
 						className="text-lg font-medium"
 						style={{
-							color: titleColor,
-							textDecorationLine: titleDecoration,
+							color: title_color,
+							textDecorationLine: title_decoration,
 						}}>
-						{title}
+						{task_title}
 					</Text>
 
 					<View className="flex-row items-center flex-wrap gap-1">
 						<Text
 							className="text-base font-medium"
-							style={{ color: subtitleColor }}
+							style={{ color: subtitle_color }}
 							numberOfLines={1}
 							ellipsizeMode="tail">
-							{subtitleLeft}
+							{task_category_name}
 						</Text>
 
-						<DotSeparator color={subtitleColor} />
+						<DotSeparator color={subtitle_color} />
 
 						<Text
 							className="text-base font-medium"
-							style={{ color: subtitleColor }}
+							style={{ color: subtitle_color }}
 							numberOfLines={1}
 							ellipsizeMode="tail">
 							{subtitleRight}
@@ -94,14 +83,14 @@ const CardBody = ({
 			<TouchableOpacity>
 				<Icon
 					is_circle
-					name={rightIconName}
+					name={media_status_icon}
 					IconSet={FontAwesome6}
-					container_color={rightIconBackground}
-					icon_color={rightIconColor}
-					size={rightIconSize}
-					icon_size={rightIconInnerSize}
-					borderWidth={rightIconBorderWidth}
-					borderColor={rightIconBorderColor}
+					container_color={media_status_icon_bg_color}
+					icon_color={media_status_icon_color}
+					size={35}
+					icon_size={15}
+					borderWidth={0.5}
+					borderColor={media_status_icon_border_color}
 				/>
 			</TouchableOpacity>
 		</View>

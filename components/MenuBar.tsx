@@ -24,7 +24,7 @@ const MenuBar = ({ tabs, initial_index = 0, onTabPress }: MenuBarProps) => {
 
 	return (
 		<View
-			className="p-1 w-full flex-row bg-light-100 my-8 rounded-lg"
+			className="p-1 w-full flex-row bg-light-100 mt-8 mb-4 rounded-lg"
 			style={{ paddingHorizontal: 0 }}>
 			{tabs.map((tab, index) => {
 				const isActive = index === active_index;

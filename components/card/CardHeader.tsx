@@ -1,12 +1,13 @@
 import { COLORS } from "@/constants/Colors";
 import React, { ReactNode } from "react";
-import { StyleProp, Text, View, ViewStyle } from "react-native";
+import { StyleProp, Text, TextStyle, View, ViewStyle } from "react-native";
 
 interface CardHeaderProps {
 	children: ReactNode;
 	right_text: string;
 	text_color?: string;
 	style?: StyleProp<ViewStyle>;
+	textStyle?: StyleProp<TextStyle>;
 }
 
 const CardHeader = ({
@@ -14,13 +15,16 @@ const CardHeader = ({
 	right_text,
 	text_color = COLORS.secondary,
 	style,
+	textStyle,
 }: CardHeaderProps) => {
 	return (
 		<View
 			className="flex-row items-center justify-between mb-3"
 			style={style}>
 			{children}
-			<Text style={{ color: text_color }} className="text-sm">
+			<Text
+				style={[{ color: text_color }, textStyle]}
+				className="text-sm">
 				{right_text}
 			</Text>
 		</View>

@@ -6,5 +6,6 @@ export const COLORS = {
 	light100: "#F3F4F6",
 	light200: "#9FA5B0",
 	light300: "#D2D5DE",
+	light400: "#F9FAFC",
 	white: "#fff",
 };

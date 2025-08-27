@@ -20,28 +20,41 @@ const TasksScreen = () => {
 			<View className="p-7 items-center w-full">
 				{hasTasks ? (
 					<>
-						<View className="p-4 bg-light-100 rounded-lg w-full">
-							<View className="flex-row justify-between items-center mb-4">
+						<Card
+							borderColor="transparent"
+							background_color={COLORS.light400}>
+							<CardHeader
+								right_text="8 days left"
+								textStyle={{
+									color: COLORS.dark100,
+									fontSize: 14,
+									fontWeight: 500,
+								}}>
 								<Text className="text-primary text-xl font-semibold">
 									Sprint 2025-01
 								</Text>
-								<Text className="text-dark-100 text-base font-medium">
-									8 days left
-								</Text>
-							</View>
+							</CardHeader>
 							<View className="flex-row justify-between items-center mb-3">
 								<TaskOverviewItem
 									value="12 tasks"
-									label="Assigned"
+									label="assigned"
 								/>
 
 								<DotSeparator />
 
-								<TaskOverviewItem value={5} label="completed" />
+								<TaskOverviewItem
+									value={5}
+									label="completed"
+									style={{ marginLeft: 10 }}
+								/>
 
 								<DotSeparator />
 
-								<TaskOverviewItem value="42h" label="logged" />
+								<TaskOverviewItem
+									value="42h"
+									label="logged"
+									style={{ marginLeft: 10 }}
+								/>
 							</View>
 							<Progress.Bar
 								progress={0.56}
@@ -51,7 +64,7 @@ const TasksScreen = () => {
 								borderWidth={0}
 								height={8}
 							/>
-						</View>
+						</Card>
 
 						<MenuBar
 							tabs={[
@@ -65,7 +78,7 @@ const TasksScreen = () => {
 							}
 						/>
 
-						<Card backgroundColor={COLORS.primary}>
+						<Card background_color={COLORS.primary}>
 							<CardHeader
 								right_text="02:34:15"
 								text_color={COLORS.white}>
@@ -75,18 +88,21 @@ const TasksScreen = () => {
 								/>
 							</CardHeader>
 							<CardBody
-								leftIconName="code"
-								leftIconBackground={COLORS.dark100}
-								title="API Integration Setup"
-								titleColor={COLORS.light100}
-								subtitleColor={COLORS.light300}
-								subtitleLeft="Frontend Development"
-								subtitleRight="6h estimated"
-								rightIconName="pause"
+								category_icon_name="code"
+								category_icon_background={COLORS.dark100}
+								task_title="API Integration Setup"
+								title_color={COLORS.light100}
+								subtitle_color={COLORS.light300}
+								task_category_name="Frontend Development"
+								task_time_estimate="6h estimated"
+								media_status_icon="pause"
+								media_status_icon_color={COLORS.light100}
+								media_status_icon_bg_color={COLORS.dark100}
+								media_status_icon_border_color="transparent"
 							/>
 						</Card>
 
-						<Card borderWidth={0.5} borderColor={COLORS.secondary}>
+						<Card>
 							<CardHeader right_text="High Priority">
 								<Badge
 									text="TO DO"
@@ -94,18 +110,15 @@ const TasksScreen = () => {
 								/>
 							</CardHeader>
 							<CardBody
-								leftIconName="database"
-								title="Database Migration"
-								subtitleLeft="Backend"
-								subtitleRight="4h estimated"
-								rightIconName="pause"
-								rightIconBackground={COLORS.primary}
-								rightIconBorderWidth={0.5}
-								rightIconBorderColor={COLORS.secondary}
+								category_icon_name="database"
+								task_title="Database Migration"
+								task_category_name="Backend"
+								task_time_estimate="4h estimated"
+								media_status_icon="play"
 							/>
 						</Card>
 
-						<Card borderWidth={0.5} borderColor={COLORS.secondary}>
+						<Card>
 							<CardHeader right_text="Medium Priority">
 								<Badge
 									text="TO DO"
@@ -113,19 +126,29 @@ const TasksScreen = () => {
 								/>
 							</CardHeader>
 							<CardBody
-								leftIconName="mobile-screen-button"
-								title="Mobile UI Testing"
-								subtitleLeft="QA"
-								subtitleRight="2h estimated"
-								rightIconName="play"
-								rightIconColor={COLORS.secondary}
-								rightIconBackground="transparent"
-								rightIconBorderWidth={0.5}
-								rightIconBorderColor={COLORS.secondary}
+								category_icon_name="mobile-screen-button"
+								task_title="Mobile UI Testing"
+								task_category_name="QA"
+								task_time_estimate="2h estimated"
 							/>
 						</Card>
 
-						<Card borderWidth={0.5} borderColor={COLORS.secondary}>
+						<Card>
+							<CardHeader right_text="Low Priority">
+								<Badge
+									text="TO DO"
+									text_color={COLORS.secondary}
+								/>
+							</CardHeader>
+							<CardBody
+								category_icon_name="mobile-screen-button"
+								task_title="Analytics Dashboard"
+								task_category_name="Frontend"
+								task_time_estimate="6h estimated"
+							/>
+						</Card>
+
+						<Card>
 							<CardHeader right_text="3.5h logged">
 								<Badge
 									text="Completed"
@@ -133,14 +156,13 @@ const TasksScreen = () => {
 								/>
 							</CardHeader>
 							<CardBody
-								leftIconName="users"
-								title="User Authentication"
-								subtitleLeft="Backend"
-								subtitleRight="4h estimated"
-								rightIconName="check"
-								rightIconColor={COLORS.secondary}
-								rightIconBackground="transparent"
-								titleDecoration="line-through"
+								category_icon_name="users"
+								task_title="User Authentication"
+								task_category_name="Backend"
+								task_time_estimate="4h estimated"
+								media_status_icon="check"
+								title_decoration="line-through"
+								media_status_icon_border_color="transparent"
 							/>
 						</Card>
 					</>
