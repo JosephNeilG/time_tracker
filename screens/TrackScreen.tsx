@@ -8,8 +8,12 @@ import CardBody from "@/components/card/CardBody";
 import DotSeparator from "@/components/DotSeparator";
 import Icon from "@/components/Icon";
 import { COLORS } from "@/constants/Colors";
+import { useLocalSearchParams } from "expo-router";
 
 const TrackScreen = () => {
+	const { title, category, description, icon_name, progress, time_stamp } =
+		useLocalSearchParams();
+
 	return (
 		<ScrollView showsVerticalScrollIndicator={false}>
 			<View className="p-7 items-center w-full">
@@ -18,7 +22,7 @@ const TrackScreen = () => {
 					background_color={COLORS.light400}
 					style={{ alignItems: "center", paddingVertical: 25 }}>
 					<Icon
-						name="code"
+						name={String(icon_name) || "code"}
 						IconSet={FontAwesome6}
 						container_color={COLORS.dark300}
 						size={130}
@@ -26,22 +30,22 @@ const TrackScreen = () => {
 
 					<View className="items-center my-5">
 						<Text className="text-primary text-2xl font-medium mb-2">
-							API Integration Setup
+							{title || "API Integration Setup"}
 						</Text>
 						<View className="flex-row flex-wrap justify-center items-center gap-1">
 							<Text className="text-secondary text-base font-medium leading-6">
-								Spring 2025-01
+								{description || "Spring 2025-01"}
 							</Text>
 							<DotSeparator color={COLORS.secondary} size={4} />
 							<Text className="text-secondary text-base font-medium leading-6">
-								Frontend Development
+								{category || "Frontend Development"}
 							</Text>
 						</View>
 					</View>
 
 					<View className="w-full">
 						<Progress.Bar
-							progress={0.47}
+							progress={Number(progress) || 0.47}
 							width={null}
 							color={COLORS.primary}
 							unfilledColor="#E6E7EB"
@@ -51,7 +55,7 @@ const TrackScreen = () => {
 					</View>
 
 					<Text className="text-primary text-4xl font-medium mt-5 mb-6">
-						02:34:15
+						{time_stamp || "02:34:15"}
 					</Text>
 
 					<View className="flex-row gap-6 items-center">
