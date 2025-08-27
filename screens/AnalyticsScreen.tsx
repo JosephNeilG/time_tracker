@@ -12,7 +12,7 @@ const AnalyticsScreen = () => {
 	return (
 		<ScrollView showsVerticalScrollIndicator={false}>
 			<View className=" flex-1 p-7">
-				<View className="flex-row justify-between items-center w-full mb-5">
+				<View className="flex-row justify-between items-center w-full mb-6">
 					<Text className="text-primary text-2xl font-medium">
 						Today's Tracking
 					</Text>
@@ -112,7 +112,7 @@ const AnalyticsScreen = () => {
 				<Card>
 					<View className="flex-row justify-between items-center">
 						<View className="flex-row items-center gap-3">
-							<DotSeparator size={12} />
+							<DotSeparator size={12} color="#344056" />
 							<TaskOverviewItem
 								title="Database Migration"
 								subtitle="Backend"
@@ -133,7 +133,7 @@ const AnalyticsScreen = () => {
 				<Card>
 					<View className="flex-row justify-between items-center">
 						<View className="flex-row items-center gap-3">
-							<DotSeparator size={12} />
+							<DotSeparator size={12} color="#6E7588" />
 							<TaskOverviewItem
 								title="Mobile UI Testing"
 								subtitle="QA"
