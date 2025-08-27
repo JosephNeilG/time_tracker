@@ -1,3 +1,4 @@
+import { COLORS } from "@/constants/Colors";
 import React from "react";
 import { StyleProp, View, ViewStyle } from "react-native";
 
@@ -8,7 +9,7 @@ interface DotSeparatorProps {
 }
 
 const DotSeparator = ({
-	color = "#414851",
+	color = COLORS.dark100,
 	style,
 	size = 3,
 }: DotSeparatorProps) => {

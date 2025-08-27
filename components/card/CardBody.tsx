@@ -89,8 +89,8 @@ const CardBody = ({
 					icon_color={media_status_icon_color}
 					size={35}
 					icon_size={15}
-					borderWidth={0.5}
-					borderColor={media_status_icon_border_color}
+					border_width={0.5}
+					border_color={media_status_icon_border_color}
 				/>
 			</TouchableOpacity>
 		</View>

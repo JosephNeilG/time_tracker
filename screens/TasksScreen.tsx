@@ -10,10 +10,12 @@ import DotSeparator from "@/components/DotSeparator";
 import MenuBar from "@/components/MenuBar";
 import TaskOverviewItem from "@/components/TaskOverviewItem";
 import { COLORS } from "@/constants/Colors";
+import { useRouter } from "expo-router";
 import NoTask from "./NoTask";
 
 const TasksScreen = () => {
 	const [hasTasks, setHasTasks] = useState(false);
+	const router = useRouter();
 
 	return (
 		<ScrollView showsVerticalScrollIndicator={false}>
@@ -21,7 +23,7 @@ const TasksScreen = () => {
 				{hasTasks ? (
 					<>
 						<Card
-							borderColor="transparent"
+							border_color="transparent"
 							background_color={COLORS.light400}>
 							<CardHeader
 								right_text="8 days left"
@@ -78,7 +80,9 @@ const TasksScreen = () => {
 							}
 						/>
 
-						<Card background_color={COLORS.primary}>
+						<Card
+							background_color={COLORS.primary}
+							onPress={() => router.navigate("/")}>
 							<CardHeader
 								right_text="02:34:15"
 								text_color={COLORS.white}>
