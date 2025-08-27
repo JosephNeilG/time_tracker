@@ -1,4 +1,5 @@
 import { FontAwesome6 } from "@expo/vector-icons";
+import { useLocalSearchParams } from "expo-router";
 import React from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import * as Progress from "react-native-progress";
@@ -8,7 +9,6 @@ import CardBody from "@/components/card/CardBody";
 import DotSeparator from "@/components/DotSeparator";
 import Icon from "@/components/Icon";
 import { COLORS } from "@/constants/Colors";
-import { useLocalSearchParams } from "expo-router";
 
 const TrackScreen = () => {
 	const { title, category, description, icon_name, progress, time_stamp } =

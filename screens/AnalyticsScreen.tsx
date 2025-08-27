@@ -1,11 +1,12 @@
+import { FontAwesome6 } from "@expo/vector-icons";
+import React from "react";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+
 import Card from "@/components/card/Card";
 import DotSeparator from "@/components/DotSeparator";
 import MenuBar from "@/components/MenuBar";
 import TaskOverviewItem from "@/components/TaskOverviewItem";
 import { COLORS } from "@/constants/Colors";
-import { FontAwesome6 } from "@expo/vector-icons";
-import React from "react";
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 const AnalyticsScreen = () => {
 	return (
@@ -90,7 +91,7 @@ const AnalyticsScreen = () => {
 				<Card>
 					<View className="flex-row justify-between items-center">
 						<View className="flex-row items-center gap-3">
-							<DotSeparator size={13} />
+							<DotSeparator size={12} />
 							<TaskOverviewItem
 								title="API Integration Setup"
 								subtitle="Frontend Development"
@@ -111,7 +112,7 @@ const AnalyticsScreen = () => {
 				<Card>
 					<View className="flex-row justify-between items-center">
 						<View className="flex-row items-center gap-3">
-							<DotSeparator size={13} />
+							<DotSeparator size={12} />
 							<TaskOverviewItem
 								title="Database Migration"
 								subtitle="Backend"
@@ -132,7 +133,7 @@ const AnalyticsScreen = () => {
 				<Card>
 					<View className="flex-row justify-between items-center">
 						<View className="flex-row items-center gap-3">
-							<DotSeparator size={13} />
+							<DotSeparator size={12} />
 							<TaskOverviewItem
 								title="Mobile UI Testing"
 								subtitle="QA"
@@ -153,7 +154,7 @@ const AnalyticsScreen = () => {
 				<Card>
 					<View className="flex-row justify-between items-center">
 						<View className="flex-row items-center gap-3">
-							<DotSeparator size={13} />
+							<DotSeparator size={12} />
 							<TaskOverviewItem
 								title="API Integration Setup"
 								subtitle="Frontend Development"
