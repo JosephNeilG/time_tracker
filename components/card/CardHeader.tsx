@@ -7,7 +7,7 @@ interface CardHeaderProps {
 	right_text: string;
 	text_color?: string;
 	style?: StyleProp<ViewStyle>;
-	textStyle?: StyleProp<TextStyle>;
+	text_style?: StyleProp<TextStyle>;
 }
 
 const CardHeader = ({
@@ -15,7 +15,7 @@ const CardHeader = ({
 	right_text,
 	text_color = COLORS.secondary,
 	style,
-	textStyle,
+	text_style,
 }: CardHeaderProps) => {
 	return (
 		<View
@@ -23,7 +23,7 @@ const CardHeader = ({
 			style={style}>
 			{children}
 			<Text
-				style={[{ color: text_color }, textStyle]}
+				style={[{ color: text_color }, text_style]}
 				className="text-sm">
 				{right_text}
 			</Text>

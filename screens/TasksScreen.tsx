@@ -27,7 +27,7 @@ const TasksScreen = () => {
 							background_color={COLORS.light400}>
 							<CardHeader
 								right_text="8 days left"
-								textStyle={{
+								text_style={{
 									color: COLORS.dark100,
 									fontSize: 14,
 									fontWeight: 500,

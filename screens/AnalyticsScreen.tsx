@@ -67,6 +67,7 @@ const AnalyticsScreen = () => {
 				</Card>
 
 				<MenuBar
+					onTabPress={(index) => console.log("Selected tab:", index)}
 					tabs={[
 						{
 							label: "Gantt",
@@ -80,7 +81,6 @@ const AnalyticsScreen = () => {
 						},
 					]}
 					initial_index={0}
-					onTabPress={(index) => console.log("Selected tab:", index)}
 				/>
 
 				<Text className="text-primary text-2xl font-medium mb-4">

@@ -2,7 +2,6 @@ import Button from "@/components/Button";
 import AuthPrompt from "@/components/forms/AuthPrompt";
 import AppTextInput from "@/components/forms/TextInput";
 import Icon from "@/components/Icon";
-import Screen from "@/components/Screen";
 import Separator from "@/components/Separator";
 import TextGroup from "@/components/TextGroup";
 import { COLORS } from "@/constants/Colors";
@@ -24,7 +23,7 @@ const AuthScreen = () => {
 	const [is_checked, setChecked] = useState(false);
 
 	return (
-		<Screen style={{ justifyContent: "center" }}>
+		<View className="flex-1 justify-center">
 			<KeyboardAvoidingView
 				behavior="position"
 				keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 100}>
@@ -74,8 +73,8 @@ const AuthScreen = () => {
 						<View className="w-full flex-row items-center justify-between mt-1 mb-4">
 							<View className="flex-row items-center">
 								<Checkbox
-									value={is_checked}
 									onValueChange={setChecked}
+									value={is_checked}
 									color={
 										is_checked ? COLORS.primary : undefined
 									}
@@ -93,21 +92,21 @@ const AuthScreen = () => {
 						</View>
 
 						<Button
+							onPress={() => router.replace("/")}
 							text="Sign In"
 							background_color={COLORS.primary}
 							text_color={COLORS.white}
-							onPress={() => router.replace("/")}
 						/>
 
 						<AuthPrompt
+							onPress={() => console.log("Pressed")}
 							question="Don't have an account?"
 							action_text="Sign up"
-							onPress={() => console.log("Pressed")}
 						/>
 					</View>
 				</ScrollView>
 			</KeyboardAvoidingView>
-		</Screen>
+		</View>
 	);
 };
 

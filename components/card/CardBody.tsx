@@ -26,7 +26,7 @@ const CardBody = ({
 	category_icon_background = COLORS.light300,
 	task_title,
 	task_category_name,
-	task_time_estimate: subtitleRight,
+	task_time_estimate,
 	title_color = COLORS.primary,
 	title_decoration,
 	subtitle_color = COLORS.dark100,
@@ -74,7 +74,7 @@ const CardBody = ({
 							style={{ color: subtitle_color }}
 							numberOfLines={1}
 							ellipsizeMode="tail">
-							{subtitleRight}
+							{task_time_estimate}
 						</Text>
 					</View>
 				</View>

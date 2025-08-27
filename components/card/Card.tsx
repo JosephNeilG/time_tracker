@@ -19,8 +19,8 @@ const Card = ({
 }: CardProps) => {
 	return (
 		<Pressable
-			className="w-full mb-4 p-4 rounded-lg border-[0.5px]"
 			onPress={onPress}
+			className="w-full mb-4 p-4 rounded-lg border-[0.5px]"
 			style={[
 				{
 					backgroundColor: background_color ?? "transparent",
