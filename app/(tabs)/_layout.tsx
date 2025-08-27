@@ -1,13 +1,15 @@
+import { COLORS } from "@/constants/Colors";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import React from "react";
+import { Image, TouchableOpacity, View } from "react-native";
 
 const _layout = () => {
 	return (
 		<Tabs
 			screenOptions={{
-				tabBarActiveTintColor: "#111928",
-				tabBarInactiveTintColor: "#6B7580",
+				tabBarActiveTintColor: COLORS.primary,
+				tabBarInactiveTintColor: COLORS.secondary,
 				tabBarStyle: {
 					height: 85,
 				},
@@ -18,14 +20,24 @@ const _layout = () => {
 					marginVertical: 7,
 				},
 				sceneStyle: {
-					backgroundColor: "#FFFFFF",
+					backgroundColor: COLORS.white,
+				},
+				headerRight: () => renderRightActions(),
+				headerTitleAlign: "left",
+				headerStyle: {
+					height: 105,
+				},
+				headerTitleStyle: {
+					fontSize: 20,
 				},
 			}}>
 			<Tabs.Screen
 				name="index"
 				options={{
 					title: "Track",
-					tabBarIcon: ({ color, size }) => (
+					headerTitle: "TimeTracker",
+
+					tabBarIcon: ({ color }) => (
 						<FontAwesome6 name="play" size={22} color={color} />
 					),
 				}}
@@ -34,7 +46,8 @@ const _layout = () => {
 				name="tasks"
 				options={{
 					title: "Tasks",
-					tabBarIcon: ({ color, size }) => (
+					headerTitle: "TimeTracker",
+					tabBarIcon: ({ color }) => (
 						<FontAwesome6 name="list-ul" size={22} color={color} />
 					),
 				}}
@@ -43,7 +56,8 @@ const _layout = () => {
 				name="analytics"
 				options={{
 					title: "Analytics",
-					tabBarIcon: ({ color, size }) => (
+					headerTitle: "Analytics",
+					tabBarIcon: ({ color }) => (
 						<FontAwesome6
 							name="chart-bar"
 							size={22}
@@ -55,5 +69,20 @@ const _layout = () => {
 		</Tabs>
 	);
 };
+
+const renderRightActions = () => (
+	<View className="flex-row items-center mr-4">
+		<TouchableOpacity className="mr-4">
+			<FontAwesome6 name="bell" size={18} color={COLORS.secondary} />
+		</TouchableOpacity>
+
+		<TouchableOpacity>
+			<Image
+				source={require("@/assets/images/joseph.jpeg")}
+				className="w-[40px] h-[40px] rounded-full"
+			/>
+		</TouchableOpacity>
+	</View>
+);
 
 export default _layout;
