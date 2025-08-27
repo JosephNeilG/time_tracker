@@ -1,6 +1,6 @@
 import { COLORS } from "@/constants/Colors";
 import { FontAwesome6 } from "@expo/vector-icons";
-import { Tabs } from "expo-router";
+import { Tabs, router } from "expo-router";
 import React from "react";
 import { Image, TouchableOpacity, View } from "react-native";
 
@@ -76,7 +76,7 @@ const renderRightActions = () => (
 			<FontAwesome6 name="bell" size={18} color={COLORS.secondary} />
 		</TouchableOpacity>
 
-		<TouchableOpacity>
+		<TouchableOpacity onPress={() => router.push("/auth")}>
 			<Image
 				source={require("@/assets/images/joseph.jpeg")}
 				className="w-[40px] h-[40px] rounded-full"

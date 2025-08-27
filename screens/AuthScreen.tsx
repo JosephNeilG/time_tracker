@@ -8,7 +8,9 @@ import TextGroup from "@/components/TextGroup";
 import { COLORS } from "@/constants/Colors";
 import { FontAwesome6, MaterialCommunityIcons } from "@expo/vector-icons";
 import Checkbox from "expo-checkbox";
+import { router } from "expo-router";
 import React, { useState } from "react";
+
 import {
 	KeyboardAvoidingView,
 	Platform,
@@ -94,6 +96,7 @@ const AuthScreen = () => {
 							text="Sign In"
 							background_color={COLORS.primary}
 							text_color={COLORS.white}
+							onPress={() => router.replace("/")}
 						/>
 
 						<AuthPrompt
