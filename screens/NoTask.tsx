@@ -18,9 +18,9 @@ const NoTask = ({ onSync }: NoTaskProps) => {
 				IconSet={FontAwesome6}
 				name="list-check"
 				is_circle
-				icon_size={30}
+				icon_size={40}
 				icon_color={COLORS.dark200}
-				size={110}
+				size={140}
 				container_color={COLORS.light100}
 				style={{ marginBottom: 10 }}
 			/>
@@ -51,7 +51,7 @@ const NoTask = ({ onSync }: NoTaskProps) => {
 			/>
 
 			<TouchableOpacity>
-				<Text className="text-secondary text-base mb-10">
+				<Text className="text-secondary text-base mb-10 font-medium">
 					Import from CSV
 				</Text>
 			</TouchableOpacity>
