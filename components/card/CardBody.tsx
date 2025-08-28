@@ -50,11 +50,13 @@ const CardBody = ({
 
 				<View className="flex-1">
 					<Text
-						className="text-lg font-medium"
+						className="text-lg font-medium "
 						style={{
 							color: title_color,
 							textDecorationLine: title_decoration,
-						}}>
+						}}
+						numberOfLines={1}
+						ellipsizeMode="tail">
 						{task_title}
 					</Text>
 

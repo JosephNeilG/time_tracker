@@ -9,6 +9,7 @@ import CardBody from "@/components/card/CardBody";
 import DotSeparator from "@/components/DotSeparator";
 import Icon from "@/components/Icon";
 import { COLORS } from "@/constants/Colors";
+import { TASKS } from "@/constants/Tasks";
 
 const TrackScreen = () => {
 	const { title, category, description, icon_name, progress, time_stamp } =
@@ -115,33 +116,17 @@ const TrackScreen = () => {
 					</TouchableOpacity>
 				</View>
 
-				<View className="w-full">
-					<Card>
+				{TASKS.map((task, index) => (
+					<Card key={index}>
 						<CardBody
-							category_icon_name="database"
-							task_title="Database Migration"
-							task_category_name="Backend"
-							task_time_estimate="4h estimated"
-							media_status_icon="play"
+							category_icon_name={task.category_icon_name}
+							task_title={task.task_title}
+							task_category_name={task.task_category_name}
+							task_time_estimate={task.task_time_estimate}
+							media_status_icon={task.media_status_icon}
 						/>
 					</Card>
-					<Card>
-						<CardBody
-							category_icon_name="mobile-screen-button"
-							task_title="Mobile UI Testing"
-							task_category_name="QA"
-							task_time_estimate="2h estimated"
-						/>
-					</Card>
-					<Card>
-						<CardBody
-							category_icon_name="mobile-screen-button"
-							task_title="Analytics Dashboard"
-							task_category_name="Frontend"
-							task_time_estimate="6h estimated"
-						/>
-					</Card>
-				</View>
+				))}
 			</View>
 		</ScrollView>
 	);
