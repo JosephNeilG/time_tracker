@@ -79,13 +79,13 @@ const AuthScreen = () => {
 										is_checked ? COLORS.primary : undefined
 									}
 								/>
-								<Text className="ml-2 text-lg text-dark-100">
+								<Text className="ml-2 text-lg text-dark-100 font-medium">
 									Remember me
 								</Text>
 							</View>
 
 							<TouchableOpacity activeOpacity={0.7}>
-								<Text className="text-lg text-dark-100">
+								<Text className="text-lg text-dark-100 font-medium">
 									Forgot password?
 								</Text>
 							</TouchableOpacity>
