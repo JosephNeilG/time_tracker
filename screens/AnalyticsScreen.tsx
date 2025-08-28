@@ -6,9 +6,23 @@ import Card from "@/components/card/Card";
 import DotSeparator from "@/components/DotSeparator";
 import MenuBar from "@/components/MenuBar";
 import TaskOverviewItem from "@/components/TaskOverviewItem";
+import TimelineTable from "@/components/TimelineTable";
 import { COLORS } from "@/constants/Colors";
 
 const AnalyticsScreen = () => {
+	const MENU_ITEMS = [
+		{
+			label: "Gantt",
+			IconComponent: FontAwesome6,
+			icon_name: "chart-gantt",
+		},
+		{
+			label: "Timeline",
+			IconComponent: FontAwesome6,
+			icon_name: "timeline",
+		},
+	];
+
 	return (
 		<ScrollView showsVerticalScrollIndicator={false}>
 			<View className=" flex-1 p-7">
@@ -69,22 +83,13 @@ const AnalyticsScreen = () => {
 
 				<MenuBar
 					onTabPress={(index) => console.log("Selected tab:", index)}
-					tabs={[
-						{
-							label: "Gantt",
-							IconComponent: FontAwesome6,
-							icon_name: "chart-gantt",
-						},
-						{
-							label: "Timeline",
-							IconComponent: FontAwesome6,
-							icon_name: "timeline",
-						},
-					]}
-					initial_index={0}
+					tabs={MENU_ITEMS}
+					initial_index={1}
 				/>
 
-				<Text className="text-primary text-2xl font-medium mb-4">
+				<TimelineTable />
+
+				<Text className="text-primary text-2xl font-medium my-4">
 					Task Breakdown
 				</Text>
 
