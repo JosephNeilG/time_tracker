@@ -36,7 +36,7 @@ const TrackScreen = () => {
 							<Text className="text-secondary text-base font-medium leading-6">
 								{description || "Spring 2025-01"}
 							</Text>
-							<DotSeparator color={COLORS.secondary} size={4} />
+							<DotSeparator color={COLORS.secondary} size={3.5} />
 							<Text className="text-secondary text-base font-medium leading-6">
 								{category || "Frontend Development"}
 							</Text>

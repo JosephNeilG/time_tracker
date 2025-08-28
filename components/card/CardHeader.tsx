@@ -24,7 +24,7 @@ const CardHeader = ({
 			{children}
 			<Text
 				style={[{ color: text_color }, text_style]}
-				className="text-sm">
+				className="text-sm font-medium">
 				{right_text}
 			</Text>
 		</View>
