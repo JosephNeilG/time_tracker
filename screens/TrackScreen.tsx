@@ -9,7 +9,7 @@ import CardBody from "@/components/card/CardBody";
 import DotSeparator from "@/components/DotSeparator";
 import Icon from "@/components/Icon";
 import { COLORS } from "@/constants/Colors";
-import { TASKS } from "@/constants/Tasks";
+import { TRACK_TASKS } from "@/constants/TrackTasks";
 
 const TrackScreen = () => {
 	const { title, category, description, icon_name, progress, time_stamp } =
@@ -116,7 +116,7 @@ const TrackScreen = () => {
 					</TouchableOpacity>
 				</View>
 
-				{TASKS.map((task, index) => (
+				{TRACK_TASKS.map((task, index) => (
 					<Card key={index}>
 						<CardBody
 							category_icon_name={task.category_icon_name}

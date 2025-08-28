@@ -1,4 +1,4 @@
-export const TASKS = [
+export const TRACK_TASKS = [
 	{
 		id: 1,
 		category_icon_name: "database",
