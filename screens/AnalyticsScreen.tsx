@@ -7,6 +7,7 @@ import DotSeparator from "@/components/DotSeparator";
 import MenuBar from "@/components/MenuBar";
 import TaskOverviewItem from "@/components/TaskOverviewItem";
 import TimelineTable from "@/components/TimelineTable";
+import { ANALYTICS_TASKS } from "@/constants/AnalyticsTasks";
 import { COLORS } from "@/constants/Colors";
 
 const AnalyticsScreen = () => {
@@ -93,89 +94,28 @@ const AnalyticsScreen = () => {
 					Task Breakdown
 				</Text>
 
-				<Card>
-					<View className="flex-row justify-between items-center">
-						<View className="flex-row items-center gap-3">
-							<DotSeparator size={12} />
+				{ANALYTICS_TASKS.map((task, index) => (
+					<Card key={index}>
+						<View className="flex-row justify-between items-center">
+							<View className="flex-row items-center gap-3">
+								<DotSeparator size={12} color={task.dotColor} />
+								<TaskOverviewItem
+									title={task.title}
+									subtitle={task.subtitle}
+									title_size={16}
+									title_color={COLORS.primary}
+								/>
+							</View>
 							<TaskOverviewItem
-								title="API Integration Setup"
-								subtitle="Frontend Development"
+								title={task.time}
+								subtitle={task.percent}
 								title_size={16}
 								title_color={COLORS.primary}
+								align="right"
 							/>
 						</View>
-						<TaskOverviewItem
-							title="2h 15m"
-							subtitle="29%"
-							title_size={16}
-							title_color={COLORS.primary}
-							align="right"
-						/>
-					</View>
-				</Card>
-
-				<Card>
-					<View className="flex-row justify-between items-center">
-						<View className="flex-row items-center gap-3">
-							<DotSeparator size={12} color="#344056" />
-							<TaskOverviewItem
-								title="Database Migration"
-								subtitle="Backend"
-								title_size={16}
-								title_color={COLORS.primary}
-							/>
-						</View>
-						<TaskOverviewItem
-							title="3h 30m"
-							subtitle="45%"
-							title_size={16}
-							title_color={COLORS.primary}
-							align="right"
-						/>
-					</View>
-				</Card>
-
-				<Card>
-					<View className="flex-row justify-between items-center">
-						<View className="flex-row items-center gap-3">
-							<DotSeparator size={12} color="#6E7588" />
-							<TaskOverviewItem
-								title="Mobile UI Testing"
-								subtitle="QA"
-								title_size={16}
-								title_color={COLORS.primary}
-							/>
-						</View>
-						<TaskOverviewItem
-							title="1h 30m"
-							subtitle="19%"
-							title_size={16}
-							title_color={COLORS.primary}
-							align="right"
-						/>
-					</View>
-				</Card>
-
-				<Card>
-					<View className="flex-row justify-between items-center">
-						<View className="flex-row items-center gap-3">
-							<DotSeparator size={12} />
-							<TaskOverviewItem
-								title="API Integration Setup"
-								subtitle="Frontend Development"
-								title_size={16}
-								title_color={COLORS.primary}
-							/>
-						</View>
-						<TaskOverviewItem
-							title="2h 15m"
-							subtitle="29%"
-							title_size={16}
-							title_color={COLORS.primary}
-							align="right"
-						/>
-					</View>
-				</Card>
+					</Card>
+				))}
 			</View>
 		</ScrollView>
 	);
