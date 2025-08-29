@@ -18,9 +18,9 @@ import DotSeparator from "@/components/DotSeparator";
 import Icon from "@/components/Icon";
 import MenuBar from "@/components/MenuBar";
 import TaskOverviewItem from "@/components/TaskOverviewItem";
-import { STATUS_CONFIG } from "@/config/Status";
 import { COLORS } from "@/constants/Colors";
 import { TASKS } from "@/constants/Tasks";
+import { TASK_STATUS_STYLES } from "@/stylesheets/TaskStatusStyles";
 import NoTask from "./NoTask";
 
 const TasksScreen = () => {
@@ -92,7 +92,7 @@ const TasksScreen = () => {
 							<MenuBar tabs={MENU_ITEMS} initial_index={0} />
 
 							{TASKS.map((task) => {
-								const config = STATUS_CONFIG[task.status];
+								const config = TASK_STATUS_STYLES[task.status];
 
 								return (
 									<Card

@@ -1,6 +1,6 @@
 import { COLORS } from "@/constants/Colors";
 
-export const STATUS_CONFIG = {
+export const TASK_STATUS_STYLES = {
 	tracking: {
 		background_color: COLORS.primary,
 		border_color: "transparent",
