@@ -23,6 +23,14 @@ const AuthScreen = () => {
 	const [is_checked, setChecked] = useState(false);
 	const [is_sign_in, setIsSignIn] = useState(true);
 
+	const handleSubmit = () => {
+		router.replace("/");
+	};
+
+	const handleAuthToggle = () => {
+		setIsSignIn(!is_sign_in);
+	};
+
 	return (
 		<View className="flex-1 justify-center">
 			<KeyboardAvoidingView
@@ -107,14 +115,14 @@ const AuthScreen = () => {
 						)}
 
 						<Button
-							onPress={() => router.replace("/")}
+							onPress={handleSubmit}
 							text={is_sign_in ? "Sign In" : "Sign Up"}
 							background_color={COLORS.primary}
 							text_color={COLORS.white}
 						/>
 
 						<AuthPrompt
-							onPress={() => setIsSignIn(!is_sign_in)}
+							onPress={handleAuthToggle}
 							question={
 								is_sign_in
 									? "Don't have an account?"

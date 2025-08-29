@@ -28,6 +28,17 @@ const TasksScreen = () => {
 	const [hasTasks, setHasTasks] = useState(false);
 	const router = useRouter();
 
+	const handleFABOnPress = () => {
+		router.navigate({
+			pathname: "/",
+			params: QUICK_TASK_DETAILS,
+		});
+	};
+
+	const handleCardOnPress = () => {
+		router.navigate("/");
+	};
+
 	const MENU_ITEMS = [
 		{ label: "All" },
 		{ label: "In Progress" },
@@ -104,7 +115,7 @@ const TasksScreen = () => {
 										border_color={config.border_color}
 										onPress={
 											task.status === "tracking"
-												? () => router.navigate("/")
+												? handleCardOnPress
 												: undefined
 										}>
 										<CardHeader
@@ -162,13 +173,7 @@ const TasksScreen = () => {
 			</ScrollView>
 
 			{hasTasks && (
-				<TouchableOpacity
-					onPress={() =>
-						router.navigate({
-							pathname: "/",
-							params: QUICK_TASK_DETAILS,
-						})
-					}>
+				<TouchableOpacity onPress={handleFABOnPress}>
 					<Icon
 						name="bolt"
 						IconSet={FontAwesome6}

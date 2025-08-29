@@ -4,6 +4,10 @@ import { Tabs, router } from "expo-router";
 import React from "react";
 import { Image, TouchableOpacity, View } from "react-native";
 
+const handleProfileOnPress = () => {
+	router.push("/auth");
+};
+
 const _layout = () => {
 	return (
 		<Tabs
@@ -76,7 +80,7 @@ const renderRightActions = () => (
 			<FontAwesome6 name="bell" size={18} color={COLORS.secondary} />
 		</TouchableOpacity>
 
-		<TouchableOpacity onPress={() => router.push("/auth")}>
+		<TouchableOpacity onPress={handleProfileOnPress}>
 			<Image
 				source={require("@/assets/images/joseph.jpeg")}
 				className="w-[40px] h-[40px] rounded-full"
