@@ -1,4 +1,6 @@
-export const TASKS = [
+import { Task } from "@/entities/TaskInterface";
+
+export const TASKS: Task[] = [
 	{
 		id: 1,
 		title: "API Integration Setup",
@@ -47,7 +49,6 @@ export const TASKS = [
 		status: "completed",
 		media_icon: "check",
 		icon_name: "users",
-
 		right_text: "3.5h logged",
 	},
 ];

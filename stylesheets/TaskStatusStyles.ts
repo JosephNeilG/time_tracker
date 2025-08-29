@@ -1,6 +1,8 @@
 import { COLORS } from "@/constants/Colors";
+import { TaskStatus } from "@/entities/TaskInterface";
+import { TextStyle } from "react-native";
 
-export const TASK_STATUS_STYLES = {
+export const TASK_STATUS_STYLES: Record<TaskStatus, TaskStatusConfig> = {
 	tracking: {
 		background_color: COLORS.primary,
 		border_color: "transparent",
@@ -17,13 +19,61 @@ export const TASK_STATUS_STYLES = {
 		},
 	},
 	completed: {
-		badge: { text: "Completed", color: COLORS.secondary },
+		badge: {
+			text: "Completed",
+			color: COLORS.secondary,
+			bg: COLORS.light100,
+		},
 		title_decoration: "line-through",
 		media_status_icon: {
 			border_color: "transparent",
+			bg_color: "transparent",
+			color: COLORS.secondary,
 		},
+		background_color: "transparent",
+		border_color: COLORS.dark200,
+		card_text_color: COLORS.secondary,
+		title_color: COLORS.primary,
+		subtitle_color: COLORS.dark100,
+		category_icon_background: COLORS.light300,
 	},
 	todo: {
-		badge: { text: "TO DO", color: COLORS.secondary },
+		badge: {
+			text: "TO DO",
+			color: COLORS.secondary,
+			bg: COLORS.light100,
+		},
+		title_decoration: "none",
+		media_status_icon: {
+			border_color: COLORS.secondary,
+			bg_color: "transparent",
+			color: COLORS.secondary,
+		},
+		background_color: "transparent",
+		border_color: COLORS.dark200,
+		card_text_color: COLORS.secondary,
+		title_color: COLORS.primary,
+		subtitle_color: COLORS.dark100,
+		category_icon_background: COLORS.light300,
 	},
 };
+
+export interface TaskStatusConfig {
+	background_color: string;
+	border_color: string;
+	card_text_color: string;
+	badge: {
+		text: string;
+		bg?: string;
+		color?: string;
+	};
+	title_color: string;
+	subtitle_color: string;
+	title_decoration: TextStyle["textDecorationLine"];
+	category_icon_background: string;
+	media_status_icon: {
+		color?: string;
+		bg_color?: string;
+		border_color?: string;
+	};
+}

@@ -10,19 +10,17 @@ import {
 } from "react-native";
 import * as Progress from "react-native-progress";
 
-import Badge from "@/components/Badge";
 import Card from "@/components/card/Card";
-import CardBody from "@/components/card/CardBody";
 import CardHeader from "@/components/card/CardHeader";
 import DotSeparator from "@/components/DotSeparator";
 import Icon from "@/components/Icon";
 import MenuBar from "@/components/MenuBar";
 import TaskOverviewItem from "@/components/TaskOverviewItem";
+import TaskCard from "@/components/tasks/TaskCard";
 import { COLORS } from "@/constants/Colors";
 import { QUICK_TASK_DETAILS } from "@/constants/QuickTaskDetails";
 import { TASKS } from "@/constants/Tasks";
 import { TASKS_MENU_ITEMS } from "@/constants/TasksMenuItems";
-import { TASK_STATUS_STYLES } from "@/stylesheets/TaskStatusStyles";
 import EmptyTaskView from "../components/tasks/EmptyTaskView";
 
 const TasksScreen = () => {
@@ -101,68 +99,13 @@ const TasksScreen = () => {
 								initial_index={0}
 							/>
 
-							{TASKS.map((task) => {
-								const config = TASK_STATUS_STYLES[task.status];
-
-								return (
-									<Card
-										key={task.id}
-										background_color={
-											config.background_color
-										}
-										border_color={config.border_color}
-										onPress={
-											task.status === "tracking"
-												? handleCardOnPress
-												: undefined
-										}>
-										<CardHeader
-											right_text={task.right_text}
-											text_color={config.card_text_color}>
-											<Badge
-												text={config.badge.text}
-												background_color={
-													config.badge.bg
-												}
-												text_color={config.badge.color}
-											/>
-										</CardHeader>
-
-										<CardBody
-											category_icon_name={
-												task.icon_name || "code"
-											}
-											task_title={task.title}
-											task_category_name={task.category}
-											task_time_estimate={
-												task.time_estimate
-											}
-											media_status_icon={task.media_icon}
-											title_color={config.title_color}
-											subtitle_color={
-												config.subtitle_color
-											}
-											title_decoration={
-												config.title_decoration
-											}
-											category_icon_background={
-												config.category_icon_background
-											}
-											media_status_icon_border_color={
-												config.media_status_icon
-													?.border_color
-											}
-											media_status_icon_bg_color={
-												config.media_status_icon
-													?.bg_color
-											}
-											media_status_icon_color={
-												config.media_status_icon?.color
-											}
-										/>
-									</Card>
-								);
-							})}
+							{TASKS.map((task) => (
+								<TaskCard
+									key={task.id}
+									task={task}
+									onPress={handleCardOnPress}
+								/>
+							))}
 						</>
 					) : (
 						<EmptyTaskView onSync={() => setHasTasks(true)} />
