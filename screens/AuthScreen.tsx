@@ -1,15 +1,7 @@
-import Button from "@/components/Button";
-import AuthPrompt from "@/components/forms/AuthPrompt";
-import AppTextInput from "@/components/forms/TextInput";
-import Icon from "@/components/Icon";
-import Separator from "@/components/Separator";
-import TextGroup from "@/components/TextGroup";
-import { COLORS } from "@/constants/Colors";
 import { FontAwesome6, MaterialCommunityIcons } from "@expo/vector-icons";
 import Checkbox from "expo-checkbox";
 import { router } from "expo-router";
 import React, { useState } from "react";
-
 import {
 	KeyboardAvoidingView,
 	Platform,
@@ -19,8 +11,17 @@ import {
 	View,
 } from "react-native";
 
+import Button from "@/components/Button";
+import AuthPrompt from "@/components/forms/AuthPrompt";
+import TextInput from "@/components/forms/TextInput";
+import Icon from "@/components/Icon";
+import Separator from "@/components/Separator";
+import TextGroup from "@/components/TextGroup";
+import { COLORS } from "@/constants/Colors";
+
 const AuthScreen = () => {
 	const [is_checked, setChecked] = useState(false);
+	const [is_sign_in, setIsSignIn] = useState(true);
 
 	return (
 		<View className="flex-1 justify-center">
@@ -39,9 +40,17 @@ const AuthScreen = () => {
 							style={{ marginBottom: 25 }}
 						/>
 						<TextGroup
-							title="Welcome back"
+							title={
+								is_sign_in
+									? "Welcome back"
+									: "Create an account"
+							}
 							title_size={20}
-							sub_title="Sign in to continue tracking your tasks"
+							sub_title={
+								is_sign_in
+									? "Sign in to continue tracking your tasks"
+									: "Sign up to start tracking your tasks"
+							}
 						/>
 
 						<Button
@@ -53,7 +62,7 @@ const AuthScreen = () => {
 
 						<Separator text="or" />
 
-						<AppTextInput
+						<TextInput
 							label="Email"
 							placeholder="Enter your email"
 							keyboardType="email-address"
@@ -61,7 +70,7 @@ const AuthScreen = () => {
 							autoCapitalize="none"
 							autoCorrect={false}
 						/>
-						<AppTextInput
+						<TextInput
 							label="Password"
 							placeholder="Enter your password"
 							textContentType="password"
@@ -70,38 +79,48 @@ const AuthScreen = () => {
 							is_password
 						/>
 
-						<View className="w-full flex-row items-center justify-between mt-1 mb-4">
-							<View className="flex-row items-center">
-								<Checkbox
-									onValueChange={setChecked}
-									value={is_checked}
-									color={
-										is_checked ? COLORS.primary : undefined
-									}
-								/>
-								<Text className="ml-2 text-lg text-dark-100 font-medium">
-									Remember me
-								</Text>
-							</View>
+						{is_sign_in && (
+							<>
+								<View className="w-full flex-row items-center justify-between mt-1 mb-4">
+									<View className="flex-row items-center">
+										<Checkbox
+											onValueChange={setChecked}
+											value={is_checked}
+											color={
+												is_checked
+													? COLORS.primary
+													: undefined
+											}
+										/>
+										<Text className="ml-2 text-lg text-dark-100 font-medium">
+											Remember me
+										</Text>
+									</View>
 
-							<TouchableOpacity activeOpacity={0.7}>
-								<Text className="text-lg text-dark-100 font-medium">
-									Forgot password?
-								</Text>
-							</TouchableOpacity>
-						</View>
+									<TouchableOpacity activeOpacity={0.7}>
+										<Text className="text-lg text-dark-100 font-medium">
+											Forgot password?
+										</Text>
+									</TouchableOpacity>
+								</View>
+							</>
+						)}
 
 						<Button
 							onPress={() => router.replace("/")}
-							text="Sign In"
+							text={is_sign_in ? "Sign In" : "Sign Up"}
 							background_color={COLORS.primary}
 							text_color={COLORS.white}
 						/>
 
 						<AuthPrompt
-							onPress={() => console.log("Pressed")}
-							question="Don't have an account?"
-							action_text="Sign up"
+							onPress={() => setIsSignIn(!is_sign_in)}
+							question={
+								is_sign_in
+									? "Don't have an account?"
+									: "Already have an account?"
+							}
+							action_text={is_sign_in ? "Sign up" : "Sign in"}
 						/>
 					</View>
 				</ScrollView>
