@@ -7,23 +7,11 @@ import DotSeparator from "@/components/DotSeparator";
 import MenuBar from "@/components/MenuBar";
 import TaskOverviewItem from "@/components/TaskOverviewItem";
 import TimelineTable from "@/components/TimelineTable";
+import { ANALYTICS_MENU_ITEMS } from "@/constants/AnalyticsMenuItems";
 import { ANALYTICS_TASKS } from "@/constants/AnalyticsTasks";
 import { COLORS } from "@/constants/Colors";
 
 const AnalyticsScreen = () => {
-	const MENU_ITEMS = [
-		{
-			label: "Gantt",
-			IconComponent: FontAwesome6,
-			icon_name: "chart-gantt",
-		},
-		{
-			label: "Timeline",
-			IconComponent: FontAwesome6,
-			icon_name: "timeline",
-		},
-	];
-
 	return (
 		<ScrollView showsVerticalScrollIndicator={false}>
 			<View className=" flex-1 p-7">
@@ -82,7 +70,7 @@ const AnalyticsScreen = () => {
 					</View>
 				</Card>
 
-				<MenuBar tabs={MENU_ITEMS} initial_index={1} />
+				<MenuBar tabs={ANALYTICS_MENU_ITEMS} initial_index={1} />
 
 				<TimelineTable />
 

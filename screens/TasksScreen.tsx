@@ -21,11 +21,12 @@ import TaskOverviewItem from "@/components/TaskOverviewItem";
 import { COLORS } from "@/constants/Colors";
 import { QUICK_TASK_DETAILS } from "@/constants/QuickTaskDetails";
 import { TASKS } from "@/constants/Tasks";
+import { TASKS_MENU_ITEMS } from "@/constants/TasksMenuItems";
 import { TASK_STATUS_STYLES } from "@/stylesheets/TaskStatusStyles";
 import NoTask from "./NoTask";
 
 const TasksScreen = () => {
-	const [hasTasks, setHasTasks] = useState(false);
+	const [has_tasks, setHasTasks] = useState(false);
 	const router = useRouter();
 
 	const handleFABOnPress = () => {
@@ -39,17 +40,11 @@ const TasksScreen = () => {
 		router.navigate("/");
 	};
 
-	const MENU_ITEMS = [
-		{ label: "All" },
-		{ label: "In Progress" },
-		{ label: "Completed" },
-	];
-
 	return (
 		<View className="flex-1">
 			<ScrollView showsVerticalScrollIndicator={false}>
 				<View className="p-7 items-center w-full">
-					{hasTasks ? (
+					{has_tasks ? (
 						<>
 							<Card
 								border_color="transparent"
@@ -101,7 +96,10 @@ const TasksScreen = () => {
 								/>
 							</Card>
 
-							<MenuBar tabs={MENU_ITEMS} initial_index={0} />
+							<MenuBar
+								tabs={TASKS_MENU_ITEMS}
+								initial_index={0}
+							/>
 
 							{TASKS.map((task) => {
 								const config = TASK_STATUS_STYLES[task.status];
@@ -172,7 +170,7 @@ const TasksScreen = () => {
 				</View>
 			</ScrollView>
 
-			{hasTasks && (
+			{has_tasks && (
 				<TouchableOpacity onPress={handleFABOnPress}>
 					<Icon
 						name="bolt"
