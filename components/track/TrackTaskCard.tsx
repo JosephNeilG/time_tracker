@@ -3,11 +3,11 @@ import React from "react";
 import Card from "../card/Card";
 import CardBody from "../card/CardBody";
 
-interface TrackCardProps {
+interface TrackTaskCardProps {
 	task: TrackTasks;
 }
 
-const TrackTaskCard = ({ task }: TrackCardProps) => {
+const TrackTaskCard = ({ task }: TrackTaskCardProps) => {
 	return (
 		<Card>
 			<CardBody
