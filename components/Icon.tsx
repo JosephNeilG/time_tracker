@@ -1,4 +1,4 @@
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { FontAwesome6 } from "@expo/vector-icons";
 import React from "react";
 import { View, ViewStyle } from "react-native";
 
@@ -6,7 +6,7 @@ interface IconProps {
 	container_color?: string;
 	size?: number;
 	is_circle?: boolean;
-	name: string;
+	name: keyof typeof FontAwesome6.glyphMap;
 	icon_size?: number;
 	icon_color?: string;
 	style?: ViewStyle;
@@ -23,7 +23,7 @@ const Icon = ({
 	icon_size = 35,
 	icon_color = "#fff",
 	style,
-	IconSet = MaterialCommunityIcons,
+	IconSet = FontAwesome6,
 	border_width,
 	border_color,
 }: IconProps) => {
