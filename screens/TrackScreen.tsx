@@ -7,7 +7,7 @@ import * as Progress from "react-native-progress";
 import Card from "@/components/card/Card";
 import DotSeparator from "@/components/DotSeparator";
 import Icon from "@/components/Icon";
-import TrackTaskCard from "@/components/track/TrackCard";
+import TrackTaskCard from "@/components/track/TrackTaskCard";
 import { COLORS } from "@/constants/Colors";
 import { TRACK_TASKS } from "@/constants/TrackTasks";
 
