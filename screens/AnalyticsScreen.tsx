@@ -7,8 +7,8 @@ import Card from "@/components/card/Card";
 import MenuBar from "@/components/MenuBar";
 import TaskOverviewItem from "@/components/TaskOverviewItem";
 import TimelineTable from "@/components/timeline/TimelineTable";
-import { ANALYTICS_MENU_ITEMS } from "@/constants/AnalyticsMenuItems";
-import { ANALYTICS_TASKS } from "@/constants/AnalyticsTasks";
+import { ANALYTICS_MENU_ITEMS } from "@/constants/analytics/AnalyticsMenuItems";
+import { ANALYTICS_TASKS } from "@/constants/analytics/AnalyticsTasks";
 import { COLORS } from "@/constants/Colors";
 
 const AnalyticsScreen = () => {

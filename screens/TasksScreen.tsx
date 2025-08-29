@@ -18,9 +18,9 @@ import MenuBar from "@/components/MenuBar";
 import TaskOverviewItem from "@/components/TaskOverviewItem";
 import TaskCard from "@/components/tasks/TaskCard";
 import { COLORS } from "@/constants/Colors";
-import { QUICK_TASK_DETAILS } from "@/constants/QuickTaskDetails";
-import { TASKS } from "@/constants/Tasks";
-import { TASKS_MENU_ITEMS } from "@/constants/TasksMenuItems";
+import { QUICK_TASK_DETAILS } from "@/constants/tasks/QuickTaskDetails";
+import { TASKS } from "@/constants/tasks/Tasks";
+import { TASKS_MENU_ITEMS } from "@/constants/tasks/TasksMenuItems";
 import EmptyTaskView from "../components/tasks/EmptyTaskView";
 
 const TasksScreen = () => {
