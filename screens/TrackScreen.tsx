@@ -5,9 +5,9 @@ import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import * as Progress from "react-native-progress";
 
 import Card from "@/components/card/Card";
-import CardBody from "@/components/card/CardBody";
 import DotSeparator from "@/components/DotSeparator";
 import Icon from "@/components/Icon";
+import TrackTaskCard from "@/components/track/TrackCard";
 import { COLORS } from "@/constants/Colors";
 import { TRACK_TASKS } from "@/constants/TrackTasks";
 
@@ -116,16 +116,8 @@ const TrackScreen = () => {
 					</TouchableOpacity>
 				</View>
 
-				{TRACK_TASKS.map((task, index) => (
-					<Card key={index}>
-						<CardBody
-							category_icon_name={task.category_icon_name}
-							task_title={task.task_title}
-							task_category_name={task.task_category_name}
-							task_time_estimate={task.task_time_estimate}
-							media_status_icon={task.media_status_icon}
-						/>
-					</Card>
+				{TRACK_TASKS.map((task) => (
+					<TrackTaskCard key={task.id} task={task} />
 				))}
 			</View>
 		</ScrollView>
