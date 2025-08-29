@@ -19,6 +19,7 @@ import Icon from "@/components/Icon";
 import MenuBar from "@/components/MenuBar";
 import TaskOverviewItem from "@/components/TaskOverviewItem";
 import { COLORS } from "@/constants/Colors";
+import { QUICK_TASK_DETAILS } from "@/constants/QuickTaskDetails";
 import { TASKS } from "@/constants/Tasks";
 import { TASK_STATUS_STYLES } from "@/stylesheets/TaskStatusStyles";
 import NoTask from "./NoTask";
@@ -165,14 +166,7 @@ const TasksScreen = () => {
 					onPress={() =>
 						router.navigate({
 							pathname: "/",
-							params: {
-								title: "Quick Task #001",
-								description: "Ad-hoc",
-								category: "Unplanned Work",
-								icon_name: "bolt",
-								progress: 0.25,
-								time_stamp: "00:45:32",
-							},
+							params: QUICK_TASK_DETAILS,
 						})
 					}>
 					<Icon
