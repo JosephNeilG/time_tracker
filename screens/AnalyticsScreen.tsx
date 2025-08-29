@@ -82,11 +82,7 @@ const AnalyticsScreen = () => {
 					</View>
 				</Card>
 
-				<MenuBar
-					onTabPress={(index) => console.log("Selected tab:", index)}
-					tabs={MENU_ITEMS}
-					initial_index={1}
-				/>
+				<MenuBar tabs={MENU_ITEMS} initial_index={1} />
 
 				<TimelineTable />
 

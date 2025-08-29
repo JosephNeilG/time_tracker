@@ -18,12 +18,20 @@ import DotSeparator from "@/components/DotSeparator";
 import Icon from "@/components/Icon";
 import MenuBar from "@/components/MenuBar";
 import TaskOverviewItem from "@/components/TaskOverviewItem";
+import { STATUS_CONFIG } from "@/config/Status";
 import { COLORS } from "@/constants/Colors";
+import { TASKS } from "@/constants/Tasks";
 import NoTask from "./NoTask";
 
 const TasksScreen = () => {
 	const [hasTasks, setHasTasks] = useState(false);
 	const router = useRouter();
+
+	const MENU_ITEMS = [
+		{ label: "All" },
+		{ label: "In Progress" },
+		{ label: "Completed" },
+	];
 
 	return (
 		<View className="flex-1">
@@ -81,107 +89,70 @@ const TasksScreen = () => {
 								/>
 							</Card>
 
-							<MenuBar
-								tabs={[
-									{ label: "All" },
-									{ label: "In Progress" },
-									{ label: "Completed" },
-								]}
-								initial_index={0}
-								onTabPress={(index) =>
-									console.log("Selected tab:", index)
-								}
-							/>
+							<MenuBar tabs={MENU_ITEMS} initial_index={0} />
 
-							<Card
-								background_color={COLORS.primary}
-								onPress={() => router.navigate("/")}>
-								<CardHeader
-									right_text="02:34:15"
-									text_color={COLORS.white}>
-									<Badge
-										text="TRACKING NOW"
-										background_color={COLORS.dark100}
-									/>
-								</CardHeader>
-								<CardBody
-									category_icon_name="code"
-									category_icon_background={COLORS.dark100}
-									task_title="API Integration Setup"
-									title_color={COLORS.light100}
-									subtitle_color={COLORS.light300}
-									task_category_name="Frontend Development"
-									task_time_estimate="6h estimated"
-									media_status_icon="pause"
-									media_status_icon_color={COLORS.light100}
-									media_status_icon_bg_color={COLORS.dark100}
-									media_status_icon_border_color="transparent"
-								/>
-							</Card>
+							{TASKS.map((task) => {
+								const config = STATUS_CONFIG[task.status];
 
-							<Card>
-								<CardHeader right_text="High Priority">
-									<Badge
-										text="TO DO"
-										text_color={COLORS.secondary}
-									/>
-								</CardHeader>
-								<CardBody
-									category_icon_name="database"
-									task_title="Database Migration"
-									task_category_name="Backend"
-									task_time_estimate="4h estimated"
-									media_status_icon="play"
-								/>
-							</Card>
+								return (
+									<Card
+										key={task.id}
+										background_color={
+											config.background_color
+										}
+										border_color={config.border_color}
+										onPress={
+											task.status === "tracking"
+												? () => router.navigate("/")
+												: undefined
+										}>
+										<CardHeader
+											right_text={task.right_text}
+											text_color={config.card_text_color}>
+											<Badge
+												text={config.badge.text}
+												background_color={
+													config.badge.bg
+												}
+												text_color={config.badge.color}
+											/>
+										</CardHeader>
 
-							<Card>
-								<CardHeader right_text="Medium Priority">
-									<Badge
-										text="TO DO"
-										text_color={COLORS.secondary}
-									/>
-								</CardHeader>
-								<CardBody
-									category_icon_name="mobile-screen-button"
-									task_title="Mobile UI Testing"
-									task_category_name="QA"
-									task_time_estimate="2h estimated"
-								/>
-							</Card>
-
-							<Card>
-								<CardHeader right_text="Low Priority">
-									<Badge
-										text="TO DO"
-										text_color={COLORS.secondary}
-									/>
-								</CardHeader>
-								<CardBody
-									category_icon_name="mobile-screen-button"
-									task_title="Analytics Dashboard"
-									task_category_name="Frontend"
-									task_time_estimate="6h estimated"
-								/>
-							</Card>
-
-							<Card>
-								<CardHeader right_text="3.5h logged">
-									<Badge
-										text="Completed"
-										text_color={COLORS.secondary}
-									/>
-								</CardHeader>
-								<CardBody
-									category_icon_name="users"
-									task_title="User Authentication"
-									task_category_name="Backend"
-									task_time_estimate="4h estimated"
-									media_status_icon="check"
-									title_decoration="line-through"
-									media_status_icon_border_color="transparent"
-								/>
-							</Card>
+										<CardBody
+											category_icon_name={
+												task.icon_name || "code"
+											}
+											task_title={task.title}
+											task_category_name={task.category}
+											task_time_estimate={
+												task.time_estimate
+											}
+											media_status_icon={task.media_icon}
+											title_color={config.title_color}
+											subtitle_color={
+												config.subtitle_color
+											}
+											title_decoration={
+												config.title_decoration
+											}
+											category_icon_background={
+												config.category_icon_background
+											}
+											media_status_icon_border_color={
+												config.media_status_icon
+													?.border_color
+											}
+											media_status_icon_bg_color={
+												config.media_status_icon
+													?.bg_color
+											}
+											media_status_icon_color={
+												config.media_status_icon?.color
+											}
+										/>
+									</Card>
+								);
+							})}
 						</>
 					) : (
 						<NoTask onSync={() => setHasTasks(true)} />
