@@ -11,7 +11,7 @@ interface NoTaskProps {
 	onSync: () => void;
 }
 
-const NoTask = ({ onSync }: NoTaskProps) => {
+const EmptyTaskView = ({ onSync }: NoTaskProps) => {
 	return (
 		<>
 			<Icon
@@ -82,4 +82,4 @@ const NoTask = ({ onSync }: NoTaskProps) => {
 	);
 };
 
-export default NoTask;
+export default EmptyTaskView;

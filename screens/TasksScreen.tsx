@@ -23,7 +23,7 @@ import { QUICK_TASK_DETAILS } from "@/constants/QuickTaskDetails";
 import { TASKS } from "@/constants/Tasks";
 import { TASKS_MENU_ITEMS } from "@/constants/TasksMenuItems";
 import { TASK_STATUS_STYLES } from "@/stylesheets/TaskStatusStyles";
-import NoTask from "./NoTask";
+import EmptyTaskView from "../components/tasks/EmptyTaskView";
 
 const TasksScreen = () => {
 	const [has_tasks, setHasTasks] = useState(false);
@@ -165,7 +165,7 @@ const TasksScreen = () => {
 							})}
 						</>
 					) : (
-						<NoTask onSync={() => setHasTasks(true)} />
+						<EmptyTaskView onSync={() => setHasTasks(true)} />
 					)}
 				</View>
 			</ScrollView>
