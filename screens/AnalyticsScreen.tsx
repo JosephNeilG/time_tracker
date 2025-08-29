@@ -6,7 +6,7 @@ import AnalyticsTaskCard from "@/components/analytics/AnalyticsTaskCard";
 import Card from "@/components/card/Card";
 import MenuBar from "@/components/MenuBar";
 import TaskOverviewItem from "@/components/TaskOverviewItem";
-import TimelineTable from "@/components/TimelineTable";
+import TimelineTable from "@/components/timeline/TimelineTable";
 import { ANALYTICS_MENU_ITEMS } from "@/constants/AnalyticsMenuItems";
 import { ANALYTICS_TASKS } from "@/constants/AnalyticsTasks";
 import { COLORS } from "@/constants/Colors";

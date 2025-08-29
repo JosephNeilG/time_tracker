@@ -1,51 +1,13 @@
-import moment from "moment";
-import React, { useState } from "react";
-import { Text, View, ViewStyle } from "react-native";
-import Timetable from "react-native-calendar-timetable";
-
 import { COLORS } from "@/constants/Colors";
-import { TIMELINE_TASKS } from "@/constants/TimelineTasks";
-
-interface TimelineItem {
-	title: string;
-	startDate: string | Date;
-	endDate: string | Date;
-	color: string;
-	isBreak?: boolean;
-	type: "work" | "break";
-}
+import { TimelineItem } from "@/entities/TimelineInterface";
+import moment from "moment";
+import React from "react";
+import { Text, View, ViewStyle } from "react-native";
 
 interface TimelineCardProps {
 	style?: ViewStyle;
 	item: TimelineItem;
 }
-
-const TimelineTable = () => {
-	const [date] = useState(new Date());
-
-	return (
-		<Timetable
-			items={TIMELINE_TASKS}
-			renderItem={({ key, ...props }) => (
-				<TimelineCard key={key} {...props} />
-			)}
-			date={date}
-			fromHour={9}
-			toHour={18}
-			is12Hour
-			style={{
-				nowLine: {
-					dot: {
-						backgroundColor: COLORS.dark400,
-					},
-					line: {
-						backgroundColor: COLORS.dark400,
-					},
-				},
-			}}
-		/>
-	);
-};
 
 const TimelineCard = ({ style, item }: TimelineCardProps) => {
 	const durationMinutes = moment(item.endDate).diff(
@@ -95,4 +57,4 @@ const TimelineCard = ({ style, item }: TimelineCardProps) => {
 	);
 };
 
-export default TimelineTable;
+export default TimelineCard;
