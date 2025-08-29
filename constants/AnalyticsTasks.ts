@@ -1,11 +1,13 @@
 export const ANALYTICS_TASKS = [
 	{
+		id: 1,
 		title: "API Integration Setup",
 		subtitle: "Frontend Development",
 		time: "2h 15m",
 		percent: "29%",
 	},
 	{
+		id: 2,
 		dotColor: "#344056",
 		title: "Database Migration",
 		subtitle: "Backend",
@@ -13,6 +15,7 @@ export const ANALYTICS_TASKS = [
 		percent: "45%",
 	},
 	{
+		id: 3,
 		dotColor: "#6E7588",
 		title: "Mobile UI Testing",
 		subtitle: "QA",
@@ -20,6 +23,7 @@ export const ANALYTICS_TASKS = [
 		percent: "19%",
 	},
 	{
+		id: 4,
 		title: "API Integration Setup",
 		subtitle: "Frontend Development",
 		time: "2h 15m",

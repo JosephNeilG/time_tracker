@@ -2,8 +2,8 @@ import { FontAwesome6 } from "@expo/vector-icons";
 import React from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 
+import AnalyticsTaskCard from "@/components/analytics/AnalyticsTaskCard";
 import Card from "@/components/card/Card";
-import DotSeparator from "@/components/DotSeparator";
 import MenuBar from "@/components/MenuBar";
 import TaskOverviewItem from "@/components/TaskOverviewItem";
 import TimelineTable from "@/components/TimelineTable";
@@ -78,27 +78,8 @@ const AnalyticsScreen = () => {
 					Task Breakdown
 				</Text>
 
-				{ANALYTICS_TASKS.map((task, index) => (
-					<Card key={index}>
-						<View className="flex-row justify-between items-center">
-							<View className="flex-row items-center gap-3">
-								<DotSeparator size={12} color={task.dotColor} />
-								<TaskOverviewItem
-									title={task.title}
-									subtitle={task.subtitle}
-									title_size={16}
-									title_color={COLORS.primary}
-								/>
-							</View>
-							<TaskOverviewItem
-								title={task.time}
-								subtitle={task.percent}
-								title_size={16}
-								title_color={COLORS.primary}
-								align="right"
-							/>
-						</View>
-					</Card>
+				{ANALYTICS_TASKS.map((task) => (
+					<AnalyticsTaskCard task={task} key={task.id} />
 				))}
 			</View>
 		</ScrollView>
