@@ -1,6 +1,12 @@
 import { COLORS } from "@/constants/Colors";
 import React from "react";
-import { StyleProp, Text, TouchableOpacity, ViewStyle } from "react-native";
+import {
+	DimensionValue,
+	StyleProp,
+	Text,
+	TouchableOpacity,
+	ViewStyle,
+} from "react-native";
 
 interface ButtonProps {
 	text: string;
@@ -11,7 +17,7 @@ interface ButtonProps {
 	background_color?: string;
 	text_color?: string;
 	style?: StyleProp<ViewStyle>;
-	width?: number | string;
+	width?: DimensionValue;
 	onPress?: () => void;
 }
 

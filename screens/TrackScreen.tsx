@@ -23,7 +23,7 @@ const TrackScreen = () => {
 					background_color={COLORS.light400}
 					style={{ alignItems: "center", paddingVertical: 25 }}>
 					<Icon
-						name={icon_name || "code"}
+						name={(icon_name as string) || "code"}
 						IconSet={FontAwesome6}
 						container_color={COLORS.dark300}
 						size={130}
