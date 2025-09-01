@@ -8,13 +8,13 @@ import { Task } from "@/entities/Task";
 interface AppState {
 	is_tasks_synced: boolean;
 	tasks: Task[];
-	is_loading_tasks: boolean; // new loading for task list
+	is_loading_tasks: boolean;
 	syncTasks: () => void;
 	getTasks: () => Task[];
 	reset: () => void;
 }
 
-const initialState = {
+const initial_state = {
 	is_loading_tasks: false,
 	is_tasks_synced: false,
 	tasks: [],
@@ -23,7 +23,7 @@ const initialState = {
 export const useAppStore = create<AppState>()(
 	persist(
 		(set, get) => ({
-			...initialState,
+			...initial_state,
 
 			syncTasks: () => {
 				set({
@@ -38,7 +38,7 @@ export const useAppStore = create<AppState>()(
 			getTasks: () => get().tasks,
 
 			reset: () => {
-				set(initialState);
+				set(initial_state);
 			},
 		}),
 		{

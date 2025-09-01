@@ -15,12 +15,25 @@ import DotSeparator from "@/components/DotSeparator";
 import Icon from "@/components/Icon";
 import TrackTaskCard from "@/components/track/TrackTaskCard";
 import { COLORS } from "@/constants/Colors";
-import useTrackTasks from "@/hooks/useTrackTasks";
+import { useAppStore } from "@/store/appStore";
 
 const TrackScreen = () => {
 	const { title, category, description, icon_name, progress, time_stamp } =
 		useLocalSearchParams();
-	const { data: track_tasks, is_loading, error } = useTrackTasks();
+
+	const is_loading_tasks = useAppStore((state) => state.is_loading_tasks);
+	const tasks = useAppStore((state) => state.tasks);
+
+	const track_tasks = tasks
+		.filter((task) => task.status !== "completed")
+		.map((task) => ({
+			id: task.id,
+			category_icon_name: task.icon_name,
+			task_title: task.title,
+			task_category_name: task.category,
+			task_time_estimate: task.time_estimate,
+			media_status_icon: task.media_icon,
+		}));
 
 	return (
 		<ScrollView showsVerticalScrollIndicator={false}>
@@ -123,14 +136,13 @@ const TrackScreen = () => {
 					</TouchableOpacity>
 				</View>
 
-				{is_loading && <ActivityIndicator size="large" />}
-				{error && (
-					<Text className="text-red-800">Error: {error.message}</Text>
+				{is_loading_tasks ? (
+					<ActivityIndicator size="large" />
+				) : (
+					track_tasks.map((task) => (
+						<TrackTaskCard key={task.id} task={task} />
+					))
 				)}
-
-				{track_tasks?.map((task) => (
-					<TrackTaskCard key={task.id} task={task} />
-				))}
 			</View>
 		</ScrollView>
 	);
