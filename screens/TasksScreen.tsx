@@ -15,7 +15,7 @@ import { QUICK_TASK_DETAILS } from "@/constants/tasks/QuickTaskDetails";
 import { TASKS_MENU_ITEMS } from "@/constants/tasks/TasksMenuItems";
 import useTaskOverviewItems from "@/hooks/useTaskOverviewItems";
 import { useAppStore } from "@/store/appStore";
-import EmptyTaskView from "../components/tasks/EmptyTaskView";
+import EmptyTaskView from "../components/EmptyTaskView";
 
 const TasksScreen = () => {
 	const router = useRouter();
