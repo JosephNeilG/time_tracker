@@ -1,12 +1,12 @@
 import { COLORS } from "@/constants/Colors";
-import { TimelineItem } from "@/entities/TimelineInterface";
+import { TimelineTask } from "@/entities/TimelineTask";
 import moment from "moment";
 import React from "react";
 import { Text, View, ViewStyle } from "react-native";
 
 interface TimelineCardProps {
 	style?: ViewStyle;
-	item: TimelineItem;
+	item: TimelineTask;
 }
 
 const TimelineCard = ({ style, item }: TimelineCardProps) => {

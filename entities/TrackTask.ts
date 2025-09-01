@@ -1,4 +1,4 @@
-export interface TrackTasks {
+export interface TrackTask {
 	id: number;
 	category_icon_name: string;
 	task_title: string;

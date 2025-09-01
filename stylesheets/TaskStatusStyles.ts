@@ -1,5 +1,5 @@
 import { COLORS } from "@/constants/Colors";
-import { TaskStatus } from "@/entities/TaskInterface";
+import { TaskStatus } from "@/entities/Task";
 import { TextStyle } from "react-native";
 
 export const TASK_STATUS_STYLES: Record<TaskStatus, TaskStatusConfig> = {

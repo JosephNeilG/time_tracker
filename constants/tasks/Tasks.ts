@@ -1,4 +1,4 @@
-import { Task } from "@/entities/TaskInterface";
+import { Task } from "@/entities/Task";
 
 export const TASKS: Task[] = [
 	{

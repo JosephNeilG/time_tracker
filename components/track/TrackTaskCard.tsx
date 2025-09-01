@@ -1,10 +1,10 @@
-import { TrackTasks } from "@/entities/TrackTaskInterface";
+import { TrackTask } from "@/entities/TrackTask";
 import React from "react";
 import Card from "../card/Card";
 import CardBody from "../card/CardBody";
 
 interface TrackTaskCardProps {
-	task: TrackTasks;
+	task: TrackTask;
 }
 
 const TrackTaskCard = ({ task }: TrackTaskCardProps) => {

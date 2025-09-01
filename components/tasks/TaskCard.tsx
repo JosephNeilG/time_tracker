@@ -4,7 +4,7 @@ import Badge from "@/components/Badge";
 import Card from "@/components/card/Card";
 import CardBody from "@/components/card/CardBody";
 import CardHeader from "@/components/card/CardHeader";
-import { Task } from "@/entities/TaskInterface";
+import { Task } from "@/entities/Task";
 import { TASK_STATUS_STYLES } from "@/stylesheets/TaskStatusStyles";
 
 interface TaskCardProps {

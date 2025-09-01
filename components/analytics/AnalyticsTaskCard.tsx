@@ -1,5 +1,5 @@
 import { COLORS } from "@/constants/Colors";
-import { AnalyticsTasks } from "@/entities/AnalyticsTaskInterface";
+import { AnalyticsTasks } from "@/entities/AnalyticsTask";
 import React from "react";
 import { View } from "react-native";
 import Card from "../card/Card";

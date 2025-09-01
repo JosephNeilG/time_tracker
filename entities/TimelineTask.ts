@@ -1,4 +1,4 @@
-export interface TimelineItem {
+export interface TimelineTask {
 	title: string;
 	startDate: string | Date;
 	endDate: string | Date;
