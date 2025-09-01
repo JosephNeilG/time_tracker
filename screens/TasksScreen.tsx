@@ -2,6 +2,7 @@ import { FontAwesome6 } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
+	ActivityIndicator,
 	ScrollView,
 	StyleSheet,
 	Text,
@@ -19,13 +20,14 @@ import TaskOverviewItem from "@/components/TaskOverviewItem";
 import TaskCard from "@/components/tasks/TaskCard";
 import { COLORS } from "@/constants/Colors";
 import { QUICK_TASK_DETAILS } from "@/constants/tasks/QuickTaskDetails";
-import { TASKS } from "@/constants/tasks/Tasks";
 import { TASKS_MENU_ITEMS } from "@/constants/tasks/TasksMenuItems";
+import useTask from "@/hooks/useTasks";
 import EmptyTaskView from "../components/tasks/EmptyTaskView";
 
 const TasksScreen = () => {
 	const [has_tasks, setHasTasks] = useState(false);
 	const router = useRouter();
+	const { data: tasks, is_loading, is_error } = useTask();
 
 	const handleFABOnPress = () => {
 		router.navigate({
@@ -99,7 +101,10 @@ const TasksScreen = () => {
 								initial_index={0}
 							/>
 
-							{TASKS.map((task) => (
+							{is_loading && <ActivityIndicator size="large" />}
+							{is_error && <Text>Error: {is_error.message}</Text>}
+
+							{tasks?.map((task) => (
 								<TaskCard
 									key={task.id}
 									task={task}
