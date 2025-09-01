@@ -15,11 +15,16 @@ import TaskOverviewItem from "@/components/TaskOverviewItem";
 import TimelineTable from "@/components/timeline/TimelineTable";
 import { ANALYTICS_MENU_ITEMS } from "@/constants/analytics/AnalyticsMenuItems";
 import { COLORS } from "@/constants/Colors";
+import useAnalyticsOverviewItems from "@/hooks/useAnalyticsOverviewItems";
 import useAnalyticsTasks from "@/hooks/useAnalyticsTasks";
 
 const AnalyticsScreen = () => {
 	const { data: analytics_tasks, is_loading, error } = useAnalyticsTasks();
-
+	const {
+		data: overview_items,
+		is_loading: overview_is_loading,
+		error: overview_error,
+	} = useAnalyticsOverviewItems();
 	return (
 		<ScrollView showsVerticalScrollIndicator={false}>
 			<View className=" flex-1 p-7">
@@ -53,28 +58,23 @@ const AnalyticsScreen = () => {
 				<Card
 					border_color="transparent"
 					background_color={COLORS.light400}>
+					{overview_is_loading && <ActivityIndicator size="small" />}
+					{overview_error && (
+						<Text className="text-red-800">
+							Error: {overview_error.message}
+						</Text>
+					)}
 					<View className="flex-row justify-between items-center px-3">
-						<TaskOverviewItem
-							title="7h 42m"
-							subtitle="Total Tracked"
-							title_size={26}
-							title_color={COLORS.primary}
-							align="center"
-						/>
-						<TaskOverviewItem
-							title="4"
-							subtitle="Tasks Worked"
-							title_size={26}
-							title_color={COLORS.primary}
-							align="center"
-						/>
-						<TaskOverviewItem
-							title="96%"
-							subtitle="Efficiency"
-							title_size={26}
-							title_color={COLORS.primary}
-							align="center"
-						/>
+						{overview_items?.map((item) => (
+							<TaskOverviewItem
+								key={item.id}
+								title={item.title}
+								subtitle={item.subtitle}
+								title_size={item.title_size}
+								title_color={COLORS.primary}
+								align="center"
+							/>
+						))}
 					</View>
 				</Card>
 
