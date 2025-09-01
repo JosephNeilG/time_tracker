@@ -62,6 +62,7 @@ const AuthScreen = () => {
 						/>
 
 						<Button
+							onPress={handleSubmit}
 							icon_name="google"
 							IconComponent={FontAwesome6}
 							text="Continue with Google"
