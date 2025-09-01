@@ -1,4 +1,5 @@
 import { Task } from "@/entities/Task";
+import { COLORS } from "./Colors";
 
 export const TASKS: Task[] = [
 	{
@@ -10,6 +11,9 @@ export const TASKS: Task[] = [
 		media_icon: "pause",
 		icon_name: "code",
 		right_text: "02:34:15",
+		time_logged: "2h 15m",
+		dot_color: COLORS.primary,
+		progress_percent: "19%",
 	},
 	{
 		id: 2,
@@ -20,6 +24,9 @@ export const TASKS: Task[] = [
 		media_icon: "play",
 		icon_name: "database",
 		right_text: "High Priority",
+		time_logged: "3h 30m",
+		dot_color: COLORS.primary,
+		progress_percent: "45%",
 	},
 	{
 		id: 3,
@@ -30,6 +37,9 @@ export const TASKS: Task[] = [
 		media_icon: "play",
 		icon_name: "mobile-screen-button",
 		right_text: "High Priority",
+		time_logged: "1h 30m",
+		dot_color: COLORS.primary,
+		progress_percent: "19%",
 	},
 	{
 		id: 4,
@@ -40,6 +50,9 @@ export const TASKS: Task[] = [
 		media_icon: "play",
 		icon_name: "chart-line",
 		right_text: "Medium Priority",
+		time_logged: "2h 15m",
+		dot_color: COLORS.primary,
+		progress_percent: "19%",
 	},
 	{
 		id: 5,
@@ -50,5 +63,8 @@ export const TASKS: Task[] = [
 		media_icon: "check",
 		icon_name: "users",
 		right_text: "3.5h logged",
+		time_logged: "3h 30m",
+		dot_color: COLORS.primary,
+		progress_percent: "19%",
 	},
 ];

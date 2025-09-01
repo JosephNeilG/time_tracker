@@ -1,17 +1,26 @@
-import { ANALYTICS_TASKS } from "@/constants/analytics/AnalyticsTasks";
-import { AnalyticsTasks } from "@/entities/AnalyticsTask";
+import { TASKS } from "@/constants/Tasks";
+import { AnalyticsTask } from "@/entities/AnalyticsTask";
 import useFetch from "./useFetch";
 
-const fetchAnalyticsTasks = async (): Promise<AnalyticsTasks[]> => {
+const fetchAnalyticsTasks = async (): Promise<AnalyticsTask[]> => {
 	return new Promise((resolve) => {
 		setTimeout(() => {
-			resolve(ANALYTICS_TASKS);
+			resolve(
+				TASKS.map((task) => ({
+					id: task.id,
+					dotColor: task.dot_color,
+					title: task.title,
+					subtitle: task.category,
+					time: task.time_logged,
+					progress_percent: task.progress_percent,
+				}))
+			);
 		}, 2000);
 	});
 };
 
 const useAnalyticsTasks = () => {
-	return useFetch<AnalyticsTasks[]>(fetchAnalyticsTasks);
+	return useFetch<AnalyticsTask[]>(fetchAnalyticsTasks);
 };
 
 export default useAnalyticsTasks;

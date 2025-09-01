@@ -1,4 +1,4 @@
-import { TASKS } from "@/constants/tasks/Tasks";
+import { TASKS } from "@/constants/Tasks";
 import { Task } from "@/entities/Task";
 import useFetch from "./useFetch";
 
