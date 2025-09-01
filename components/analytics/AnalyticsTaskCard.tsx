@@ -17,15 +17,15 @@ const AnalyticsTaskCard = ({ task }: AnalyticsTaskCardProps) => {
 				<View className="flex-row items-center gap-3">
 					<DotSeparator size={12} color={task.dot_color} />
 					<OverviewItem
-						title={task.title}
-						subtitle={task.subtitle}
+						title={task.task_title}
+						subtitle={task.task_category_name}
 						title_size={16}
 						title_color={COLORS.primary}
 					/>
 				</View>
 				<OverviewItem
-					title={task.time}
-					subtitle={task.progress_percent}
+					title={task.task_time_logged}
+					subtitle={task.task_progress_percent}
 					title_size={16}
 					title_color={COLORS.primary}
 					align="right"
