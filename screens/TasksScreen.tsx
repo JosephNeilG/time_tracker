@@ -8,7 +8,7 @@ import CardHeader from "@/components/card/CardHeader";
 import DotSeparator from "@/components/DotSeparator";
 import FloatingActionButton from "@/components/FloatingActionButton";
 import MenuBar from "@/components/MenuBar";
-import TaskOverviewItem from "@/components/TaskOverviewItem";
+import OverviewItem from "@/components/OverviewItem";
 import TaskCard from "@/components/tasks/TaskCard";
 import { COLORS } from "@/constants/Colors";
 import { QUICK_TASK_DETAILS } from "@/constants/tasks/QuickTaskDetails";
@@ -53,15 +53,17 @@ const TasksScreen = () => {
 									</Text>
 								</CardHeader>
 								<View className="flex-row justify-between items-center mb-3 pr-6">
-									<TaskOverviewItem
-										title="12 tasks"
-										subtitle="assigned"
-									/>
+									<View className="flex-row items-center">
+										<OverviewItem
+											title="12 tasks"
+											subtitle="assigned"
+										/>
+									</View>
 
 									<View className="flex-row items-center">
 										<DotSeparator />
 
-										<TaskOverviewItem
+										<OverviewItem
 											title={5}
 											subtitle="completed"
 											style={{ marginLeft: 10 }}
@@ -71,7 +73,7 @@ const TasksScreen = () => {
 									<View className="flex-row items-center">
 										<DotSeparator />
 
-										<TaskOverviewItem
+										<OverviewItem
 											title="42h"
 											subtitle="logged"
 											style={{ marginLeft: 10 }}

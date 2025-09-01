@@ -11,7 +11,7 @@ interface TaskOverviewItemProps {
 	align?: "left" | "center" | "right";
 }
 
-const TaskOverviewItem = ({
+const OverviewItem = ({
 	title,
 	subtitle,
 	style,
@@ -41,4 +41,4 @@ const TaskOverviewItem = ({
 	);
 };
 
-export default TaskOverviewItem;
+export default OverviewItem;

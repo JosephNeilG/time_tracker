@@ -11,7 +11,7 @@ import {
 import AnalyticsTaskCard from "@/components/analytics/AnalyticsTaskCard";
 import Card from "@/components/card/Card";
 import MenuBar from "@/components/MenuBar";
-import TaskOverviewItem from "@/components/TaskOverviewItem";
+import OverviewItem from "@/components/OverviewItem";
 import TimelineTable from "@/components/timeline/TimelineTable";
 import { ANALYTICS_MENU_ITEMS } from "@/constants/analytics/AnalyticsMenuItems";
 import { COLORS } from "@/constants/Colors";
@@ -66,7 +66,7 @@ const AnalyticsScreen = () => {
 					)}
 					<View className="flex-row justify-between items-center px-3">
 						{overview_items?.map((item) => (
-							<TaskOverviewItem
+							<OverviewItem
 								key={item.id}
 								title={item.title}
 								subtitle={item.subtitle}
