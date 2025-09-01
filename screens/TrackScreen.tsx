@@ -1,7 +1,13 @@
 import { FontAwesome6 } from "@expo/vector-icons";
 import { useLocalSearchParams } from "expo-router";
 import React from "react";
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import {
+	ActivityIndicator,
+	ScrollView,
+	Text,
+	TouchableOpacity,
+	View,
+} from "react-native";
 import * as Progress from "react-native-progress";
 
 import Card from "@/components/card/Card";
@@ -9,11 +15,12 @@ import DotSeparator from "@/components/DotSeparator";
 import Icon from "@/components/Icon";
 import TrackTaskCard from "@/components/track/TrackTaskCard";
 import { COLORS } from "@/constants/Colors";
-import { TRACK_TASKS } from "@/constants/TrackTasks";
+import useTrackTasks from "@/hooks/useTrackTasks";
 
 const TrackScreen = () => {
 	const { title, category, description, icon_name, progress, time_stamp } =
 		useLocalSearchParams();
+	const { data: track_tasks, is_loading, is_error } = useTrackTasks();
 
 	return (
 		<ScrollView showsVerticalScrollIndicator={false}>
@@ -116,7 +123,14 @@ const TrackScreen = () => {
 					</TouchableOpacity>
 				</View>
 
-				{TRACK_TASKS.map((task) => (
+				{is_loading && <ActivityIndicator size="large" />}
+				{is_error && (
+					<Text className="text-red-800">
+						Error: {is_error.message}
+					</Text>
+				)}
+
+				{track_tasks?.map((task) => (
 					<TrackTaskCard key={task.id} task={task} />
 				))}
 			</View>
