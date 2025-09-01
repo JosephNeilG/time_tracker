@@ -1,12 +1,9 @@
 import { COLORS } from "@/constants/Colors";
+import { useAppStore } from "@/store/appStore";
 import { FontAwesome6 } from "@expo/vector-icons";
-import { Tabs, router } from "expo-router";
+import { Tabs } from "expo-router";
 import React from "react";
 import { Image, TouchableOpacity, View } from "react-native";
-
-const handleProfileOnPress = () => {
-	router.push("/auth");
-};
 
 const _layout = () => {
 	return (
@@ -74,19 +71,27 @@ const _layout = () => {
 	);
 };
 
-const renderRightActions = () => (
-	<View className="flex-row items-center mr-4">
-		<TouchableOpacity className="mr-4">
-			<FontAwesome6 name="bell" size={18} color={COLORS.secondary} />
-		</TouchableOpacity>
+const renderRightActions = () => {
+	const resetAppStore = useAppStore((state) => state.reset);
 
-		<TouchableOpacity onPress={handleProfileOnPress}>
-			<Image
-				source={require("@/assets/images/joseph.jpeg")}
-				className="w-[40px] h-[40px] rounded-full"
-			/>
-		</TouchableOpacity>
-	</View>
-);
+	const handleProfileOnPress = () => {
+		resetAppStore();
+	};
+
+	return (
+		<View className="flex-row items-center mr-4">
+			<TouchableOpacity className="mr-4">
+				<FontAwesome6 name="bell" size={18} color={COLORS.secondary} />
+			</TouchableOpacity>
+
+			<TouchableOpacity onPress={handleProfileOnPress}>
+				<Image
+					source={require("@/assets/images/joseph.jpeg")}
+					className="w-[40px] h-[40px] rounded-full"
+				/>
+			</TouchableOpacity>
+		</View>
+	);
+};
 
 export default _layout;

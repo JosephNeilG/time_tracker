@@ -1,5 +1,5 @@
 import { useRouter } from "expo-router";
-import React, { useState } from "react";
+import React from "react";
 import { ActivityIndicator, ScrollView, Text, View } from "react-native";
 import * as Progress from "react-native-progress";
 
@@ -14,13 +14,17 @@ import { COLORS } from "@/constants/Colors";
 import { QUICK_TASK_DETAILS } from "@/constants/tasks/QuickTaskDetails";
 import { TASKS_MENU_ITEMS } from "@/constants/tasks/TasksMenuItems";
 import useTaskOverviewItems from "@/hooks/useTaskOverviewItems";
-import useTasks from "@/hooks/useTasks";
+import { useAppStore } from "@/store/appStore";
 import EmptyTaskView from "../components/tasks/EmptyTaskView";
 
 const TasksScreen = () => {
-	const [has_tasks, setHasTasks] = useState(false);
 	const router = useRouter();
-	const { data: tasks, is_loading, error } = useTasks();
+
+	const is_loading_tasks = useAppStore((state) => state.is_loading_tasks);
+	const is_tasks_synced = useAppStore((state) => state.is_tasks_synced);
+	const tasks = useAppStore((state) => state.getTasks());
+	const syncTasks = useAppStore((state) => state.syncTasks);
+
 	const {
 		data: overview_items,
 		is_loading: overview_is_loading,
@@ -42,7 +46,7 @@ const TasksScreen = () => {
 		<View className="flex-1">
 			<ScrollView showsVerticalScrollIndicator={false}>
 				<View className="p-7 items-center w-full">
-					{has_tasks ? (
+					{is_tasks_synced ? (
 						<>
 							<Card
 								border_color="transparent"
@@ -100,29 +104,27 @@ const TasksScreen = () => {
 								initial_index={0}
 							/>
 
-							{is_loading && <ActivityIndicator size="large" />}
-
-							{error && (
-								<Text className="text-red-800">
-									Error: {error.message}
-								</Text>
+							{is_loading_tasks ? (
+								<ActivityIndicator size="large" />
+							) : (
+								tasks.map((task) => (
+									<TaskCard
+										key={task.id}
+										task={task}
+										onPress={handleCardOnPress}
+									/>
+								))
 							)}
-
-							{tasks?.map((task) => (
-								<TaskCard
-									key={task.id}
-									task={task}
-									onPress={handleCardOnPress}
-								/>
-							))}
 						</>
 					) : (
-						<EmptyTaskView onSync={() => setHasTasks(true)} />
+						<EmptyTaskView onSync={syncTasks} />
 					)}
 				</View>
 			</ScrollView>
 
-			{has_tasks && <FloatingActionButton onPress={handleFABOnPress} />}
+			{is_tasks_synced && (
+				<FloatingActionButton onPress={handleFABOnPress} />
+			)}
 		</View>
 	);
 };
