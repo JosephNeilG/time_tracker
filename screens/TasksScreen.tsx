@@ -21,13 +21,13 @@ import TaskCard from "@/components/tasks/TaskCard";
 import { COLORS } from "@/constants/Colors";
 import { QUICK_TASK_DETAILS } from "@/constants/tasks/QuickTaskDetails";
 import { TASKS_MENU_ITEMS } from "@/constants/tasks/TasksMenuItems";
-import useTask from "@/hooks/useTasks";
+import useTasks from "@/hooks/useTasks";
 import EmptyTaskView from "../components/tasks/EmptyTaskView";
 
 const TasksScreen = () => {
 	const [has_tasks, setHasTasks] = useState(false);
 	const router = useRouter();
-	const { data: tasks, is_loading, is_error } = useTask();
+	const { data: tasks, is_loading, is_error } = useTasks();
 
 	const handleFABOnPress = () => {
 		router.navigate({
@@ -102,7 +102,12 @@ const TasksScreen = () => {
 							/>
 
 							{is_loading && <ActivityIndicator size="large" />}
-							{is_error && <Text>Error: {is_error.message}</Text>}
+
+							{is_error && (
+								<Text className="text-red-800">
+									Error: {is_error.message}
+								</Text>
+							)}
 
 							{tasks?.map((task) => (
 								<TaskCard

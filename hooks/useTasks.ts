@@ -10,8 +10,8 @@ const fetchTasks = async (): Promise<Task[]> => {
 	});
 };
 
-const useTask = () => {
+const useTasks = () => {
 	return useFetch<Task[]>(fetchTasks);
 };
 
-export default useTask;
+export default useTasks;

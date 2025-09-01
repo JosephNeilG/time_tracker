@@ -1,6 +1,12 @@
 import { FontAwesome6 } from "@expo/vector-icons";
 import React from "react";
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import {
+	ActivityIndicator,
+	ScrollView,
+	Text,
+	TouchableOpacity,
+	View,
+} from "react-native";
 
 import AnalyticsTaskCard from "@/components/analytics/AnalyticsTaskCard";
 import Card from "@/components/card/Card";
@@ -8,10 +14,12 @@ import MenuBar from "@/components/MenuBar";
 import TaskOverviewItem from "@/components/TaskOverviewItem";
 import TimelineTable from "@/components/timeline/TimelineTable";
 import { ANALYTICS_MENU_ITEMS } from "@/constants/analytics/AnalyticsMenuItems";
-import { ANALYTICS_TASKS } from "@/constants/analytics/AnalyticsTasks";
 import { COLORS } from "@/constants/Colors";
+import useAnalyticsTasks from "@/hooks/useAnalyticsTasks";
 
 const AnalyticsScreen = () => {
+	const { data: analytics_tasks, is_loading, is_error } = useAnalyticsTasks();
+
 	return (
 		<ScrollView showsVerticalScrollIndicator={false}>
 			<View className=" flex-1 p-7">
@@ -78,7 +86,15 @@ const AnalyticsScreen = () => {
 					Task Breakdown
 				</Text>
 
-				{ANALYTICS_TASKS.map((task) => (
+				{is_loading && <ActivityIndicator size="large" />}
+
+				{is_error && (
+					<Text className="text-red-800">
+						Error: {is_error.message}
+					</Text>
+				)}
+
+				{analytics_tasks?.map((task) => (
 					<AnalyticsTaskCard task={task} key={task.id} />
 				))}
 			</View>
