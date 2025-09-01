@@ -20,7 +20,7 @@ import useTrackTasks from "@/hooks/useTrackTasks";
 const TrackScreen = () => {
 	const { title, category, description, icon_name, progress, time_stamp } =
 		useLocalSearchParams();
-	const { data: track_tasks, is_loading, is_error } = useTrackTasks();
+	const { data: track_tasks, is_loading, error } = useTrackTasks();
 
 	return (
 		<ScrollView showsVerticalScrollIndicator={false}>
@@ -124,10 +124,8 @@ const TrackScreen = () => {
 				</View>
 
 				{is_loading && <ActivityIndicator size="large" />}
-				{is_error && (
-					<Text className="text-red-800">
-						Error: {is_error.message}
-					</Text>
+				{error && (
+					<Text className="text-red-800">Error: {error.message}</Text>
 				)}
 
 				{track_tasks?.map((task) => (

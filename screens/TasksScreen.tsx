@@ -27,7 +27,7 @@ import EmptyTaskView from "../components/tasks/EmptyTaskView";
 const TasksScreen = () => {
 	const [has_tasks, setHasTasks] = useState(false);
 	const router = useRouter();
-	const { data: tasks, is_loading, is_error } = useTasks();
+	const { data: tasks, is_loading, error } = useTasks();
 
 	const handleFABOnPress = () => {
 		router.navigate({
@@ -103,9 +103,9 @@ const TasksScreen = () => {
 
 							{is_loading && <ActivityIndicator size="large" />}
 
-							{is_error && (
+							{error && (
 								<Text className="text-red-800">
-									Error: {is_error.message}
+									Error: {error.message}
 								</Text>
 							)}
 

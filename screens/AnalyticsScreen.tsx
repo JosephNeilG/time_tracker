@@ -18,7 +18,7 @@ import { COLORS } from "@/constants/Colors";
 import useAnalyticsTasks from "@/hooks/useAnalyticsTasks";
 
 const AnalyticsScreen = () => {
-	const { data: analytics_tasks, is_loading, is_error } = useAnalyticsTasks();
+	const { data: analytics_tasks, is_loading, error } = useAnalyticsTasks();
 
 	return (
 		<ScrollView showsVerticalScrollIndicator={false}>
@@ -88,10 +88,8 @@ const AnalyticsScreen = () => {
 
 				{is_loading && <ActivityIndicator size="large" />}
 
-				{is_error && (
-					<Text className="text-red-800">
-						Error: {is_error.message}
-					</Text>
+				{error && (
+					<Text className="text-red-800">Error: {error.message}</Text>
 				)}
 
 				{analytics_tasks?.map((task) => (
