@@ -13,6 +13,7 @@ import TaskCard from "@/components/tasks/TaskCard";
 import { COLORS } from "@/constants/Colors";
 import { QUICK_TASK_DETAILS } from "@/constants/tasks/QuickTaskDetails";
 import { TASKS_MENU_ITEMS } from "@/constants/tasks/TasksMenuItems";
+import useTaskOverviewItems from "@/hooks/useTaskOverviewItems";
 import useTasks from "@/hooks/useTasks";
 import EmptyTaskView from "../components/tasks/EmptyTaskView";
 
@@ -20,6 +21,11 @@ const TasksScreen = () => {
 	const [has_tasks, setHasTasks] = useState(false);
 	const router = useRouter();
 	const { data: tasks, is_loading, error } = useTasks();
+	const {
+		data: overview_items,
+		is_loading: overview_is_loading,
+		error: overview_error,
+	} = useTaskOverviewItems();
 
 	const handleFABOnPress = () => {
 		router.navigate({
@@ -52,34 +58,33 @@ const TasksScreen = () => {
 										Sprint 2025-01
 									</Text>
 								</CardHeader>
+
+								{overview_is_loading && <ActivityIndicator />}
+								{overview_error && (
+									<Text className="text-red-800">
+										Error: {overview_error.message}
+									</Text>
+								)}
+
 								<View className="flex-row justify-between items-center mb-3 pr-6">
-									<View className="flex-row items-center">
-										<OverviewItem
-											title="12 tasks"
-											subtitle="assigned"
-										/>
-									</View>
+									{overview_items?.map((item, index) => (
+										<View
+											key={item.id}
+											className="flex-row items-center">
+											{index !== 0 && <DotSeparator />}
 
-									<View className="flex-row items-center">
-										<DotSeparator />
-
-										<OverviewItem
-											title={5}
-											subtitle="completed"
-											style={{ marginLeft: 10 }}
-										/>
-									</View>
-
-									<View className="flex-row items-center">
-										<DotSeparator />
-
-										<OverviewItem
-											title="42h"
-											subtitle="logged"
-											style={{ marginLeft: 10 }}
-										/>
-									</View>
+											<OverviewItem
+												title={item.title}
+												subtitle={item.subtitle}
+												style={{
+													marginLeft:
+														index !== 0 ? 10 : 0,
+												}}
+											/>
+										</View>
+									))}
 								</View>
+
 								<Progress.Bar
 									progress={0.56}
 									width={null}
