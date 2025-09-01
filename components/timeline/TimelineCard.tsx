@@ -10,46 +10,46 @@ interface TimelineCardProps {
 }
 
 const TimelineCard = ({ style, item }: TimelineCardProps) => {
-	const durationMinutes = moment(item.endDate).diff(
-		moment(item.startDate),
+	const duration_minutes = moment(item.end_date).diff(
+		moment(item.start_date),
 		"minutes"
 	);
-	const hours = Math.floor(durationMinutes / 60);
-	const minutes = durationMinutes % 60;
-	const durationString =
+	const hours = Math.floor(duration_minutes / 60);
+	const minutes = duration_minutes % 60;
+	const duration_string =
 		hours > 0
 			? `${hours}h ${minutes > 0 ? minutes + "m" : ""}`
 			: `${minutes}m`;
 
-	const isBreak = item.type === "break";
+	const is_break = item.type === "break";
 
 	return (
 		<View
 			className="rounded-lg p-3"
 			style={{
 				...style,
-				backgroundColor: isBreak ? "#E6E7EB" : item.color,
-				borderWidth: isBreak ? 2 : 0,
-				borderStyle: isBreak ? "dashed" : "solid",
-				borderColor: isBreak ? "gray" : "transparent",
+				backgroundColor: is_break ? "#E6E7EB" : item.color,
+				borderWidth: is_break ? 2 : 0,
+				borderStyle: is_break ? "dashed" : "solid",
+				borderColor: is_break ? "gray" : "transparent",
 			}}>
 			<Text
 				className="font-medium"
 				style={{
-					color: isBreak ? COLORS.dark100 : COLORS.white,
+					color: is_break ? COLORS.dark100 : COLORS.white,
 				}}>
-				{isBreak ? `Break (${durationString})` : item.title}
+				{is_break ? `Break (${duration_string})` : item.title}
 			</Text>
 
-			{!isBreak && (
+			{!is_break && (
 				<>
 					<Text className="text-light-100 font-medium">
-						{moment(item.startDate).format("h:mm")} -{" "}
-						{moment(item.endDate).format("h:mm")}
+						{moment(item.start_date).format("h:mm")} -{" "}
+						{moment(item.end_date).format("h:mm")}
 					</Text>
 
 					<Text className="text-light-200 font-medium">
-						{durationString}
+						{duration_string}
 					</Text>
 				</>
 			)}
