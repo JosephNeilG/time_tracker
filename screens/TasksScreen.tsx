@@ -1,20 +1,12 @@
-import { FontAwesome6 } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
-import {
-	ActivityIndicator,
-	ScrollView,
-	StyleSheet,
-	Text,
-	TouchableOpacity,
-	View,
-} from "react-native";
+import { ActivityIndicator, ScrollView, Text, View } from "react-native";
 import * as Progress from "react-native-progress";
 
 import Card from "@/components/card/Card";
 import CardHeader from "@/components/card/CardHeader";
 import DotSeparator from "@/components/DotSeparator";
-import Icon from "@/components/Icon";
+import FloatingActionButton from "@/components/FloatingActionButton";
 import MenuBar from "@/components/MenuBar";
 import TaskOverviewItem from "@/components/TaskOverviewItem";
 import TaskCard from "@/components/tasks/TaskCard";
@@ -123,29 +115,9 @@ const TasksScreen = () => {
 				</View>
 			</ScrollView>
 
-			{has_tasks && (
-				<TouchableOpacity onPress={handleFABOnPress}>
-					<Icon
-						name="bolt"
-						IconSet={FontAwesome6}
-						is_circle
-						size={60}
-						icon_size={20}
-						style={styles.fab}
-					/>
-				</TouchableOpacity>
-			)}
+			{has_tasks && <FloatingActionButton onPress={handleFABOnPress} />}
 		</View>
 	);
 };
-
-const styles = StyleSheet.create({
-	fab: {
-		position: "absolute",
-		margin: 16,
-		right: 0,
-		bottom: 0,
-	},
-});
 
 export default TasksScreen;
