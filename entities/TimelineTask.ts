@@ -1,7 +1,7 @@
 export interface TimelineTask {
 	title: string;
-	start_date: string | Date;
-	end_date: string | Date;
+	startDate: string | Date;
+	endDate: string | Date;
 	color: string;
 	is_break?: boolean;
 	type: "work" | "break";

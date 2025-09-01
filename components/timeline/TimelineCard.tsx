@@ -10,8 +10,8 @@ interface TimelineCardProps {
 }
 
 const TimelineCard = ({ style, item }: TimelineCardProps) => {
-	const duration_minutes = moment(item.end_date).diff(
-		moment(item.start_date),
+	const duration_minutes = moment(item.endDate).diff(
+		moment(item.startDate),
 		"minutes"
 	);
 	const hours = Math.floor(duration_minutes / 60);
@@ -44,8 +44,8 @@ const TimelineCard = ({ style, item }: TimelineCardProps) => {
 			{!is_break && (
 				<>
 					<Text className="text-light-100 font-medium">
-						{moment(item.start_date).format("h:mm")} -{" "}
-						{moment(item.end_date).format("h:mm")}
+						{moment(item.startDate).format("h:mm")} -{" "}
+						{moment(item.endDate).format("h:mm")}
 					</Text>
 
 					<Text className="text-light-200 font-medium">
