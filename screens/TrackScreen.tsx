@@ -19,8 +19,15 @@ import { COLORS } from "@/constants/Colors";
 import { useAppStore } from "@/store/appStore";
 
 const TrackScreen = () => {
-	const { title, category, description, icon_name, progress, time_stamp } =
-		useLocalSearchParams();
+	const {
+		id,
+		title,
+		category,
+		description,
+		icon_name,
+		progress,
+		time_stamp,
+	} = useLocalSearchParams();
 
 	const is_loading_tasks = useAppStore((state) => state.is_loading_tasks);
 	const is_tasks_synced = useAppStore((state) => state.is_tasks_synced);
@@ -28,7 +35,7 @@ const TrackScreen = () => {
 	const syncTasks = useAppStore((state) => state.syncTasks);
 
 	const track_tasks = tasks
-		.filter((task) => task.status !== "completed")
+		.filter((task) => task.status !== "completed" && task.id !== Number(id))
 		.map((task) => ({
 			id: task.id,
 			category_icon_name: task.icon_name,
@@ -59,25 +66,25 @@ const TrackScreen = () => {
 
 							<View className="items-center my-5">
 								<Text className="text-primary text-2xl font-medium mb-2">
-									{title || "API Integration Setup"}
+									{title || "Task"}
 								</Text>
 								<View className="flex-row flex-wrap justify-center items-center gap-1">
 									<Text className="text-secondary text-base font-medium leading-6">
-										{description || "Spring 2025-01"}
+										{description || "YYYY-DD"}
 									</Text>
 									<DotSeparator
 										color={COLORS.secondary}
 										size={3.5}
 									/>
 									<Text className="text-secondary text-base font-medium leading-6">
-										{category || "Frontend Development"}
+										{category || "Category"}
 									</Text>
 								</View>
 							</View>
 
 							<View className="w-full">
 								<Progress.Bar
-									progress={Number(progress) || 0.47}
+									progress={Number(progress) || 0}
 									width={null}
 									color={COLORS.primary}
 									unfilledColor="#E6E7EB"
@@ -87,7 +94,7 @@ const TrackScreen = () => {
 							</View>
 
 							<Text className="text-primary text-4xl font-medium mt-5 mb-6">
-								{time_stamp || "02:34:15"}
+								{time_stamp || "00:00:00"}
 							</Text>
 
 							<View className="flex-row gap-6 items-center">
@@ -107,7 +114,7 @@ const TrackScreen = () => {
 
 								<TouchableOpacity>
 									<Icon
-										name="pause"
+										name="play"
 										IconSet={FontAwesome6}
 										is_circle
 										size={70}

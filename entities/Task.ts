@@ -12,4 +12,7 @@ export interface Task {
 	time_logged: string;
 	dot_color: string;
 	progress_percent: string;
+	description?: string;
+	progress?: number;
+	time_stamp?: string;
 }

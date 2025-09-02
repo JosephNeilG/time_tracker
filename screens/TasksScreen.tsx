@@ -10,6 +10,7 @@ import TaskCard from "@/components/tasks/TaskCard";
 import TasksOverviewCard from "@/components/tasks/TasksOverviewCard";
 import { QUICK_TASK_DETAILS } from "@/constants/tasks/QuickTaskDetails";
 import { TASKS_MENU_ITEMS } from "@/constants/tasks/TasksMenuItems";
+import { Task } from "@/entities/Task";
 import { getRemainingDays, getSprintLabel } from "@/helpers/dateHelper";
 import { useAppStore } from "@/store/appStore";
 import EmptyTaskView from "../components/EmptyTaskView";
@@ -48,8 +49,21 @@ const TasksScreen = () => {
 		});
 	};
 
-	const handleCardOnPress = () => {
-		router.navigate("/");
+	const handleCardOnPress = (task: Task) => {
+		if (task.status !== "completed") {
+			router.navigate({
+				pathname: "/",
+				params: {
+					id: task.id,
+					title: task.title,
+					description: sprint_label,
+					category: task.category,
+					icon_name: String(task.icon_name),
+					progress: task.progress,
+					time_stamp: task.time_stamp,
+				},
+			});
+		}
 	};
 
 	return (

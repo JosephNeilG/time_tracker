@@ -9,7 +9,7 @@ import { TASK_STATUS_STYLES } from "@/stylesheets/TaskStatusStyles";
 
 interface TaskCardProps {
 	task: Task;
-	onPress?: () => void;
+	onPress?: (task: Task) => void;
 }
 
 const TaskCard = ({ task, onPress }: TaskCardProps) => {
@@ -19,7 +19,7 @@ const TaskCard = ({ task, onPress }: TaskCardProps) => {
 		<Card
 			background_color={styles.background_color}
 			border_color={styles.border_color}
-			onPress={task.status === "tracking" ? onPress : undefined}>
+			onPress={() => onPress?.(task)}>
 			<CardHeader
 				right_text={task.right_text}
 				text_color={styles.card_text_color}>
