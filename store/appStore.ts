@@ -11,12 +11,14 @@ interface AppState {
 	is_loading_tasks: boolean;
 	syncTasks: () => void;
 	getTasks: () => Task[];
-	getTasksByMenu: (menu_label: "All" | "In Progress" | "Completed") => Task[];
 	getTaskOverview: () => {
 		total: number;
 		completed: number;
-		logged: string | number;
+		logged: number;
 	};
+	toggleCardPlayerIcon: (id: number) => void;
+	current_task: Task | null;
+	setCurrentTask: (task: Task) => void;
 	reset: () => void;
 }
 
@@ -24,6 +26,7 @@ const initial_state = {
 	is_loading_tasks: false,
 	is_tasks_synced: false,
 	tasks: [],
+	current_task: null,
 };
 
 export const useAppStore = create<AppState>()(
@@ -43,32 +46,57 @@ export const useAppStore = create<AppState>()(
 
 			getTasks: () => get().tasks,
 
-			getTasksByMenu: (
-				menuLabel: "All" | "In Progress" | "Completed"
-			) => {
-				const tasks = get().tasks;
-				switch (menuLabel) {
-					case "All":
-						return tasks;
-					case "In Progress":
-						return tasks.filter((t) => t.status === "tracking");
-					case "Completed":
-						return tasks.filter((t) => t.status === "completed");
-					default:
-						return tasks;
-				}
-			},
-
 			getTaskOverview: () => {
 				const tasks = get().tasks;
 				const total = tasks.length;
 				const completed = tasks.filter(
 					(t) => t.status === "completed"
 				).length;
-				const logged_static_value = 0;
-				const logged = `${logged_static_value}h`;
+				const logged = 0;
 
 				return { total, completed, logged };
+			},
+
+			toggleCardPlayerIcon: (id: number) => {
+				set((state) => {
+					const target = state.tasks.find((t) => t.id === id);
+					if (!target || target.status === "completed") {
+						return {};
+					}
+
+					const is_currently_tracking = target.status === "tracking";
+
+					const updated: Task[] = state.tasks.map((task) => {
+						if (task.id === id) {
+							return {
+								...task,
+								status: is_currently_tracking
+									? "todo"
+									: "tracking",
+								media_icon: is_currently_tracking
+									? "play"
+									: "pause",
+							} as Task;
+						}
+						if (
+							!is_currently_tracking &&
+							task.status === "tracking"
+						) {
+							return {
+								...task,
+								status: "todo",
+								media_icon: "play",
+							} as Task;
+						}
+						return task;
+					});
+
+					return { tasks: updated };
+				});
+			},
+
+			setCurrentTask: (task: Task) => {
+				set({ current_task: task });
 			},
 
 			reset: () => {

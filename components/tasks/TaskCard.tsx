@@ -10,9 +10,10 @@ import { TASK_STATUS_STYLES } from "@/stylesheets/TaskStatusStyles";
 interface TaskCardProps {
 	task: Task;
 	onPress?: (task: Task) => void;
+	onMediaPress?: (task: Task) => void;
 }
 
-const TaskCard = ({ task, onPress }: TaskCardProps) => {
+const TaskCard = ({ task, onPress, onMediaPress }: TaskCardProps) => {
 	const styles = TASK_STATUS_STYLES[task.status];
 
 	return (
@@ -45,6 +46,7 @@ const TaskCard = ({ task, onPress }: TaskCardProps) => {
 				}
 				media_status_icon_bg_color={styles.media_status_icon?.bg_color}
 				media_status_icon_color={styles.media_status_icon?.color}
+				onMediaPress={() => onMediaPress?.(task)}
 			/>
 		</Card>
 	);

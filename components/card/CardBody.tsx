@@ -19,6 +19,7 @@ interface CardBodyProps {
 	media_status_icon_color?: string;
 	media_status_icon_bg_color?: string;
 	media_status_icon_border_color?: string;
+	onMediaPress?: () => void;
 }
 
 const CardBody = ({
@@ -34,6 +35,7 @@ const CardBody = ({
 	media_status_icon_color = COLORS.secondary,
 	media_status_icon_bg_color = "transparent",
 	media_status_icon_border_color = COLORS.dark200,
+	onMediaPress,
 }: CardBodyProps) => {
 	return (
 		<View className="flex-row items-center justify-between">
@@ -82,7 +84,7 @@ const CardBody = ({
 				</View>
 			</View>
 
-			<TouchableOpacity>
+			<TouchableOpacity onPress={onMediaPress}>
 				<Icon
 					is_circle
 					name={media_status_icon}

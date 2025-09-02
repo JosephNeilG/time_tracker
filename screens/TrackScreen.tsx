@@ -1,5 +1,4 @@
 import { FontAwesome6 } from "@expo/vector-icons";
-import { useLocalSearchParams } from "expo-router";
 import React from "react";
 import {
 	ActivityIndicator,
@@ -16,26 +15,20 @@ import EmptyTaskView from "@/components/EmptyTaskView";
 import Icon from "@/components/Icon";
 import TrackTaskCard from "@/components/track/TrackTaskCard";
 import { COLORS } from "@/constants/Colors";
+import { getSprintLabel } from "@/helpers/dateHelper";
 import { useAppStore } from "@/store/appStore";
 
 const TrackScreen = () => {
-	const {
-		id,
-		title,
-		category,
-		description,
-		icon_name,
-		progress,
-		time_stamp,
-	} = useLocalSearchParams();
+	const sprint_label = getSprintLabel();
 
 	const is_loading_tasks = useAppStore((state) => state.is_loading_tasks);
 	const is_tasks_synced = useAppStore((state) => state.is_tasks_synced);
 	const tasks = useAppStore((state) => state.tasks);
 	const syncTasks = useAppStore((state) => state.syncTasks);
+	const current_task = useAppStore((state) => state.current_task);
 
 	const track_tasks = tasks
-		.filter((task) => task.status !== "completed" && task.id !== Number(id))
+		.filter((task) => task.status !== "completed")
 		.map((task) => ({
 			id: task.id,
 			category_icon_name: task.icon_name,
@@ -44,6 +37,15 @@ const TrackScreen = () => {
 			task_time_estimate: task.time_estimate,
 			media_status_icon: task.media_icon,
 		}));
+
+	const task = current_task ?? {
+		icon_name: "circle-question",
+		title: "No Task Selected",
+		description: "YYYY-DD",
+		category: "Category",
+		progress_count: 0,
+		time_stamp: "00:00:00",
+	};
 
 	return (
 		<ScrollView showsVerticalScrollIndicator={false}>
@@ -58,7 +60,7 @@ const TrackScreen = () => {
 								paddingVertical: 25,
 							}}>
 							<Icon
-								name={(icon_name as string) || "code"}
+								name={(task.icon_name as string) || "code"}
 								IconSet={FontAwesome6}
 								container_color={COLORS.dark300}
 								size={130}
@@ -66,25 +68,25 @@ const TrackScreen = () => {
 
 							<View className="items-center my-5">
 								<Text className="text-primary text-2xl font-medium mb-2">
-									{title || "Task"}
+									{task.title || "Task"}
 								</Text>
 								<View className="flex-row flex-wrap justify-center items-center gap-1">
 									<Text className="text-secondary text-base font-medium leading-6">
-										{description || "YYYY-DD"}
+										{sprint_label || "YYYY-DD"}
 									</Text>
 									<DotSeparator
 										color={COLORS.secondary}
 										size={3.5}
 									/>
 									<Text className="text-secondary text-base font-medium leading-6">
-										{category || "Category"}
+										{task.category || "Category"}
 									</Text>
 								</View>
 							</View>
 
 							<View className="w-full">
 								<Progress.Bar
-									progress={Number(progress) || 0}
+									progress={task.progress_count || 0}
 									width={null}
 									color={COLORS.primary}
 									unfilledColor="#E6E7EB"
@@ -94,7 +96,7 @@ const TrackScreen = () => {
 							</View>
 
 							<Text className="text-primary text-4xl font-medium mt-5 mb-6">
-								{time_stamp || "00:00:00"}
+								{task.time_stamp || "00:00:00"}
 							</Text>
 
 							<View className="flex-row gap-6 items-center">
@@ -142,7 +144,7 @@ const TrackScreen = () => {
 							<Text className="text-primary text-2xl font-medium">
 								Up Next
 							</Text>
-							<TouchableOpacity className="flex-row items-center gap-2">
+							{/* <TouchableOpacity className="flex-row items-center gap-2">
 								<FontAwesome6
 									name="shuffle"
 									size={16}
@@ -151,7 +153,7 @@ const TrackScreen = () => {
 								<Text className="text-dark-100 text-lg font-medium leading-6">
 									Shuffle
 								</Text>
-							</TouchableOpacity>
+							</TouchableOpacity> */}
 						</View>
 
 						{is_loading_tasks ? (
