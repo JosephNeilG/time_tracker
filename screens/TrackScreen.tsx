@@ -49,6 +49,8 @@ const TrackScreen = () => {
 		store.setCurrentTask(tasks.find((t) => t.id === task.id)!);
 	};
 
+	const disabledStyle = current_task ? "opacity-100" : "opacity-70";
+
 	return (
 		<ScrollView showsVerticalScrollIndicator={false}>
 			<View className="p-7 items-center w-full">
@@ -102,7 +104,9 @@ const TrackScreen = () => {
 							</Text>
 
 							<View className="flex-row gap-6 items-center">
-								<TouchableOpacity>
+								<TouchableOpacity
+									disabled={!current_task}
+									className={disabledStyle}>
 									<Icon
 										name="backward"
 										IconSet={FontAwesome6}
@@ -116,7 +120,9 @@ const TrackScreen = () => {
 									/>
 								</TouchableOpacity>
 
-								<TouchableOpacity>
+								<TouchableOpacity
+									disabled={!current_task}
+									className={disabledStyle}>
 									<Icon
 										name="play"
 										IconSet={FontAwesome6}
@@ -126,7 +132,9 @@ const TrackScreen = () => {
 									/>
 								</TouchableOpacity>
 
-								<TouchableOpacity>
+								<TouchableOpacity
+									disabled={!current_task}
+									className={disabledStyle}>
 									<Icon
 										name="forward"
 										IconSet={FontAwesome6}
