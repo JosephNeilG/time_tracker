@@ -1,12 +1,14 @@
 import { useRouter } from "expo-router";
-import React from "react";
+import React, { useState } from "react";
 import { ActivityIndicator, ScrollView, Text, View } from "react-native";
 import * as Progress from "react-native-progress";
 
 import Card from "@/components/card/Card";
 import CardHeader from "@/components/card/CardHeader";
 import DotSeparator from "@/components/DotSeparator";
+import EmptyTaskListText from "@/components/EmptyTaskListText";
 import FloatingActionButton from "@/components/FloatingActionButton";
+import LoadingIndicator from "@/components/LoadingIndicator";
 import MenuBar from "@/components/MenuBar";
 import OverviewItem from "@/components/OverviewItem";
 import TaskCard from "@/components/tasks/TaskCard";
@@ -19,11 +21,18 @@ import EmptyTaskView from "../components/EmptyTaskView";
 
 const TasksScreen = () => {
 	const router = useRouter();
+	const [selected_tab, setSelectedTab] = useState<
+		"All" | "In Progress" | "Completed"
+	>("All");
 
 	const is_loading_tasks = useAppStore((state) => state.is_loading_tasks);
 	const is_tasks_synced = useAppStore((state) => state.is_tasks_synced);
-	const tasks = useAppStore((state) => state.getTasks());
 	const syncTasks = useAppStore((state) => state.syncTasks);
+
+	const getTasksByMenu = useAppStore((state) => state.getTasksByMenu);
+	const filtered_tasks = getTasksByMenu(selected_tab);
+
+	const is_task_list_empty = filtered_tasks.length === 0;
 
 	const {
 		data: overview_items,
@@ -102,12 +111,24 @@ const TasksScreen = () => {
 							<MenuBar
 								tabs={TASKS_MENU_ITEMS}
 								initial_index={0}
+								onTabPress={(index) => {
+									setSelectedTab(
+										TASKS_MENU_ITEMS[index].label as
+											| "All"
+											| "In Progress"
+											| "Completed"
+									);
+								}}
 							/>
 
 							{is_loading_tasks ? (
-								<ActivityIndicator size="large" />
+								<LoadingIndicator />
+							) : is_task_list_empty ? (
+								<EmptyTaskListText
+									selected_tab={selected_tab}
+								/>
 							) : (
-								tasks.map((task) => (
+								filtered_tasks.map((task) => (
 									<TaskCard
 										key={task.id}
 										task={task}

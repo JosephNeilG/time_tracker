@@ -11,6 +11,7 @@ interface AppState {
 	is_loading_tasks: boolean;
 	syncTasks: () => void;
 	getTasks: () => Task[];
+	getTasksByMenu: (menu_label: "All" | "In Progress" | "Completed") => Task[];
 	reset: () => void;
 }
 
@@ -36,6 +37,22 @@ export const useAppStore = create<AppState>()(
 			},
 
 			getTasks: () => get().tasks,
+
+			getTasksByMenu: (
+				menuLabel: "All" | "In Progress" | "Completed"
+			) => {
+				const tasks = get().tasks;
+				switch (menuLabel) {
+					case "All":
+						return tasks;
+					case "In Progress":
+						return tasks.filter((t) => t.status === "tracking");
+					case "Completed":
+						return tasks.filter((t) => t.status === "completed");
+					default:
+						return tasks;
+				}
+			},
 
 			reset: () => {
 				set(initial_state);
