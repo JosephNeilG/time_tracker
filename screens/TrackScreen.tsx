@@ -66,7 +66,7 @@ const TrackScreen = () => {
 								</Text>
 								<View className="flex-row flex-wrap justify-center items-center gap-1">
 									<Text className="text-secondary text-base font-medium leading-6">
-										{sprint_label || "YYYY-DD"}
+										{task.description || sprint_label}
 									</Text>
 									<DotSeparator
 										color={COLORS.secondary}

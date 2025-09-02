@@ -38,7 +38,14 @@ const TasksScreen = () => {
 	];
 
 	const handleFABOnPress = () => {
-		useAppStore.getState().setCurrentTask(QUICK_TASK_DETAILS as Task);
+		useAppStore.setState((state) => ({
+			tasks: state.tasks.map((task) =>
+				task.status === "tracking"
+					? { ...task, status: "todo", media_icon: "play" }
+					: task
+			),
+			current_task: QUICK_TASK_DETAILS as Task,
+		}));
 
 		router.navigate("/");
 	};
