@@ -1,6 +1,6 @@
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
-import { ActivityIndicator, ScrollView, Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import * as Progress from "react-native-progress";
 
 import Card from "@/components/card/Card";
@@ -15,7 +15,6 @@ import TaskCard from "@/components/tasks/TaskCard";
 import { COLORS } from "@/constants/Colors";
 import { QUICK_TASK_DETAILS } from "@/constants/tasks/QuickTaskDetails";
 import { TASKS_MENU_ITEMS } from "@/constants/tasks/TasksMenuItems";
-import useTaskOverviewItems from "@/hooks/useTaskOverviewItems";
 import { useAppStore } from "@/store/appStore";
 import EmptyTaskView from "../components/EmptyTaskView";
 
@@ -32,13 +31,16 @@ const TasksScreen = () => {
 	const getTasksByMenu = useAppStore((state) => state.getTasksByMenu);
 	const filtered_tasks = getTasksByMenu(selected_tab);
 
-	const is_task_list_empty = filtered_tasks.length === 0;
+	const getTaskOverview = useAppStore((state) => state.getTaskOverview);
+	const { total, completed, logged } = getTaskOverview();
 
-	const {
-		data: overview_items,
-		is_loading: overview_is_loading,
-		error: overview_error,
-	} = useTaskOverviewItems();
+	const overview_items = [
+		{ id: 1, title: `${total} tasks`, subtitle: "assigned" },
+		{ id: 2, title: completed, subtitle: "completed" },
+		{ id: 3, title: logged, subtitle: "logged" },
+	];
+
+	const is_task_list_empty = filtered_tasks.length === 0;
 
 	const handleFABOnPress = () => {
 		router.navigate({
@@ -71,13 +73,6 @@ const TasksScreen = () => {
 										Sprint 2025-01
 									</Text>
 								</CardHeader>
-
-								{overview_is_loading && <ActivityIndicator />}
-								{overview_error && (
-									<Text className="text-red-800">
-										Error: {overview_error.message}
-									</Text>
-								)}
 
 								<View className="flex-row justify-between items-center mb-3 pr-6">
 									{overview_items?.map((item, index) => (

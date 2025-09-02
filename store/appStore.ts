@@ -12,6 +12,11 @@ interface AppState {
 	syncTasks: () => void;
 	getTasks: () => Task[];
 	getTasksByMenu: (menu_label: "All" | "In Progress" | "Completed") => Task[];
+	getTaskOverview: () => {
+		total: number;
+		completed: number;
+		logged: string | number;
+	};
 	reset: () => void;
 }
 
@@ -52,6 +57,18 @@ export const useAppStore = create<AppState>()(
 					default:
 						return tasks;
 				}
+			},
+
+			getTaskOverview: () => {
+				const tasks = get().tasks;
+				const total = tasks.length;
+				const completed = tasks.filter(
+					(t) => t.status === "completed"
+				).length;
+				const logged_static_value = 0;
+				const logged = `${logged_static_value}h`;
+
+				return { total, completed, logged };
 			},
 
 			reset: () => {
