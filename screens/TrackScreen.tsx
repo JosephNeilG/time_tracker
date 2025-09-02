@@ -16,6 +16,7 @@ import Icon from "@/components/Icon";
 import TrackTaskCard from "@/components/track/TrackTaskCard";
 import { COLORS } from "@/constants/Colors";
 import { EMPTY_PLAYER_PLACEHOLDER } from "@/constants/EmptyPlayerPlaceholder";
+import { TrackTask } from "@/entities/TrackTask";
 import { getSprintLabel } from "@/helpers/dateHelper";
 import { useAppStore } from "@/store/appStore";
 
@@ -40,6 +41,13 @@ const TrackScreen = () => {
 		}));
 
 	const task = current_task ?? EMPTY_PLAYER_PLACEHOLDER;
+
+	const handleOnMediaPress = (task: TrackTask) => {
+		const store = useAppStore.getState();
+
+		store.toggleCardPlayerIcon(task.id);
+		store.setCurrentTask(tasks.find((t) => t.id === task.id)!);
+	};
 
 	return (
 		<ScrollView showsVerticalScrollIndicator={false}>
@@ -154,7 +162,11 @@ const TrackScreen = () => {
 							<ActivityIndicator size="large" />
 						) : (
 							track_tasks.map((task) => (
-								<TrackTaskCard key={task.id} task={task} />
+								<TrackTaskCard
+									key={task.id}
+									task={task}
+									onMediaPress={handleOnMediaPress}
+								/>
 							))
 						)}
 					</>
