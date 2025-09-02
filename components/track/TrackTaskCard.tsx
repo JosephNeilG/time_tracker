@@ -5,12 +5,14 @@ import CardBody from "../card/CardBody";
 
 interface TrackTaskCardProps {
 	task: TrackTask;
+	onPress?: (task: TrackTask) => void;
+
 	onMediaPress?: (task: TrackTask) => void;
 }
 
-const TrackTaskCard = ({ task, onMediaPress }: TrackTaskCardProps) => {
+const TrackTaskCard = ({ task, onPress, onMediaPress }: TrackTaskCardProps) => {
 	return (
-		<Card>
+		<Card onPress={() => onPress?.(task)}>
 			<CardBody
 				category_icon_name={task.category_icon_name}
 				task_title={task.task_title}

@@ -42,7 +42,7 @@ const TrackScreen = () => {
 
 	const task = current_task ?? EMPTY_PLAYER_PLACEHOLDER;
 
-	const handleOnMediaPress = (task: TrackTask) => {
+	const handleOnPress = (task: TrackTask) => {
 		const store = useAppStore.getState();
 
 		store.toggleCardPlayerIcon(task.id);
@@ -173,7 +173,8 @@ const TrackScreen = () => {
 								<TrackTaskCard
 									key={task.id}
 									task={task}
-									onMediaPress={handleOnMediaPress}
+									onPress={handleOnPress}
+									onMediaPress={handleOnPress}
 								/>
 							))
 						)}
