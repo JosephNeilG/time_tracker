@@ -15,6 +15,7 @@ import EmptyTaskView from "@/components/EmptyTaskView";
 import Icon from "@/components/Icon";
 import TrackTaskCard from "@/components/track/TrackTaskCard";
 import { COLORS } from "@/constants/Colors";
+import { EMPTY_PLAYER_PLACEHOLDER } from "@/constants/EmptyPlayerPlaceholder";
 import { getSprintLabel } from "@/helpers/dateHelper";
 import { useAppStore } from "@/store/appStore";
 
@@ -38,14 +39,7 @@ const TrackScreen = () => {
 			media_status_icon: task.media_icon,
 		}));
 
-	const task = current_task ?? {
-		icon_name: "circle-question",
-		title: "No Task Selected",
-		description: "YYYY-DD",
-		category: "Category",
-		progress_count: 0,
-		time_stamp: "00:00:00",
-	};
+	const task = current_task ?? EMPTY_PLAYER_PLACEHOLDER;
 
 	return (
 		<ScrollView showsVerticalScrollIndicator={false}>

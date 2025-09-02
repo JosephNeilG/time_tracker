@@ -38,10 +38,9 @@ const TasksScreen = () => {
 	];
 
 	const handleFABOnPress = () => {
-		router.navigate({
-			pathname: "/",
-			params: QUICK_TASK_DETAILS,
-		});
+		useAppStore.getState().setCurrentTask(QUICK_TASK_DETAILS as Task);
+
+		router.navigate("/");
 	};
 
 	const handleCardOnPress = (task: Task) => {
