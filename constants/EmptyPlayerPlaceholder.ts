@@ -5,4 +5,5 @@ export const EMPTY_PLAYER_PLACEHOLDER = {
 	category: "Category",
 	progress_count: 0,
 	time_stamp: "00:00:00",
+	media_icon: "play",
 };

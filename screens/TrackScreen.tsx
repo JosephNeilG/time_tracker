@@ -97,7 +97,7 @@ const TrackScreen = () => {
 								paddingVertical: 25,
 							}}>
 							<Icon
-								name={(task.icon_name as string) || "code"}
+								name={task.icon_name as string}
 								IconSet={FontAwesome6}
 								container_color={COLORS.dark300}
 								size={130}
@@ -105,7 +105,7 @@ const TrackScreen = () => {
 
 							<View className="items-center my-5">
 								<Text className="text-primary text-2xl font-medium mb-2">
-									{task.title || "Task"}
+									{task.title}
 								</Text>
 								<View className="flex-row flex-wrap justify-center items-center gap-1">
 									<Text className="text-secondary text-base font-medium leading-6">
@@ -116,14 +116,14 @@ const TrackScreen = () => {
 										size={3.5}
 									/>
 									<Text className="text-secondary text-base font-medium leading-6">
-										{task.category || "Category"}
+										{task.category}
 									</Text>
 								</View>
 							</View>
 
 							<View className="w-full">
 								<Progress.Bar
-									progress={task.progress_count || 0}
+									progress={task.progress_count}
 									width={null}
 									color={COLORS.primary}
 									unfilledColor="#E6E7EB"
@@ -133,7 +133,7 @@ const TrackScreen = () => {
 							</View>
 
 							<Text className="text-primary text-4xl font-medium mt-5 mb-6">
-								{task.time_stamp || "00:00:00"}
+								{task.time_stamp}
 							</Text>
 
 							<View className="flex-row gap-6 items-center">
