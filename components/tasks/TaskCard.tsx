@@ -16,13 +16,16 @@ interface TaskCardProps {
 const TaskCard = ({ task, onPress, onMediaPress }: TaskCardProps) => {
 	const styles = TASK_STATUS_STYLES[task.status];
 
+	const right_text =
+		task.status === "tracking" ? task.time_stamp : task.right_text;
+
 	return (
 		<Card
 			background_color={styles.background_color}
 			border_color={styles.border_color}
 			onPress={() => onPress?.(task)}>
 			<CardHeader
-				right_text={task.right_text}
+				right_text={right_text}
 				text_color={styles.card_text_color}>
 				<Badge
 					text={styles.badge.text}

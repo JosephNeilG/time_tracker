@@ -4,7 +4,7 @@ import { StyleProp, Text, TextStyle, View, ViewStyle } from "react-native";
 
 interface CardHeaderProps {
 	children: ReactNode;
-	right_text: string;
+	right_text?: string;
 	text_color?: string;
 	style?: StyleProp<ViewStyle>;
 	text_style?: StyleProp<TextStyle>;

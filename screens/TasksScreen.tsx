@@ -53,6 +53,8 @@ const TasksScreen = () => {
 			};
 		});
 
+		useAppStore.getState().startTimer(quickTask.id);
+
 		router.navigate("/");
 	};
 
