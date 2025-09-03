@@ -4,11 +4,16 @@ import { createJSONStorage, persist } from "zustand/middleware";
 
 import { TASKS } from "@/constants/Tasks";
 import { Task } from "@/entities/Task";
+import { formatTime } from "@/helpers/timeHelper";
 
 interface AppState {
 	is_tasks_synced: boolean;
 	tasks: Task[];
 	is_loading_tasks: boolean;
+	current_task_id: number | null;
+	quick_task_counter: number;
+	timer_interval_id: number | null;
+
 	syncTasks: () => void;
 	getTasks: () => Task[];
 	getTaskOverview: () => {
@@ -17,10 +22,10 @@ interface AppState {
 		logged: number;
 	};
 	toggleCardPlayerIcon: (id: number) => void;
-	current_task_id: number | null;
 	setCurrentTask: (id: number) => void;
-	quick_task_counter: number;
 	incrementQuickTaskCounter: () => void;
+	stopTimer: () => void;
+	startTimer: (taskId: number) => void;
 	reset: () => void;
 }
 
@@ -30,6 +35,7 @@ const initial_state = {
 	tasks: [],
 	current_task_id: null,
 	quick_task_counter: 1,
+	timer_interval_id: null,
 };
 
 export const useAppStore = create<AppState>()(
@@ -58,6 +64,46 @@ export const useAppStore = create<AppState>()(
 				const logged = 0;
 
 				return { total, completed, logged };
+			},
+
+			setCurrentTask: (id: number) => {
+				set({ current_task_id: id });
+			},
+
+			incrementQuickTaskCounter: () =>
+				set((state) => ({
+					quick_task_counter: state.quick_task_counter + 1,
+				})),
+
+			stopTimer: () => {
+				const { timer_interval_id } = get();
+				if (timer_interval_id) {
+					clearInterval(timer_interval_id);
+					set({ timer_interval_id: null });
+				}
+			},
+
+			startTimer: (taskId: number) => {
+				get().stopTimer();
+
+				const intervalId = setInterval(() => {
+					set((state) => {
+						const updatedTasks = state.tasks.map((t) => {
+							if (t.id === taskId && t.status === "tracking") {
+								const newTime = (t.time_elapsed || 0) + 1;
+								return {
+									...t,
+									time_elapsed: newTime,
+									time_stamp: formatTime(newTime),
+								};
+							}
+							return t;
+						});
+						return { tasks: updatedTasks };
+					});
+				}, 1000);
+
+				set({ timer_interval_id: intervalId });
 			},
 
 			toggleCardPlayerIcon: (id: number) => {
@@ -94,18 +140,15 @@ export const useAppStore = create<AppState>()(
 						return task;
 					});
 
+					if (is_currently_tracking) {
+						get().stopTimer();
+					} else {
+						setTimeout(() => get().startTimer(id), 100);
+					}
+
 					return { tasks: updated };
 				});
 			},
-
-			setCurrentTask: (id: number) => {
-				set({ current_task_id: id });
-			},
-
-			incrementQuickTaskCounter: () =>
-				set((state) => ({
-					quick_task_counter: state.quick_task_counter + 1,
-				})),
 
 			reset: () => {
 				set(initial_state);

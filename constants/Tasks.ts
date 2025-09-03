@@ -15,6 +15,7 @@ export const TASKS: Task[] = [
 		dot_color: COLORS.primary,
 		progress_percent: "19%",
 		time_stamp: "00:00:00",
+		time_elapsed: 0,
 	},
 	{
 		id: 2,
@@ -29,6 +30,7 @@ export const TASKS: Task[] = [
 		dot_color: COLORS.primary,
 		progress_percent: "45%",
 		time_stamp: "00:00:00",
+		time_elapsed: 0,
 	},
 	{
 		id: 3,
@@ -43,6 +45,7 @@ export const TASKS: Task[] = [
 		dot_color: COLORS.primary,
 		progress_percent: "19%",
 		time_stamp: "00:00:00",
+		time_elapsed: 0,
 	},
 	{
 		id: 4,
@@ -57,6 +60,7 @@ export const TASKS: Task[] = [
 		dot_color: COLORS.primary,
 		progress_percent: "19%",
 		time_stamp: "00:00:00",
+		time_elapsed: 0,
 	},
 	{
 		id: 5,
@@ -71,5 +75,6 @@ export const TASKS: Task[] = [
 		dot_color: COLORS.primary,
 		progress_percent: "19%",
 		time_stamp: "00:00:00",
+		time_elapsed: 0,
 	},
 ];
