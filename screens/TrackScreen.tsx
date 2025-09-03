@@ -30,7 +30,9 @@ const TrackScreen = () => {
 	const current_task = useAppStore((state) => state.current_task);
 
 	const track_tasks = tasks
-		.filter((task) => task.status !== "completed")
+		.filter(
+			(task) => task.status !== "completed" && task.status !== "tracking"
+		)
 		.map((task) => ({
 			id: task.id,
 			category_icon_name: task.icon_name,
