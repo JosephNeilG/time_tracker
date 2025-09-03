@@ -59,9 +59,16 @@ export const useAppStore = create<AppState>()(
 				const tasks = get().tasks;
 				const total = tasks.length;
 				const completed = tasks.filter(
-					(t) => t.status === "completed"
+					(task) => task.status === "completed"
 				).length;
-				const logged = 0;
+
+				const logged_seconds = tasks.reduce(
+					(acc, task) => acc + (task.time_elapsed || 0),
+					0
+				);
+
+				const logged = Math.round(logged_seconds / 60);
+				// const logged = Math.round(logged_seconds / 3600);
 
 				return { total, completed, logged };
 			},
