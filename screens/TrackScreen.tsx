@@ -29,10 +29,8 @@ const TrackScreen = () => {
 	const syncTasks = useAppStore((state) => state.syncTasks);
 	const current_task = useAppStore((state) => state.current_task);
 
-	const track_tasks = tasks
-		.filter(
-			(task) => task.status !== "completed" && task.status !== "tracking"
-		)
+	const up_next_tasks = tasks
+		.filter((task) => task.status !== "completed")
 		.map((task) => ({
 			id: task.id,
 			category_icon_name: task.icon_name,
@@ -49,6 +47,39 @@ const TrackScreen = () => {
 
 		store.toggleCardPlayerIcon(task.id);
 		store.setCurrentTask(tasks.find((t) => t.id === task.id)!);
+	};
+
+	const getCurrentIndex = () => {
+		if (current_task) {
+			return up_next_tasks.findIndex(
+				(task) => task.id === current_task.id
+			);
+		} else {
+			return -1;
+		}
+	};
+
+	const handleNextTask = () => {
+		const index = getCurrentIndex();
+
+		if (index >= 0) {
+			const nextIndex = (index + 1) % up_next_tasks.length;
+			const nextTask = up_next_tasks[nextIndex];
+
+			handleOnPress(nextTask);
+		}
+	};
+
+	const handlePrevTask = () => {
+		const index = getCurrentIndex();
+
+		if (index >= 0) {
+			const prevIndex =
+				(index - 1 + up_next_tasks.length) % up_next_tasks.length;
+			const prevTask = up_next_tasks[prevIndex];
+
+			handleOnPress(prevTask);
+		}
 	};
 
 	const disabledStyle = current_task ? "opacity-100" : "opacity-70";
@@ -108,7 +139,8 @@ const TrackScreen = () => {
 							<View className="flex-row gap-6 items-center">
 								<TouchableOpacity
 									disabled={!current_task}
-									className={disabledStyle}>
+									className={disabledStyle}
+									onPress={handlePrevTask}>
 									<Icon
 										name="backward"
 										IconSet={FontAwesome6}
@@ -136,7 +168,8 @@ const TrackScreen = () => {
 
 								<TouchableOpacity
 									disabled={!current_task}
-									className={disabledStyle}>
+									className={disabledStyle}
+									onPress={handleNextTask}>
 									<Icon
 										name="forward"
 										IconSet={FontAwesome6}
@@ -171,7 +204,7 @@ const TrackScreen = () => {
 						{is_loading_tasks ? (
 							<ActivityIndicator size="large" />
 						) : (
-							track_tasks.map((task) => (
+							up_next_tasks.map((task) => (
 								<TrackTaskCard
 									key={task.id}
 									task={task}
