@@ -4,7 +4,7 @@ import { createJSONStorage, persist } from "zustand/middleware";
 
 import { TASKS } from "@/constants/Tasks";
 import { Task } from "@/entities/Task";
-import { formatTime } from "@/helpers/timeHelper";
+import { formatSecondsToHoursMinutes, formatTime } from "@/helpers/timeHelper";
 
 interface AppState {
 	is_tasks_synced: boolean;
@@ -26,6 +26,11 @@ interface AppState {
 	incrementQuickTaskCounter: () => void;
 	stopTimer: () => void;
 	startTimer: (id: number) => void;
+	getAnalyticsOverview: () => {
+		total_tracked_time: string;
+		tasks_worked_count: number;
+		efficiency: number;
+	};
 	reset: () => void;
 }
 
@@ -71,6 +76,30 @@ export const useAppStore = create<AppState>()(
 				// const logged = Math.round(logged_seconds / 3600);
 
 				return { total, completed, logged };
+			},
+
+			getAnalyticsOverview: () => {
+				const tasks = get().tasks;
+
+				const totalSeconds = tasks.reduce(
+					(acc, t) => acc + (t.time_elapsed || 0),
+					0
+				);
+
+				const total_tracked_time =
+					formatSecondsToHoursMinutes(totalSeconds);
+
+				const tasks_worked_count = tasks.filter(
+					(t) => t.status === "completed"
+				).length;
+
+				const efficiency = 80;
+
+				return {
+					total_tracked_time,
+					tasks_worked_count,
+					efficiency,
+				};
 			},
 
 			setCurrentTask: (id: number) => {

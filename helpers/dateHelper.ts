@@ -9,3 +9,7 @@ export const getRemainingDays = (): number => {
 	const last_day = today.endOf("month");
 	return last_day.date() - today.date();
 };
+
+export const getCurrentMonthDateYear = (): string => {
+	return dayjs().format("MMM D, YYYY");
+};

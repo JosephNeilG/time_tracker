@@ -8,23 +8,30 @@ import {
 	View,
 } from "react-native";
 
+import AnalyticsOverviewCard from "@/components/analytics/AnalyticsOverviewCard";
 import AnalyticsTaskCard from "@/components/analytics/AnalyticsTaskCard";
-import Card from "@/components/card/Card";
 import EmptyTaskView from "@/components/EmptyTaskView";
 import MenuBar from "@/components/MenuBar";
-import OverviewItem from "@/components/OverviewItem";
 import TimelineTable from "@/components/timeline/TimelineTable";
 import { ANALYTICS_MENU_ITEMS } from "@/constants/analytics/AnalyticsMenuItems";
 import { COLORS } from "@/constants/Colors";
-import useAnalyticsOverviewItems from "@/hooks/useAnalyticsOverviewItems";
+import { getCurrentMonthDateYear } from "@/helpers/dateHelper";
 import { useAppStore } from "@/store/appStore";
 
 const AnalyticsScreen = () => {
-	const {
-		data: overview_items,
-		is_loading: overview_is_loading,
-		error: overview_error,
-	} = useAnalyticsOverviewItems();
+	const getAnalyticsOverview = useAppStore(
+		(state) => state.getAnalyticsOverview
+	);
+	const { total_tracked_time, tasks_worked_count, efficiency } =
+		getAnalyticsOverview();
+
+	const overview_items = [
+		{ id: 1, title: `${total_tracked_time} `, subtitle: "Total Tracked" },
+		{ id: 2, title: tasks_worked_count, subtitle: "completed" },
+		{ id: 3, title: `${efficiency}%`, subtitle: "Efficiency" },
+	];
+
+	const current_date = getCurrentMonthDateYear();
 
 	const is_loading_tasks = useAppStore((state) => state.is_loading_tasks);
 	const is_tasks_synced = useAppStore((state) => state.is_tasks_synced);
@@ -58,7 +65,7 @@ const AnalyticsScreen = () => {
 								</TouchableOpacity>
 
 								<Text className="text-dark-100 text-lg font-medium leading-6">
-									Jan 15, 2025
+									{current_date}
 								</Text>
 
 								<TouchableOpacity className="flex-row items-center gap-2">
@@ -71,30 +78,9 @@ const AnalyticsScreen = () => {
 							</View>
 						</View>
 
-						<Card
-							border_color="transparent"
-							background_color={COLORS.light400}>
-							{overview_is_loading && (
-								<ActivityIndicator size="small" />
-							)}
-							{overview_error && (
-								<Text className="text-red-800">
-									Error: {overview_error.message}
-								</Text>
-							)}
-							<View className="flex-row justify-between items-center px-3">
-								{overview_items?.map((item) => (
-									<OverviewItem
-										key={item.id}
-										title={item.title}
-										subtitle={item.subtitle}
-										title_size={item.title_size}
-										title_color={COLORS.primary}
-										align="center"
-									/>
-								))}
-							</View>
-						</Card>
+						<AnalyticsOverviewCard
+							overview_items={overview_items}
+						/>
 
 						<MenuBar
 							tabs={ANALYTICS_MENU_ITEMS}
