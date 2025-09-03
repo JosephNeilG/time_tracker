@@ -9,8 +9,8 @@ const createQuickTask = () => {
 	const QUICK_TASK = {
 		id: quickTaskId,
 		title: `Quick Task #${task_number}`,
+		description: "Ad-hoc",
 		category: "Unplanned Work",
-		time_estimate: "N/A",
 		status: "tracking",
 		media_icon: "pause",
 		icon_name: "bolt",

@@ -71,7 +71,9 @@ const CardBody = ({
 							{task_category_name}
 						</Text>
 
-						<DotSeparator color={subtitle_color} />
+						{task_time_estimate && (
+							<DotSeparator color={subtitle_color} />
+						)}
 
 						<Text
 							className="text-base font-medium"
