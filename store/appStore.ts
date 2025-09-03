@@ -19,6 +19,8 @@ interface AppState {
 	toggleCardPlayerIcon: (id: number) => void;
 	current_task_id: number | null;
 	setCurrentTask: (id: number) => void;
+	quick_task_counter: number;
+	incrementQuickTaskCounter: () => void;
 	reset: () => void;
 }
 
@@ -27,6 +29,7 @@ const initial_state = {
 	is_tasks_synced: false,
 	tasks: [],
 	current_task_id: null,
+	quick_task_counter: 1,
 };
 
 export const useAppStore = create<AppState>()(
@@ -98,6 +101,11 @@ export const useAppStore = create<AppState>()(
 			setCurrentTask: (id: number) => {
 				set({ current_task_id: id });
 			},
+
+			incrementQuickTaskCounter: () =>
+				set((state) => ({
+					quick_task_counter: state.quick_task_counter + 1,
+				})),
 
 			reset: () => {
 				set(initial_state);

@@ -8,10 +8,10 @@ import LoadingIndicator from "@/components/LoadingIndicator";
 import MenuBar from "@/components/MenuBar";
 import TaskCard from "@/components/tasks/TaskCard";
 import TasksOverviewCard from "@/components/tasks/TasksOverviewCard";
-import { QUICK_TASK_DETAILS } from "@/constants/tasks/QuickTaskDetails";
 import { TASKS_MENU_ITEMS } from "@/constants/tasks/TasksMenuItems";
 import { Task } from "@/entities/Task";
 import { getRemainingDays, getSprintLabel } from "@/helpers/dateHelper";
+import createQuickTask from "@/helpers/quickTaskHelper";
 import { useAppStore } from "@/store/appStore";
 import EmptyTaskView from "../components/EmptyTaskView";
 
@@ -38,14 +38,20 @@ const TasksScreen = () => {
 	];
 
 	const handleFABOnPress = () => {
-		useAppStore.setState((state) => ({
-			tasks: state.tasks.map((task) =>
+		const quickTask = createQuickTask();
+
+		useAppStore.setState((state) => {
+			const updated_tasks = state.tasks.map((task: any) =>
 				task.status === "tracking"
 					? { ...task, status: "todo", media_icon: "play" }
 					: task
-			),
-			current_task: QUICK_TASK_DETAILS as Task,
-		}));
+			);
+
+			return {
+				tasks: [...updated_tasks, quickTask],
+				current_task_id: quickTask.id,
+			};
+		});
 
 		router.navigate("/");
 	};
