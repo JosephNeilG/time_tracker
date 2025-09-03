@@ -1,6 +1,29 @@
 import { COLORS } from "@/constants/Colors";
+import { TextStyle } from "react-native";
 
-export const TASK_STATUS_STYLES = {
+type TaskStatus = "todo" | "completed" | "tracking";
+
+interface TaskStatusStyles {
+	background_color: string;
+	border_color: string;
+	card_text_color: string;
+	badge: {
+		text: string;
+		bg?: string;
+		color?: string;
+	};
+	title_color: string;
+	subtitle_color: string;
+	title_decoration: TextStyle["textDecorationLine"];
+	category_icon_background: string;
+	media_status_icon: {
+		color?: string;
+		bg_color?: string;
+		border_color?: string;
+	};
+}
+
+export const TASK_STATUS_STYLES: Record<TaskStatus, TaskStatusStyles> = {
 	tracking: {
 		background_color: COLORS.primary,
 		border_color: "transparent",
