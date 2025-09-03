@@ -17,8 +17,8 @@ interface AppState {
 		logged: number;
 	};
 	toggleCardPlayerIcon: (id: number) => void;
-	current_task: Task | null;
-	setCurrentTask: (task: Task) => void;
+	current_task_id: number | null;
+	setCurrentTask: (id: number) => void;
 	reset: () => void;
 }
 
@@ -26,7 +26,7 @@ const initial_state = {
 	is_loading_tasks: false,
 	is_tasks_synced: false,
 	tasks: [],
-	current_task: null,
+	current_task_id: null,
 };
 
 export const useAppStore = create<AppState>()(
@@ -95,8 +95,8 @@ export const useAppStore = create<AppState>()(
 				});
 			},
 
-			setCurrentTask: (task: Task) => {
-				set({ current_task: task });
+			setCurrentTask: (id: number) => {
+				set({ current_task_id: id });
 			},
 
 			reset: () => {

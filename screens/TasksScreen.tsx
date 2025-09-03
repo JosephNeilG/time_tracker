@@ -53,7 +53,7 @@ const TasksScreen = () => {
 	const handleCardOnPress = (task: Task) => {
 		if (task.status !== "completed") {
 			toggleTrack(task.id);
-			useAppStore.getState().setCurrentTask(task);
+			useAppStore.getState().setCurrentTask(task.id);
 
 			router.navigate("/");
 		}
@@ -62,7 +62,7 @@ const TasksScreen = () => {
 	const handleOnMediaPress = (task: Task) => {
 		if (task.status !== "completed") {
 			toggleTrack(task.id);
-			useAppStore.getState().setCurrentTask(task);
+			useAppStore.getState().setCurrentTask(task.id);
 		}
 	};
 

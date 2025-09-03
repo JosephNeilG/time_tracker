@@ -25,9 +25,10 @@ const TrackScreen = () => {
 
 	const is_loading_tasks = useAppStore((state) => state.is_loading_tasks);
 	const is_tasks_synced = useAppStore((state) => state.is_tasks_synced);
-	const tasks = useAppStore((state) => state.tasks);
 	const syncTasks = useAppStore((state) => state.syncTasks);
-	const current_task = useAppStore((state) => state.current_task);
+	const tasks = useAppStore((state) => state.tasks);
+	const current_task_id = useAppStore((state) => state.current_task_id);
+	const current_task = tasks.find((t) => t.id === current_task_id) || null;
 
 	const up_next_tasks = tasks
 		.filter((task) => task.status !== "completed")
@@ -44,9 +45,8 @@ const TrackScreen = () => {
 
 	const handleOnPress = (task: TrackTask) => {
 		const store = useAppStore.getState();
-
 		store.toggleCardPlayerIcon(task.id);
-		store.setCurrentTask(tasks.find((t) => t.id === task.id)!);
+		store.setCurrentTask(task.id);
 	};
 
 	const getCurrentIndex = () => {
@@ -79,6 +79,14 @@ const TrackScreen = () => {
 			const prevTask = up_next_tasks[prevIndex];
 
 			handleOnPress(prevTask);
+		}
+	};
+
+	const handleCardPlayerOnPress = () => {
+		if (current_task) {
+			const store = useAppStore.getState();
+			store.toggleCardPlayerIcon(current_task.id);
+			store.setCurrentTask(current_task.id);
 		}
 	};
 
@@ -156,9 +164,13 @@ const TrackScreen = () => {
 
 								<TouchableOpacity
 									disabled={!current_task}
-									className={disabledStyle}>
+									className={disabledStyle}
+									onPress={handleCardPlayerOnPress}>
 									<Icon
-										name="play"
+										name={
+											current_task?.media_icon ||
+											task.media_icon
+										}
 										IconSet={FontAwesome6}
 										is_circle
 										size={70}
