@@ -25,7 +25,7 @@ interface AppState {
 	setCurrentTask: (id: number) => void;
 	incrementQuickTaskCounter: () => void;
 	stopTimer: () => void;
-	startTimer: (taskId: number) => void;
+	startTimer: (id: number) => void;
 	reset: () => void;
 }
 
@@ -83,27 +83,27 @@ export const useAppStore = create<AppState>()(
 				}
 			},
 
-			startTimer: (taskId: number) => {
+			startTimer: (id: number) => {
 				get().stopTimer();
 
-				const intervalId = setInterval(() => {
+				const interval_id = setInterval(() => {
 					set((state) => {
-						const updatedTasks = state.tasks.map((t) => {
-							if (t.id === taskId && t.status === "tracking") {
-								const newTime = (t.time_elapsed || 0) + 1;
+						const updated_tasks = state.tasks.map((t) => {
+							if (t.id === id && t.status === "tracking") {
+								const new_time = (t.time_elapsed || 0) + 1;
 								return {
 									...t,
-									time_elapsed: newTime,
-									time_stamp: formatTime(newTime),
+									time_elapsed: new_time,
+									time_stamp: formatTime(new_time),
 								};
 							}
 							return t;
 						});
-						return { tasks: updatedTasks };
+						return { tasks: updated_tasks };
 					});
 				}, 1000);
 
-				set({ timer_interval_id: intervalId });
+				set({ timer_interval_id: interval_id });
 			},
 
 			toggleCardPlayerIcon: (id: number) => {
