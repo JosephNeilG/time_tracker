@@ -1,28 +1,6 @@
 import { COLORS } from "@/constants/Colors";
-import { TaskStatus } from "@/entities/Task";
-import { TextStyle } from "react-native";
 
-interface TaskStatusStyles {
-	background_color: string;
-	border_color: string;
-	card_text_color: string;
-	badge: {
-		text: string;
-		bg?: string;
-		color?: string;
-	};
-	title_color: string;
-	subtitle_color: string;
-	title_decoration: TextStyle["textDecorationLine"];
-	category_icon_background: string;
-	media_status_icon: {
-		color?: string;
-		bg_color?: string;
-		border_color?: string;
-	};
-}
-
-export const TASK_STATUS_STYLES: Record<TaskStatus, TaskStatusStyles> = {
+export const TASK_STATUS_STYLES = {
 	tracking: {
 		background_color: COLORS.primary,
 		border_color: "transparent",

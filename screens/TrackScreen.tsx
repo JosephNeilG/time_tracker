@@ -1,18 +1,13 @@
 import { FontAwesome6 } from "@expo/vector-icons";
 import React from "react";
-import {
-	ActivityIndicator,
-	ScrollView,
-	Text,
-	TouchableOpacity,
-	View,
-} from "react-native";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import * as Progress from "react-native-progress";
 
 import Card from "@/components/card/Card";
 import DotSeparator from "@/components/DotSeparator";
 import EmptyTaskView from "@/components/EmptyTaskView";
 import Icon from "@/components/Icon";
+import LoadingIndicator from "@/components/LoadingIndicator";
 import TrackTaskCard from "@/components/track/TrackTaskCard";
 import { COLORS } from "@/constants/Colors";
 import { EMPTY_PLAYER_PLACEHOLDER } from "@/constants/EmptyPlayerPlaceholder";
@@ -214,7 +209,7 @@ const TrackScreen = () => {
 						</View>
 
 						{is_loading_tasks ? (
-							<ActivityIndicator size="large" />
+							<LoadingIndicator />
 						) : (
 							up_next_tasks.map((task) => (
 								<TrackTaskCard
