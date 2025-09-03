@@ -14,6 +14,7 @@ export const TASKS: Task[] = [
 		time_logged: "2h 15m",
 		dot_color: COLORS.primary,
 		progress_percent: "19%",
+		time_stamp: "00:00:00",
 	},
 	{
 		id: 2,
@@ -27,6 +28,7 @@ export const TASKS: Task[] = [
 		time_logged: "3h 30m",
 		dot_color: COLORS.primary,
 		progress_percent: "45%",
+		time_stamp: "00:00:00",
 	},
 	{
 		id: 3,
@@ -40,6 +42,7 @@ export const TASKS: Task[] = [
 		time_logged: "1h 30m",
 		dot_color: COLORS.primary,
 		progress_percent: "19%",
+		time_stamp: "00:00:00",
 	},
 	{
 		id: 4,
@@ -53,6 +56,7 @@ export const TASKS: Task[] = [
 		time_logged: "2h 15m",
 		dot_color: COLORS.primary,
 		progress_percent: "19%",
+		time_stamp: "00:00:00",
 	},
 	{
 		id: 5,
@@ -66,5 +70,6 @@ export const TASKS: Task[] = [
 		time_logged: "3h 30m",
 		dot_color: COLORS.primary,
 		progress_percent: "19%",
+		time_stamp: "00:00:00",
 	},
 ];
