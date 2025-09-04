@@ -1,6 +1,7 @@
-import { COLORS } from "@/constants/Colors";
 import React from "react";
 import { StyleProp, Text, View, ViewStyle } from "react-native";
+
+import { COLORS } from "@/constants/Colors";
 
 interface BadgeProps {
 	text: string;

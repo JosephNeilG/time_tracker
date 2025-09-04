@@ -1,8 +1,9 @@
-import { COLORS } from "@/constants/Colors";
-import { TimelineTask } from "@/entities/TimelineTask";
 import moment from "moment";
 import React from "react";
 import { Text, View, ViewStyle } from "react-native";
+
+import { COLORS } from "@/constants/Colors";
+import { TimelineTask } from "@/entities/TimelineTask";
 
 interface TimelineCardProps {
 	style?: ViewStyle;

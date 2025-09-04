@@ -1,5 +1,6 @@
-import TrackScreen from "@/screens/TrackScreen";
 import React from "react";
+
+import TrackScreen from "@/screens/TrackScreen";
 
 const Index = () => {
 	return <TrackScreen />;

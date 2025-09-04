@@ -1,9 +1,10 @@
-import { COLORS } from "@/constants/Colors";
-import { useAppStore } from "@/store/appStore";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import React from "react";
 import { Image, TouchableOpacity, View } from "react-native";
+
+import { COLORS } from "@/constants/Colors";
+import { useAppStore } from "@/store/appStore";
 
 const _layout = () => {
 	return (

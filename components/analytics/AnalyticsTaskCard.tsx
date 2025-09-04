@@ -1,8 +1,9 @@
+import React, { useMemo } from "react";
+import { View } from "react-native";
+
 import { COLORS } from "@/constants/Colors";
 import { formatSecondsToHoursMinutes } from "@/helpers/timeHelper";
 import { useAppStore } from "@/store/appStore";
-import React, { useMemo } from "react";
-import { View } from "react-native";
 import Card from "../card/Card";
 import DotSeparator from "../DotSeparator";
 import OverviewItem from "../OverviewItem";

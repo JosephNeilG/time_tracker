@@ -1,6 +1,7 @@
-import { COLORS } from "@/constants/Colors";
 import React from "react";
 import { StyleProp, View, ViewStyle } from "react-native";
+
+import { COLORS } from "@/constants/Colors";
 
 interface DotSeparatorProps {
 	color?: string;

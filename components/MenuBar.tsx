@@ -1,6 +1,7 @@
-import { COLORS } from "@/constants/Colors";
 import React, { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
+
+import { COLORS } from "@/constants/Colors";
 
 interface TabItem {
 	label: string;

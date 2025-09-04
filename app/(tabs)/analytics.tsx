@@ -1,5 +1,6 @@
-import AnalyticsScreen from "@/screens/AnalyticsScreen";
 import React from "react";
+
+import AnalyticsScreen from "@/screens/AnalyticsScreen";
 
 const Analytics = () => {
 	return <AnalyticsScreen />;

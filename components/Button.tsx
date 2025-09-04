@@ -1,4 +1,3 @@
-import { COLORS } from "@/constants/Colors";
 import React from "react";
 import {
 	DimensionValue,
@@ -7,6 +6,8 @@ import {
 	TouchableOpacity,
 	ViewStyle,
 } from "react-native";
+
+import { COLORS } from "@/constants/Colors";
 
 interface ButtonProps {
 	text: string;

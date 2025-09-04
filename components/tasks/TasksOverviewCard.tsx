@@ -1,9 +1,10 @@
-import DotSeparator from "@/components/DotSeparator";
-import OverviewItem from "@/components/OverviewItem";
-import { COLORS } from "@/constants/Colors";
 import React from "react";
 import { Text, View } from "react-native";
 import * as Progress from "react-native-progress";
+
+import DotSeparator from "@/components/DotSeparator";
+import OverviewItem from "@/components/OverviewItem";
+import { COLORS } from "@/constants/Colors";
 import Card from "../card/Card";
 import CardHeader from "../card/CardHeader";
 
