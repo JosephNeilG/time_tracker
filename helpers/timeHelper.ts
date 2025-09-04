@@ -10,8 +10,8 @@ export const formatTime = (seconds: number): string => {
 	return `${hh}:${mm}:${ss}`;
 };
 
-export const formatSecondsToHoursMinutes = (totalSeconds: number): string => {
-	const hours = Math.floor(totalSeconds / 3600);
-	const minutes = Math.floor((totalSeconds % 3600) / 60);
+export const formatSecondsToHoursMinutes = (total_seconds: number): string => {
+	const hours = Math.floor(total_seconds / 3600);
+	const minutes = Math.floor((total_seconds % 3600) / 60);
 	return `${hours}h ${minutes}m`;
 };

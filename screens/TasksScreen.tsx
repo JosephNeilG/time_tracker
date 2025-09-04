@@ -8,7 +8,10 @@ import LoadingIndicator from "@/components/LoadingIndicator";
 import MenuBar from "@/components/MenuBar";
 import TaskCard from "@/components/tasks/TaskCard";
 import TasksOverviewCard from "@/components/tasks/TasksOverviewCard";
-import { TASKS_MENU_ITEMS } from "@/constants/tasks/TasksMenuItems";
+import {
+	TaskMenuItems,
+	TASKS_MENU_ITEMS,
+} from "@/constants/tasks/TasksMenuItems";
 import { Task } from "@/entities/Task";
 import { getRemainingDays, getSprintLabel } from "@/helpers/dateHelper";
 import createQuickTask from "@/helpers/quickTaskHelper";
@@ -19,13 +22,11 @@ const TasksScreen = () => {
 	const router = useRouter();
 	const sprint_label = getSprintLabel();
 	const days_left = getRemainingDays();
-	const [selected_tab, setSelectedTab] = useState<
-		"All" | "In Progress" | "Completed"
-	>("All");
-
+	const [selected_tab, setSelectedTab] = useState<TaskMenuItems>("All");
 	const is_loading_tasks = useAppStore((state) => state.is_loading_tasks);
 	const is_tasks_synced = useAppStore((state) => state.is_tasks_synced);
 	const tasks = useAppStore((state) => state.tasks);
+
 	const syncTasks = useAppStore((state) => state.syncTasks);
 	const getTaskOverview = useAppStore((state) => state.getTaskOverview);
 	const { total, completed, logged } = getTaskOverview();
@@ -36,6 +37,21 @@ const TasksScreen = () => {
 		{ id: 2, title: completed, subtitle: "completed" },
 		{ id: 3, title: `${logged}h`, subtitle: "logged" },
 	];
+
+	const handleCardOnPress = (task: Task) => {
+		if (task.status !== "completed") {
+			useAppStore.getState().setCurrentTask(task.id);
+
+			router.navigate("/");
+		}
+	};
+
+	const handleOnMediaPress = (task: Task) => {
+		if (task.status !== "completed") {
+			toggleTrack(task.id);
+			useAppStore.getState().setCurrentTask(task.id);
+		}
+	};
 
 	const handleFABOnPress = () => {
 		const quickTask = createQuickTask();
@@ -58,19 +74,8 @@ const TasksScreen = () => {
 		router.navigate("/");
 	};
 
-	const handleCardOnPress = (task: Task) => {
-		if (task.status !== "completed") {
-			useAppStore.getState().setCurrentTask(task.id);
-
-			router.navigate("/");
-		}
-	};
-
-	const handleOnMediaPress = (task: Task) => {
-		if (task.status !== "completed") {
-			toggleTrack(task.id);
-			useAppStore.getState().setCurrentTask(task.id);
-		}
+	const handleTabPress = (index: number) => {
+		setSelectedTab(TASKS_MENU_ITEMS[index].label as TaskMenuItems);
 	};
 
 	const filtered_tasks = useMemo(() => {
@@ -104,14 +109,7 @@ const TasksScreen = () => {
 							<MenuBar
 								tabs={TASKS_MENU_ITEMS}
 								initial_index={0}
-								onTabPress={(index) => {
-									setSelectedTab(
-										TASKS_MENU_ITEMS[index].label as
-											| "All"
-											| "In Progress"
-											| "Completed"
-									);
-								}}
+								onTabPress={handleTabPress}
 							/>
 
 							{is_loading_tasks ? (
