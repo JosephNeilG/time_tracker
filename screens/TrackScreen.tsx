@@ -13,6 +13,7 @@ import { COLORS } from "@/constants/Colors";
 import { EMPTY_PLAYER_PLACEHOLDER } from "@/constants/EmptyPlayerPlaceholder";
 import { TrackTask } from "@/entities/TrackTask";
 import { getSprintLabel } from "@/helpers/dateHelper";
+import { toTrackTask } from "@/helpers/taskToTrackTaskHelper";
 import { useAppStore } from "@/store/appStore";
 
 const TrackScreen = () => {
@@ -25,16 +26,21 @@ const TrackScreen = () => {
 	const current_task_id = useAppStore((state) => state.current_task_id);
 	const current_task = tasks.find((t) => t.id === current_task_id) || null;
 
-	const up_next_tasks = tasks
-		.filter((task) => task.status !== "completed")
-		.map((task) => ({
-			id: task.id,
-			category_icon_name: task.icon_name,
-			task_title: task.title,
-			task_category_name: task.category,
-			task_time_estimate: task.time_estimate,
-			media_status_icon: task.media_icon,
-		}));
+	const all_tasks = tasks.filter((task) => task.status !== "completed");
+	const display_next_tasks = [
+		...(current_task ? [current_task] : []),
+		...all_tasks.filter(
+			(task) =>
+				task.id !== current_task?.id && (task.time_elapsed || 0) === 0
+		),
+	].map((task) => ({
+		id: task.id,
+		category_icon_name: task.icon_name,
+		task_title: task.title,
+		task_category_name: task.category,
+		task_time_estimate: task.time_estimate,
+		media_status_icon: task.media_icon,
+	}));
 
 	const task = current_task ?? EMPTY_PLAYER_PLACEHOLDER;
 
@@ -46,9 +52,7 @@ const TrackScreen = () => {
 
 	const getCurrentIndex = () => {
 		if (current_task) {
-			return up_next_tasks.findIndex(
-				(task) => task.id === current_task.id
-			);
+			return all_tasks.findIndex((task) => task.id === current_task.id);
 		} else {
 			return -1;
 		}
@@ -58,10 +62,10 @@ const TrackScreen = () => {
 		const index = getCurrentIndex();
 
 		if (index >= 0) {
-			const nextIndex = (index + 1) % up_next_tasks.length;
-			const nextTask = up_next_tasks[nextIndex];
+			const next_index = (index + 1) % all_tasks.length;
+			const next_task = all_tasks[next_index];
 
-			handleOnPress(nextTask);
+			handleOnPress(toTrackTask(next_task));
 		}
 	};
 
@@ -69,11 +73,11 @@ const TrackScreen = () => {
 		const index = getCurrentIndex();
 
 		if (index >= 0) {
-			const prevIndex =
-				(index - 1 + up_next_tasks.length) % up_next_tasks.length;
-			const prevTask = up_next_tasks[prevIndex];
+			const prev_index =
+				(index - 1 + all_tasks.length) % all_tasks.length;
+			const prev_task = all_tasks[prev_index];
 
-			handleOnPress(prevTask);
+			handleOnPress(toTrackTask(prev_task));
 		}
 	};
 
@@ -211,7 +215,7 @@ const TrackScreen = () => {
 						{is_loading_tasks ? (
 							<LoadingIndicator />
 						) : (
-							up_next_tasks.map((task) => (
+							display_next_tasks.map((task) => (
 								<TrackTaskCard
 									key={task.id}
 									task={task}
