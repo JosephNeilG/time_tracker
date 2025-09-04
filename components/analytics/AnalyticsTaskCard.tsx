@@ -16,7 +16,6 @@ const AnalyticsTaskCard = ({ task_id }: AnalyticsTaskCardProps) => {
 	const task = useAppStore((state) =>
 		state.tasks.find((t) => t.id === task_id)
 	);
-
 	const formatted_time = useMemo(() => {
 		if (!task) return "0m";
 
@@ -27,8 +26,17 @@ const AnalyticsTaskCard = ({ task_id }: AnalyticsTaskCardProps) => {
 		return formatSecondsToHoursMinutes(task.time_elapsed || 0);
 	}, [task?.time_elapsed]);
 
-	const progress_percent =
-		task?.status === "completed" ? "100%" : task?.progress_percent;
+	const getTotalElapsedSeconds = useAppStore(
+		(state) => state.getTotalElapsedSeconds
+	);
+	const tasks_total_elapsed = getTotalElapsedSeconds();
+
+	const percent =
+		tasks_total_elapsed > 0
+			? Math.round(
+					((task?.time_elapsed || 0) / tasks_total_elapsed) * 100
+				)
+			: 0;
 
 	return (
 		<Card>
@@ -47,7 +55,7 @@ const AnalyticsTaskCard = ({ task_id }: AnalyticsTaskCardProps) => {
 				</View>
 				<OverviewItem
 					title={formatted_time}
-					subtitle={progress_percent || ""}
+					subtitle={`${percent}%`}
 					title_size={16}
 					title_color={COLORS.primary}
 					align="right"

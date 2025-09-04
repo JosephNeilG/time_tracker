@@ -16,6 +16,7 @@ interface AppState {
 
 	syncTasks: () => void;
 	getTasks: () => Task[];
+	getTotalElapsedSeconds: () => number;
 	getTaskOverview: () => {
 		total: number;
 		completed: number;
@@ -59,6 +60,14 @@ export const useAppStore = create<AppState>()(
 			},
 
 			getTasks: () => get().tasks,
+
+			getTotalElapsedSeconds: () => {
+				const tasks = get().tasks;
+				return tasks.reduce(
+					(acc, task) => acc + (task.time_elapsed || 0),
+					0
+				);
+			},
 
 			getTaskOverview: () => {
 				const tasks = get().tasks;
@@ -179,7 +188,7 @@ export const useAppStore = create<AppState>()(
 					if (is_currently_tracking) {
 						get().stopTimer();
 					} else {
-						setTimeout(() => get().startTimer(id), 100);
+						get().startTimer(id);
 					}
 
 					return { tasks: updated_tasks };
