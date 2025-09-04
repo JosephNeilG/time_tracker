@@ -1,5 +1,5 @@
 import { FontAwesome6 } from "@expo/vector-icons";
-import { Tabs } from "expo-router";
+import { router, Tabs } from "expo-router";
 import React from "react";
 import { Image, TouchableOpacity, View } from "react-native";
 
@@ -77,6 +77,7 @@ const renderRightActions = () => {
 
 	const handleProfileOnPress = () => {
 		resetAppStore();
+		router.navigate("/auth");
 	};
 
 	return (
