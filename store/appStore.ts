@@ -196,12 +196,15 @@ export const useAppStore = create<AppState>()(
 			partialize: (state) => ({
 				is_tasks_synced: state.is_tasks_synced,
 				tasks: state.tasks.map((task) => {
-					const { status, media_icon, ...others } = task;
-					return {
-						...others,
-						status: "todo",
-						media_icon: "play",
-					};
+					if (task.status === "tracking") {
+						return {
+							...task,
+							status: "todo",
+							media_icon: "play",
+						};
+					}
+
+					return task;
 				}),
 				timer_interval_id: state.timer_interval_id,
 			}),
