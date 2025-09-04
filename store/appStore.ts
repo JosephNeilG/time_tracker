@@ -204,6 +204,7 @@ export const useAppStore = create<AppState>()(
 			storage: createJSONStorage(() => AsyncStorage),
 			partialize: (state) => ({
 				is_tasks_synced: state.is_tasks_synced,
+				current_task_id: state.current_task_id,
 				tasks: state.tasks.map((task) => {
 					if (task.status === "tracking") {
 						return {
@@ -215,7 +216,6 @@ export const useAppStore = create<AppState>()(
 
 					return task;
 				}),
-				timer_interval_id: state.timer_interval_id,
 			}),
 		}
 	)
