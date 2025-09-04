@@ -1,16 +1,11 @@
 import { FontAwesome6 } from "@expo/vector-icons";
 import React from "react";
-import {
-	ActivityIndicator,
-	ScrollView,
-	Text,
-	TouchableOpacity,
-	View,
-} from "react-native";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 import AnalyticsOverviewCard from "@/components/analytics/AnalyticsOverviewCard";
 import AnalyticsTaskCard from "@/components/analytics/AnalyticsTaskCard";
 import EmptyTaskView from "@/components/EmptyTaskView";
+import LoadingIndicator from "@/components/LoadingIndicator";
 import MenuBar from "@/components/MenuBar";
 import TimelineTable from "@/components/timeline/TimelineTable";
 import { ANALYTICS_MENU_ITEMS } from "@/constants/analytics/AnalyticsMenuItems";
@@ -96,7 +91,7 @@ const AnalyticsScreen = () => {
 						</View>
 
 						{is_loading_tasks ? (
-							<ActivityIndicator size="large" />
+							<LoadingIndicator />
 						) : (
 							analytics_tasks.map((task) => (
 								<AnalyticsTaskCard

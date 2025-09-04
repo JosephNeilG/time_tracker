@@ -1,12 +1,13 @@
+import LottieView from "lottie-react-native";
 import React from "react";
-import { ActivityIndicator, Text } from "react-native";
 
 const LoadingIndicator = () => {
 	return (
-		<>
-			<ActivityIndicator size="large" />
-			<Text className="mt-2 text-gray-500">Loading tasks...</Text>
-		</>
+		<LottieView
+			autoPlay
+			style={{ width: 200, height: 100 }}
+			source={require("@/assets/animations/loading.json")}
+		/>
 	);
 };
 
