@@ -17,11 +17,13 @@ const AnalyticsTaskCard = ({ task_id }: AnalyticsTaskCardProps) => {
 	);
 
 	const formatted_time = useMemo(() => {
-		if (task) {
-			return formatSecondsToHoursMinutes(task.time_elapsed || 0);
-		} else {
-			return "0m";
+		if (!task) return "0m";
+
+		if (task.status === "completed") {
+			return task.time_logged;
 		}
+
+		return formatSecondsToHoursMinutes(task.time_elapsed || 0);
 	}, [task?.time_elapsed]);
 
 	const progress_percent =
