@@ -21,16 +21,16 @@ interface AppState {
 		completed: number;
 		logged: number;
 	};
-	toggleCardPlayerIcon: (id: number) => void;
-	setCurrentTask: (id: number) => void;
-	incrementQuickTaskCounter: () => void;
-	stopTimer: () => void;
-	startTimer: (id: number) => void;
 	getAnalyticsOverview: () => {
 		total_tracked_time: string;
 		tasks_worked_count: number;
 		efficiency: number;
 	};
+	toggleCardPlayerIcon: (id: number) => void;
+	setCurrentTask: (id: number) => void;
+	incrementQuickTaskCounter: () => void;
+	stopTimer: () => void;
+	startTimer: (id: number) => void;
 	reset: () => void;
 }
 
@@ -55,7 +55,7 @@ export const useAppStore = create<AppState>()(
 				});
 				setTimeout(() => {
 					set({ tasks: TASKS, is_loading_tasks: false });
-				}, 2000);
+				}, 1000);
 			},
 
 			getTasks: () => get().tasks,
@@ -81,13 +81,13 @@ export const useAppStore = create<AppState>()(
 			getAnalyticsOverview: () => {
 				const tasks = get().tasks;
 
-				const totalSeconds = tasks.reduce(
+				const total_seconds = tasks.reduce(
 					(acc, t) => acc + (t.time_elapsed || 0),
 					0
 				);
 
 				const total_tracked_time =
-					formatSecondsToHoursMinutes(totalSeconds);
+					formatSecondsToHoursMinutes(total_seconds);
 
 				const tasks_worked_count = tasks.filter(
 					(t) => t.status === "completed"
@@ -151,7 +151,7 @@ export const useAppStore = create<AppState>()(
 
 					const is_currently_tracking = target.status === "tracking";
 
-					const updated: Task[] = state.tasks.map((task) => {
+					const updated_tasks: Task[] = state.tasks.map((task) => {
 						if (task.id === id) {
 							return {
 								...task,
@@ -182,7 +182,7 @@ export const useAppStore = create<AppState>()(
 						setTimeout(() => get().startTimer(id), 100);
 					}
 
-					return { tasks: updated };
+					return { tasks: updated_tasks };
 				});
 			},
 
@@ -195,7 +195,15 @@ export const useAppStore = create<AppState>()(
 			storage: createJSONStorage(() => AsyncStorage),
 			partialize: (state) => ({
 				is_tasks_synced: state.is_tasks_synced,
-				tasks: state.tasks,
+				tasks: state.tasks.map((task) => {
+					const { status, media_icon, ...others } = task;
+					return {
+						...others,
+						status: "todo",
+						media_icon: "play",
+					};
+				}),
+				timer_interval_id: state.timer_interval_id,
 			}),
 		}
 	)
