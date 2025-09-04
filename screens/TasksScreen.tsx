@@ -83,7 +83,9 @@ const TasksScreen = () => {
 			case "All":
 				return tasks;
 			case "In Progress":
-				return tasks.filter((t) => t.status === "tracking");
+				return tasks.filter(
+					(t) => t.status === "tracking" || t.status === "todo"
+				);
 			case "Completed":
 				return tasks.filter((t) => t.status === "completed");
 			default:
