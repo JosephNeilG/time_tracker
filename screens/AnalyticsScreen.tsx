@@ -99,7 +99,10 @@ const AnalyticsScreen = () => {
 							<ActivityIndicator size="large" />
 						) : (
 							analytics_tasks.map((task) => (
-								<AnalyticsTaskCard key={task.id} task={task} />
+								<AnalyticsTaskCard
+									key={task.id}
+									task_id={task.id}
+								/>
 							))
 						)}
 					</>

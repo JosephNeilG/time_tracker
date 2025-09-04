@@ -1,31 +1,50 @@
 import { COLORS } from "@/constants/Colors";
-import { AnalyticsTask } from "@/entities/AnalyticsTask";
-import React from "react";
+import { formatSecondsToHoursMinutes } from "@/helpers/timeHelper";
+import { useAppStore } from "@/store/appStore";
+import React, { useMemo } from "react";
 import { View } from "react-native";
 import Card from "../card/Card";
 import DotSeparator from "../DotSeparator";
 import OverviewItem from "../OverviewItem";
 
 interface AnalyticsTaskCardProps {
-	task: AnalyticsTask;
+	task_id: number;
 }
 
-const AnalyticsTaskCard = ({ task }: AnalyticsTaskCardProps) => {
+const AnalyticsTaskCard = ({ task_id }: AnalyticsTaskCardProps) => {
+	const task = useAppStore((state) =>
+		state.tasks.find((t) => t.id === task_id)
+	);
+
+	const formatted_time = useMemo(() => {
+		if (task) {
+			return formatSecondsToHoursMinutes(task.time_elapsed || 0);
+		} else {
+			return "0m";
+		}
+	}, [task?.time_elapsed]);
+
+	const progress_percent =
+		task?.status === "completed" ? "100%" : task?.progress_percent;
+
 	return (
 		<Card>
 			<View className="flex-row justify-between items-center">
 				<View className="flex-row items-center gap-3">
-					<DotSeparator size={12} color={task.dot_color} />
+					<DotSeparator
+						size={12}
+						color={task?.dot_color || COLORS.primary}
+					/>
 					<OverviewItem
-						title={task.task_title}
-						subtitle={task.task_category_name}
+						title={task?.title || ""}
+						subtitle={task?.category || ""}
 						title_size={16}
 						title_color={COLORS.primary}
 					/>
 				</View>
 				<OverviewItem
-					title={task.task_time_logged}
-					subtitle={task.task_progress_percent}
+					title={formatted_time}
+					subtitle={progress_percent || ""}
 					title_size={16}
 					title_color={COLORS.primary}
 					align="right"
