@@ -1,7 +1,13 @@
 import { FontAwesome6 } from "@expo/vector-icons";
 import { useFocusEffect } from "expo-router";
 import React, { useCallback, useState } from "react";
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import {
+	RefreshControl,
+	ScrollView,
+	Text,
+	TouchableOpacity,
+	View,
+} from "react-native";
 
 import AnalyticsOverviewCard from "@/components/analytics/AnalyticsOverviewCard";
 import AnalyticsTaskCard from "@/components/analytics/AnalyticsTaskCard";
@@ -26,6 +32,7 @@ const AnalyticsScreen = () => {
 	const tasks = useAppStore((state) => state.tasks);
 	const syncTasks = useAppStore((state) => state.syncTasks);
 	const [percentages, setPercentages] = useState<Record<number, number>>({});
+	const [refreshing, setRefreshing] = useState(false);
 
 	const overview_items = [
 		{ id: 1, title: `${total_tracked_time} `, subtitle: "Total Tracked" },
@@ -42,30 +49,43 @@ const AnalyticsScreen = () => {
 		dot_color: task.dot_color,
 	}));
 
+	const calculatePercentages = useCallback(() => {
+		const store = useAppStore.getState();
+		const tasks_total_elapsed = store.getTotalElapsedSeconds();
+
+		const task_percentages: Record<number, number> = {};
+		store.tasks.forEach((task) => {
+			const percent =
+				tasks_total_elapsed > 0
+					? Math.round(
+							((task.time_elapsed || 0) / tasks_total_elapsed) *
+								100
+						)
+					: 0;
+			task_percentages[task.id] = percent;
+		});
+
+		setPercentages(task_percentages);
+	}, []);
+
+	const onRefresh = useCallback(() => {
+		setRefreshing(true);
+		calculatePercentages();
+		setRefreshing(false);
+	}, [calculatePercentages]);
+
 	useFocusEffect(
 		useCallback(() => {
-			const store = useAppStore.getState();
-			const tasks_total_elapsed = store.getTotalElapsedSeconds();
-
-			const task_percentages: Record<number, number> = {};
-			store.tasks.forEach((task) => {
-				const percent =
-					tasks_total_elapsed > 0
-						? Math.round(
-								((task.time_elapsed || 0) /
-									tasks_total_elapsed) *
-									100
-							)
-						: 0;
-				task_percentages[task.id] = percent;
-			});
-
-			setPercentages(task_percentages);
-		}, [])
+			calculatePercentages();
+		}, [calculatePercentages])
 	);
 
 	return (
-		<ScrollView showsVerticalScrollIndicator={false}>
+		<ScrollView
+			showsVerticalScrollIndicator={false}
+			refreshControl={
+				<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+			}>
 			<View className="p-7 items-center w-full">
 				{is_tasks_synced ? (
 					<>
