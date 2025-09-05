@@ -1,5 +1,5 @@
 import { FontAwesome6 } from "@expo/vector-icons";
-import React from "react";
+import React, { useMemo } from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import * as Progress from "react-native-progress";
 
@@ -18,22 +18,30 @@ import { useAppStore } from "@/store/appStore";
 
 const TrackScreen = () => {
 	const sprint_label = getSprintLabel();
-
 	const is_loading_tasks = useAppStore((state) => state.is_loading_tasks);
 	const is_tasks_synced = useAppStore((state) => state.is_tasks_synced);
 	const syncTasks = useAppStore((state) => state.syncTasks);
 	const tasks = useAppStore((state) => state.tasks);
 	const current_task_id = useAppStore((state) => state.current_task_id);
 	const current_task = tasks.find((t) => t.id === current_task_id) || null;
-
 	const all_tasks = tasks.filter((task) => task.status !== "completed");
-	const display_next_tasks = [
-		...(current_task ? [current_task] : []),
-		...all_tasks.filter(
-			(task) =>
-				task.id !== current_task?.id && (task.time_elapsed || 0) === 0
-		),
-	].map((task) => ({
+
+	const ordered_tasks = useMemo(() => {
+		if (!current_task) return all_tasks;
+
+		const current_index = all_tasks.findIndex(
+			(task) => task.id === current_task.id
+		);
+
+		if (current_index === -1) return all_tasks;
+
+		const from_current = all_tasks.slice(current_index);
+		const before_current = all_tasks.slice(0, current_index);
+
+		return [...from_current, ...before_current];
+	}, [all_tasks, current_task]);
+
+	const display_next_tasks = ordered_tasks.map((task) => ({
 		id: task.id,
 		category_icon_name: task.icon_name,
 		task_title: task.title,
