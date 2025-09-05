@@ -35,7 +35,7 @@ const TasksScreen = () => {
 	const overview_items = [
 		{ id: 1, title: `${total} tasks`, subtitle: "assigned" },
 		{ id: 2, title: completed, subtitle: "completed" },
-		{ id: 3, title: `${logged}h`, subtitle: "logged" },
+		{ id: 3, title: `${logged}`, subtitle: "logged" },
 	];
 
 	const handleCardOnPress = (task: Task) => {

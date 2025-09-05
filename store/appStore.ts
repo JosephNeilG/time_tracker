@@ -4,7 +4,11 @@ import { createJSONStorage, persist } from "zustand/middleware";
 
 import { TASKS } from "@/constants/Tasks";
 import { Task } from "@/entities/Task";
-import { formatSecondsToHoursMinutes, formatTime } from "@/helpers/timeHelper";
+import {
+	formatSecondsToHoursMinutes,
+	formatSecondstoMinutes,
+	formatTime,
+} from "@/helpers/timeHelper";
 
 interface AppState {
 	is_tasks_synced: boolean;
@@ -20,7 +24,7 @@ interface AppState {
 	getTaskOverview: () => {
 		total: number;
 		completed: number;
-		logged: number;
+		logged: string;
 	};
 	getAnalyticsOverview: () => {
 		total_tracked_time: string;
@@ -81,8 +85,7 @@ export const useAppStore = create<AppState>()(
 					0
 				);
 
-				const logged = Math.round(logged_seconds / 60);
-				// const logged = Math.round(logged_seconds / 3600);
+				const logged = formatSecondstoMinutes(logged_seconds);
 
 				return { total, completed, logged };
 			},
