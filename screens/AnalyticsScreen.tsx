@@ -1,5 +1,6 @@
 import { FontAwesome6 } from "@expo/vector-icons";
-import React from "react";
+import { useFocusEffect } from "expo-router";
+import React, { useCallback, useState } from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 import AnalyticsOverviewCard from "@/components/analytics/AnalyticsOverviewCard";
@@ -19,19 +20,18 @@ const AnalyticsScreen = () => {
 	);
 	const { total_tracked_time, tasks_worked_count, efficiency } =
 		getAnalyticsOverview();
+	const current_date = getCurrentMonthDateYear();
+	const is_loading_tasks = useAppStore((state) => state.is_loading_tasks);
+	const is_tasks_synced = useAppStore((state) => state.is_tasks_synced);
+	const tasks = useAppStore((state) => state.tasks);
+	const syncTasks = useAppStore((state) => state.syncTasks);
+	const [percentages, setPercentages] = useState<Record<number, number>>({});
 
 	const overview_items = [
 		{ id: 1, title: `${total_tracked_time} `, subtitle: "Total Tracked" },
 		{ id: 2, title: tasks_worked_count, subtitle: "completed" },
 		{ id: 3, title: `${efficiency}%`, subtitle: "Efficiency" },
 	];
-
-	const current_date = getCurrentMonthDateYear();
-
-	const is_loading_tasks = useAppStore((state) => state.is_loading_tasks);
-	const is_tasks_synced = useAppStore((state) => state.is_tasks_synced);
-	const tasks = useAppStore((state) => state.tasks);
-	const syncTasks = useAppStore((state) => state.syncTasks);
 
 	const analytics_tasks = tasks.map((task) => ({
 		id: task.id,
@@ -41,6 +41,29 @@ const AnalyticsScreen = () => {
 		task_progress_percent: task.progress_percent,
 		dot_color: task.dot_color,
 	}));
+
+	useFocusEffect(
+		useCallback(() => {
+			const store = useAppStore.getState();
+			const tasks_total_elapsed = store.getTotalElapsedSeconds();
+
+			const task_percentages: Record<number, number> = {};
+			store.tasks.forEach((task) => {
+				const percent =
+					tasks_total_elapsed > 0
+						? Math.round(
+								((task.time_elapsed || 0) /
+									tasks_total_elapsed) *
+									100
+							)
+						: 0;
+				task_percentages[task.id] = percent;
+			});
+
+			setPercentages(task_percentages);
+		}, [])
+	);
+
 	return (
 		<ScrollView showsVerticalScrollIndicator={false}>
 			<View className="p-7 items-center w-full">
@@ -97,6 +120,7 @@ const AnalyticsScreen = () => {
 								<AnalyticsTaskCard
 									key={task.id}
 									task_id={task.id}
+									percent={percentages[task.id] ?? 0}
 								/>
 							))
 						)}

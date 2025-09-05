@@ -10,12 +10,14 @@ import OverviewItem from "../OverviewItem";
 
 interface AnalyticsTaskCardProps {
 	task_id: number;
+	percent: number;
 }
 
-const AnalyticsTaskCard = ({ task_id }: AnalyticsTaskCardProps) => {
+const AnalyticsTaskCard = ({ task_id, percent }: AnalyticsTaskCardProps) => {
 	const task = useAppStore((state) =>
-		state.tasks.find((t) => t.id === task_id)
+		state.tasks.find((task) => task.id === task_id)
 	);
+
 	const formatted_time = useMemo(() => {
 		if (!task) return "0m";
 
@@ -24,19 +26,7 @@ const AnalyticsTaskCard = ({ task_id }: AnalyticsTaskCardProps) => {
 		}
 
 		return formatSecondsToHoursMinutes(task.time_elapsed || 0);
-	}, [task?.time_elapsed]);
-
-	const getTotalElapsedSeconds = useAppStore(
-		(state) => state.getTotalElapsedSeconds
-	);
-	const tasks_total_elapsed = getTotalElapsedSeconds();
-
-	const percent =
-		tasks_total_elapsed > 0
-			? Math.round(
-					((task?.time_elapsed || 0) / tasks_total_elapsed) * 100
-				)
-			: 0;
+	}, [task?.time_elapsed, task?.status]);
 
 	return (
 		<Card>
