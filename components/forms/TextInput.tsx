@@ -32,7 +32,7 @@ const AppTextInput = ({
 				{label}
 			</Text>
 
-			<View className="w-full border-[0.5px] border-secondary p-4 rounded-lg flex-row items-center gap-4">
+			<View className="w-full border-[1px] border-secondary p-4 rounded-lg flex-row items-center gap-4">
 				<TextInput
 					placeholder={placeholder}
 					placeholderTextColor={COLORS.primary}

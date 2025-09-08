@@ -195,7 +195,7 @@ const TrackScreen = () => {
 										icon_color={COLORS.primary}
 										container_color="transparent"
 										border_color={COLORS.dark200}
-										border_width={0.5}
+										border_width={1}
 									/>
 								</TouchableOpacity>
 
@@ -228,7 +228,7 @@ const TrackScreen = () => {
 										icon_color={COLORS.primary}
 										container_color="transparent"
 										border_color={COLORS.dark200}
-										border_width={0.5}
+										border_width={1}
 									/>
 								</TouchableOpacity>
 							</View>

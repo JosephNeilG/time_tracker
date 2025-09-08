@@ -66,7 +66,7 @@ export const TASK_STATUS_STYLES: Record<TaskStatus, TaskStatusStyles> = {
 		},
 		title_decoration: "none",
 		media_status_icon: {
-			border_color: COLORS.secondary,
+			border_color: COLORS.dark200,
 			bg_color: "transparent",
 			color: COLORS.secondary,
 		},
