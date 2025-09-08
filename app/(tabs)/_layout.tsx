@@ -3,27 +3,15 @@ import { router, Tabs } from "expo-router";
 import React from "react";
 import { Image, TouchableOpacity, View } from "react-native";
 
+import TabBar from "@/components/tabbar/TabBar";
 import { COLORS } from "@/constants/Colors";
 import { useAppStore } from "@/store/appStore";
 
 const _layout = () => {
 	return (
 		<Tabs
+			tabBar={(props) => <TabBar {...props} />}
 			screenOptions={{
-				tabBarActiveTintColor: COLORS.primary,
-				tabBarInactiveTintColor: COLORS.secondary,
-				tabBarStyle: {
-					height: 85,
-				},
-				tabBarLabelStyle: {
-					fontSize: 12,
-				},
-				tabBarIconStyle: {
-					marginVertical: 7,
-				},
-				sceneStyle: {
-					backgroundColor: COLORS.white,
-				},
 				headerRight: () => renderRightActions(),
 				headerTitleAlign: "left",
 				headerStyle: {
@@ -31,6 +19,9 @@ const _layout = () => {
 				},
 				headerTitleStyle: {
 					fontSize: 20,
+				},
+				sceneStyle: {
+					backgroundColor: COLORS.white,
 				},
 			}}>
 			<Tabs.Screen
