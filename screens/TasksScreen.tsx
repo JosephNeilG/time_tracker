@@ -1,3 +1,8 @@
+/*
+ * DOCU: Displays and manages tasks
+ * Includes task overview, tabbed filters, quick task creation, and playing task
+ */
+
 import { useRouter } from "expo-router";
 import React, { useMemo, useState } from "react";
 import { ScrollView, View } from "react-native";
@@ -18,26 +23,36 @@ import createQuickTask from "@/helpers/quickTaskHelper";
 import { useAppStore } from "@/store/appStore";
 import EmptyTaskView from "../components/EmptyTaskView";
 
+/**
+ * DOCU: TasksScreen - Shows sprint overview, task stats,
+ * and allow filtering, tracking, and creating tasks
+ */
 const TasksScreen = () => {
 	const router = useRouter();
 	const sprint_label = getSprintLabel();
 	const days_left = getRemainingDays();
 	const [selected_tab, setSelectedTab] = useState<TaskMenuItems>("All");
+
 	const is_loading_tasks = useAppStore((state) => state.is_loading_tasks);
 	const is_tasks_synced = useAppStore((state) => state.is_tasks_synced);
 	const tasks = useAppStore((state) => state.tasks);
-
 	const syncTasks = useAppStore((state) => state.syncTasks);
 	const getTaskOverview = useAppStore((state) => state.getTaskOverview);
 	const { total, completed, logged } = getTaskOverview();
 	const toggleTrack = useAppStore((state) => state.toggleCardPlayerIcon);
 
+	/* Overview items for summary card */
 	const overview_items = [
 		{ id: 1, title: `${total} tasks`, subtitle: "assigned" },
 		{ id: 2, title: completed, subtitle: "completed" },
 		{ id: 3, title: `${logged}`, subtitle: "logged" },
 	];
 
+	/**
+	 * DOCU: Handle pressing a task card
+	 * If task is not completed, set as current and navigate to track screen
+	 * @param task: The task object whose card was pressed
+	 */
 	const handleCardOnPress = (task: Task) => {
 		if (task.status !== "completed") {
 			useAppStore.getState().setCurrentTask(task.id);
@@ -46,6 +61,11 @@ const TasksScreen = () => {
 		}
 	};
 
+	/**
+	 * DOCU: Handle media (play/ pause) press for  task
+	 * Togles tracking state and sets the current task if not completed
+	 * @param task: The task object whose media icon was pressed
+	 */
 	const handleOnMediaPress = (task: Task) => {
 		if (task.status !== "completed") {
 			toggleTrack(task.id);
@@ -53,6 +73,10 @@ const TasksScreen = () => {
 		}
 	};
 
+	/**
+	 * DOCU: Handle floating action button press
+	 * Create a quick task, updates store, starts timer, and navigates to track screen
+	 */
 	const handleFABOnPress = () => {
 		const quickTask = createQuickTask();
 
@@ -74,10 +98,16 @@ const TasksScreen = () => {
 		router.navigate("/");
 	};
 
+	/**
+	 * DOCU: Handle tab press from MenuBar
+	 * Updates selected tab used for filtering tasks
+	 * @param index: Index of the pressed tab in the MenuBar
+	 */
 	const handleTabPress = (index: number) => {
 		setSelectedTab(TASKS_MENU_ITEMS[index].label as TaskMenuItems);
 	};
 
+	/** DOCU: Filter tasks based on selected tab (All, In Progress, Completed) */
 	const filtered_tasks = useMemo(() => {
 		switch (selected_tab) {
 			case "All":

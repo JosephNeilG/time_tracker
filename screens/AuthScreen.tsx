@@ -1,3 +1,8 @@
+/*
+ * DOCU: Auth Screen that handles both Sign In and Sign Up
+ * Provides email/password input, Google login, and toggle between Sign in and Sign Up
+ */
+
 import { FontAwesome6, MaterialCommunityIcons } from "@expo/vector-icons";
 import Checkbox from "expo-checkbox";
 import { router } from "expo-router";
@@ -19,14 +24,21 @@ import Separator from "@/components/Separator";
 import TextGroup from "@/components/TextGroup";
 import { COLORS } from "@/constants/Colors";
 
+/**
+ * DOCU: AuthScreen - Displays sign in and sign up forms with toggle
+ * Handles switching between sign in and sign up states
+ * @returns
+ */
 const AuthScreen = () => {
 	const [is_checked, setChecked] = useState(false);
 	const [is_sign_in, setIsSignIn] = useState(true);
 
+	/** DOCU: Handles form submission, redirects user to root (Track Screen) */
 	const handleSubmit = () => {
 		router.replace("/");
 	};
 
+	/** DOCU: Toggles between sign in and sign up mode */
 	const handleAuthToggle = () => {
 		setIsSignIn(!is_sign_in);
 	};

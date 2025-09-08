@@ -1,3 +1,9 @@
+/*
+ * DOCU: Main screen of the time tracker app
+ * Displays the current actve task, progress tracking controls,
+ * and the list of up next tasks.
+ */
+
 import { FontAwesome6 } from "@expo/vector-icons";
 import React, { useMemo } from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
@@ -16,6 +22,10 @@ import { getSprintLabel } from "@/helpers/dateHelper";
 import { toTrackTask } from "@/helpers/taskToTrackTaskHelper";
 import { useAppStore } from "@/store/appStore";
 
+/**
+ * DOCU: TrackScreen - Displays task player with playback controls
+ * (play, pause, next, previous) and list of upcoming tasks
+ */
 const TrackScreen = () => {
 	const sprint_label = getSprintLabel();
 	const is_loading_tasks = useAppStore((state) => state.is_loading_tasks);
@@ -25,7 +35,12 @@ const TrackScreen = () => {
 	const current_task_id = useAppStore((state) => state.current_task_id);
 	const current_task = tasks.find((t) => t.id === current_task_id) || null;
 	const all_tasks = tasks.filter((task) => task.status !== "completed");
+	const task = current_task ?? EMPTY_PLAYER_PLACEHOLDER;
 
+	/**
+	 * DOCU: Ensures current task appears first, followed by next tasks,
+	 * then previous tasks.
+	 */
 	const ordered_tasks = useMemo(() => {
 		if (!current_task) return all_tasks;
 
@@ -41,6 +56,7 @@ const TrackScreen = () => {
 		return [...from_current, ...before_current];
 	}, [all_tasks, current_task]);
 
+	/** DOCU: Converts ordered tasks into TrackTask format */
 	const display_next_tasks = ordered_tasks.map((task) => ({
 		id: task.id,
 		category_icon_name: task.icon_name,
@@ -50,14 +66,22 @@ const TrackScreen = () => {
 		media_status_icon: task.media_icon,
 	}));
 
-	const task = current_task ?? EMPTY_PLAYER_PLACEHOLDER;
-
+	/**
+	 * DOCU: Handle card press to set the selected task as current
+	 * and toggle its play/ pause state
+	 * @param task: The task to play
+	 */
 	const handleOnPress = (task: TrackTask) => {
 		const store = useAppStore.getState();
 		store.toggleCardPlayerIcon(task.id);
 		store.setCurrentTask(task.id);
 	};
 
+	/**
+	 * DOCU: Gets the index of the current task in the task list
+	 * Returns -1 if no task is active
+	 * @returns
+	 */
 	const getCurrentIndex = () => {
 		if (current_task) {
 			return all_tasks.findIndex((task) => task.id === current_task.id);
@@ -66,6 +90,10 @@ const TrackScreen = () => {
 		}
 	};
 
+	/**
+	 * DOCU: Navigates to the next task in the list
+	 * Uses modulo math to wrap around
+	 */
 	const handleNextTask = () => {
 		const index = getCurrentIndex();
 
@@ -77,6 +105,7 @@ const TrackScreen = () => {
 		}
 	};
 
+	/** DOCU: Navigates to the previous task in the list */
 	const handlePrevTask = () => {
 		const index = getCurrentIndex();
 
@@ -89,6 +118,7 @@ const TrackScreen = () => {
 		}
 	};
 
+	/** DOCU: Toggles play/ pause state of the current task */
 	const handleCardPlayerOnPress = () => {
 		if (current_task) {
 			const store = useAppStore.getState();

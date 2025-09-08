@@ -1,3 +1,9 @@
+/*
+ * DOCU: Displays task analytics incuding tracked time, completed count,
+ * efficiency, and task breakdown with time elapsed and percentage time contributions.
+ * Last Updated At: September 5 2025
+ */
+
 import { FontAwesome6 } from "@expo/vector-icons";
 import { useFocusEffect } from "expo-router";
 import React, { useCallback, useState } from "react";
@@ -20,26 +26,35 @@ import { COLORS } from "@/constants/Colors";
 import { getCurrentMonthDateYear } from "@/helpers/dateHelper";
 import { useAppStore } from "@/store/appStore";
 
+/**
+ * DOCU: AnalyticsScreen - Provides overview of user's task analytics
+ * Shows tracked time, efficiency, and breakdown of tasks
+ * Supports pull to refresh to recalculate percentages
+ */
 const AnalyticsScreen = () => {
 	const getAnalyticsOverview = useAppStore(
 		(state) => state.getAnalyticsOverview
 	);
 	const { total_tracked_time, tasks_worked_count, efficiency } =
 		getAnalyticsOverview();
+
 	const current_date = getCurrentMonthDateYear();
 	const is_loading_tasks = useAppStore((state) => state.is_loading_tasks);
 	const is_tasks_synced = useAppStore((state) => state.is_tasks_synced);
 	const tasks = useAppStore((state) => state.tasks);
 	const syncTasks = useAppStore((state) => state.syncTasks);
+
 	const [percentages, setPercentages] = useState<Record<number, number>>({});
 	const [refreshing, setRefreshing] = useState(false);
 
+	/* Overview summary items */
 	const overview_items = [
 		{ id: 1, title: `${total_tracked_time} `, subtitle: "Total Tracked" },
 		{ id: 2, title: tasks_worked_count, subtitle: "completed" },
 		{ id: 3, title: `${efficiency}%`, subtitle: "Efficiency" },
 	];
 
+	/* Prepare analytics data for rendering */
 	const analytics_tasks = tasks.map((task) => ({
 		id: task.id,
 		task_title: task.title,
@@ -49,6 +64,10 @@ const AnalyticsScreen = () => {
 		dot_color: task.dot_color,
 	}));
 
+	/**
+	 * DOCU: Computes the percentage contribution of each task
+	 * relative to the total elapsed tracked time
+	 */
 	const calculatePercentages = useCallback(() => {
 		const store = useAppStore.getState();
 		const tasks_total_elapsed = store.getTotalElapsedSeconds();
@@ -68,12 +87,14 @@ const AnalyticsScreen = () => {
 		setPercentages(task_percentages);
 	}, []);
 
+	/** DOCU: Handles pull-to-refresh action, recalculates task percentages */
 	const onRefresh = useCallback(() => {
 		setRefreshing(true);
 		calculatePercentages();
 		setRefreshing(false);
 	}, [calculatePercentages]);
 
+	/** DOCU: Ensures percentages are recalculated whenever screen is focused */
 	useFocusEffect(
 		useCallback(() => {
 			calculatePercentages();
