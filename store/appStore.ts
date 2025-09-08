@@ -6,7 +6,7 @@ import { TASKS } from "@/constants/Tasks";
 import { Task } from "@/entities/Task";
 import {
 	formatSecondsToHoursMinutes,
-	formatSecondstoMinutes,
+	formatSecondsToMinutes,
 	formatTime,
 } from "@/helpers/timeHelper";
 
@@ -99,7 +99,7 @@ export const useAppStore = create<AppState>()(
 					0
 				);
 
-				const logged = formatSecondstoMinutes(logged_seconds);
+				const logged = formatSecondsToMinutes(logged_seconds);
 
 				return { total, completed, logged };
 			},
