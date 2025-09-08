@@ -19,7 +19,6 @@ interface AppState {
 	timer_interval_id: number | null;
 
 	syncTasks: () => void;
-	getTasks: () => Task[];
 	getTotalElapsedSeconds: () => number;
 	getTaskOverview: () => {
 		total: number;
@@ -48,11 +47,20 @@ const initial_state = {
 	timer_interval_id: null,
 };
 
+/**
+ * DOCU: useAppStore - Zustand store for task and timer state management
+ * Includes persistence with AsyncStorage for offline support
+ * Last Updated At: September 5 2025
+ */
 export const useAppStore = create<AppState>()(
 	persist(
 		(set, get) => ({
 			...initial_state,
 
+			/**
+			 * DOCU: Sync tasks with local constants
+			 * Simulate an async fetch before setting tasks
+			 */
 			syncTasks: () => {
 				set({
 					is_tasks_synced: true,
@@ -63,8 +71,10 @@ export const useAppStore = create<AppState>()(
 				}, 1000);
 			},
 
-			getTasks: () => get().tasks,
-
+			/**
+			 * DOCU: Calculate total elapsed seonds from all tasks
+			 * @returns Number with sum of elapsed seconds
+			 */
 			getTotalElapsedSeconds: () => {
 				const tasks = get().tasks;
 				return tasks.reduce(
@@ -73,6 +83,10 @@ export const useAppStore = create<AppState>()(
 				);
 			},
 
+			/**
+			 * DOCU: Get task overview summary
+			 * @returns Object with total tasks, completed tasks, logged time
+			 */
 			getTaskOverview: () => {
 				const tasks = get().tasks;
 				const total = tasks.length;
@@ -90,11 +104,15 @@ export const useAppStore = create<AppState>()(
 				return { total, completed, logged };
 			},
 
+			/**
+			 * Get analytics overview summary
+			 * @returns Object with total tracked time, completed tasks count, efficiency percentage
+			 */
 			getAnalyticsOverview: () => {
 				const tasks = get().tasks;
 
 				const total_seconds = tasks.reduce(
-					(acc, t) => acc + (t.time_elapsed || 0),
+					(acc, task) => acc + (task.time_elapsed || 0),
 					0
 				);
 
@@ -102,7 +120,7 @@ export const useAppStore = create<AppState>()(
 					formatSecondsToHoursMinutes(total_seconds);
 
 				const tasks_worked_count = tasks.filter(
-					(t) => t.status === "completed"
+					(task) => task.status === "completed"
 				).length;
 
 				const efficiency = 80;
@@ -114,15 +132,26 @@ export const useAppStore = create<AppState>()(
 				};
 			},
 
+			/**
+			 * DOCU: Set the currently active task
+			 * @param id: ID of the task to set
+			 */
 			setCurrentTask: (id: number) => {
 				set({ current_task_id: id });
 			},
 
+			/**
+			 * DOCU: Increment quick task title's counter
+			 */
 			incrementQuickTaskCounter: () =>
 				set((state) => ({
 					quick_task_counter: state.quick_task_counter + 1,
 				})),
 
+			/**
+			 * DOCU: Stop the task timer
+			 * Clears interval and resets timer state
+			 */
 			stopTimer: () => {
 				const { timer_interval_id } = get();
 				if (timer_interval_id) {
@@ -131,6 +160,11 @@ export const useAppStore = create<AppState>()(
 				}
 			},
 
+			/**
+			 * DOCU: Start a timer for a specific task
+			 * Updates task time_elapsed every second
+			 * @param id: Task ID to start timer for
+			 */
 			startTimer: (id: number) => {
 				get().stopTimer();
 
@@ -154,6 +188,10 @@ export const useAppStore = create<AppState>()(
 				set({ timer_interval_id: interval_id });
 			},
 
+			/**
+			 * DOCU: Toggle play/pause state of task card
+			 * @param id: Task ID to toggle
+			 */
 			toggleCardPlayerIcon: (id: number) => {
 				set((state) => {
 					const target = state.tasks.find((t) => t.id === id);
@@ -198,6 +236,9 @@ export const useAppStore = create<AppState>()(
 				});
 			},
 
+			/**
+			 * DOCU: Reset store to initial state
+			 */
 			reset: () => {
 				set(initial_state);
 			},
