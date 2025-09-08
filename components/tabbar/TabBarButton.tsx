@@ -66,13 +66,13 @@ const TabBarButton = ({
 			className={tabBarItemStyles}>
 			<Animated.View style={animated_icon_style}>
 				{TAB_BAR_ICONS[route_name]({
-					color: is_focused ? COLORS.white : COLORS.dark100,
+					color: is_focused ? COLORS.primary : COLORS.light100,
 				})}
 			</Animated.View>
 			<Animated.Text
 				style={[
 					{
-						color: is_focused ? COLORS.primary : COLORS.dark100,
+						color: is_focused ? COLORS.primary : COLORS.light100,
 						fontSize: 12,
 					},
 					animated_text_style,

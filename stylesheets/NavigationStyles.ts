@@ -15,6 +15,6 @@ export const NavigationStyles = StyleSheet.create({
 		shadowRadius: 8,
 		shadowOpacity: 0.1,
 		elevation: 4,
-		backgroundColor: COLORS.light400,
+		backgroundColor: COLORS.primary,
 	},
 });

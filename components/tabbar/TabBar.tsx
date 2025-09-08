@@ -42,7 +42,7 @@ function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
 					animated_style,
 					{
 						position: "absolute",
-						backgroundColor: COLORS.primary,
+						backgroundColor: COLORS.light100,
 						borderRadius: 30,
 						marginHorizontal: 12,
 						height: dimensions.height - 15,
