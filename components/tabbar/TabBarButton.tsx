@@ -1,4 +1,3 @@
-import { PlatformPressable } from "@react-navigation/elements";
 import React, { ReactNode, useEffect } from "react";
 import Animated, {
 	interpolate,
@@ -9,6 +8,7 @@ import Animated, {
 
 import { COLORS } from "@/constants/Colors";
 import { TAB_BAR_ICONS } from "@/constants/TabBarIcons";
+import { Pressable } from "react-native";
 
 interface TabBarButtonProps {
 	onPress: () => void;
@@ -60,7 +60,7 @@ const TabBarButton = ({
 	});
 
 	return (
-		<PlatformPressable
+		<Pressable
 			onPress={onPress}
 			onLongPress={onLongPress}
 			className={tabBarItemStyles}>
@@ -79,7 +79,7 @@ const TabBarButton = ({
 				]}>
 				{label}
 			</Animated.Text>
-		</PlatformPressable>
+		</Pressable>
 	);
 };
 

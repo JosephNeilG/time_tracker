@@ -99,7 +99,10 @@ function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
 	);
 }
 
+// const tabBarStyles =
+// 	"absolute bottom-[20px] flex-row justify-between items-center mx-[75px] py-[15px] rounded-[35px]";
+
 const tabBarStyles =
-	"absolute bottom-[20px] flex-row justify-between items-center mx-[80px] py-[15px] rounded-[35px]";
+	"absolute bottom-0 left-0 right-0 flex-row justify-between items-center py-[20px] rounded-t-[25px]";
 
 export default TabBar;

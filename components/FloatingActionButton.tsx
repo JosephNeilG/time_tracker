@@ -13,7 +13,7 @@ const FloatingActionButton = ({ onPress }: FABProps) => {
 	return (
 		<TouchableOpacity
 			onPress={onPress}
-			className="absolute right-[26px] bottom-[100px]"
+			className="absolute right-[15px] bottom-[100px]"
 			style={NavigationStyles.fab}>
 			<Icon
 				name="bolt"
