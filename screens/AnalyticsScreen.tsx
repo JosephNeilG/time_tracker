@@ -107,7 +107,7 @@ const AnalyticsScreen = () => {
 			refreshControl={
 				<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
 			}>
-			<View className="p-7 items-center w-full">
+			<View className="p-7 items-center w-full mb-[70px]">
 				{is_tasks_synced ? (
 					<>
 						<View className="flex-row justify-between items-center w-full mb-6">

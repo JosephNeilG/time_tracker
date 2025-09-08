@@ -128,7 +128,7 @@ const TasksScreen = () => {
 	return (
 		<View className="flex-1">
 			<ScrollView showsVerticalScrollIndicator={false}>
-				<View className="p-7 items-center w-full">
+				<View className="p-7 items-center w-full mb-[70px]">
 					{is_tasks_synced ? (
 						<>
 							<TasksOverviewCard
