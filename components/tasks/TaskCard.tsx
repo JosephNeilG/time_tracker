@@ -5,6 +5,7 @@ import Card from "@/components/card/Card";
 import CardBody from "@/components/card/CardBody";
 import CardHeader from "@/components/card/CardHeader";
 import { Task } from "@/entities/Task";
+import { formatSecondsToHoursMinutes } from "@/helpers/timeHelper";
 import { TASK_STATUS_STYLES } from "@/stylesheets/TaskStatusStyles";
 
 interface TaskCardProps {
@@ -16,8 +17,13 @@ interface TaskCardProps {
 const TaskCard = ({ task, onPress, onMediaPress }: TaskCardProps) => {
 	const styles = TASK_STATUS_STYLES[task.status];
 
-	const right_text =
-		task.status === "tracking" ? task.time_stamp : task.right_text;
+	let right_text = task.right_text;
+
+	if (task.status === "tracking") {
+		right_text = String(task.time_stamp);
+	} else if (task.status === "completed") {
+		right_text = `${formatSecondsToHoursMinutes(task.time_elapsed || 0)} logged`;
+	}
 
 	return (
 		<Card
