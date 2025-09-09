@@ -150,9 +150,7 @@ const TasksScreen = () => {
 							{is_loading_tasks ? (
 								<LoadingIndicator />
 							) : is_task_list_empty ? (
-								<EmptyTaskListText
-									selected_tab={selected_tab}
-								/>
+								<EmptyTaskListText list_name={selected_tab} />
 							) : (
 								filtered_tasks.map((task) => (
 									<TaskCard

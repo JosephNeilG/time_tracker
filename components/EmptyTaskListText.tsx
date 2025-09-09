@@ -2,13 +2,13 @@ import React from "react";
 import { Text } from "react-native";
 
 interface EmptyTaskListTextProps {
-	selected_tab: string;
+	list_name: string;
 }
 
-const EmptyTaskListText = ({ selected_tab }: EmptyTaskListTextProps) => {
+const EmptyTaskListText = ({ list_name }: EmptyTaskListTextProps) => {
 	return (
 		<Text className="text-gray-500 text-lg">
-			No tasks found in {selected_tab}.
+			No tasks found in {list_name}.
 		</Text>
 	);
 };

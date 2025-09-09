@@ -32,7 +32,7 @@ export const TASK_STATUS_STYLES: Record<TaskStatus, TaskStatusStyles> = {
 		title_color: COLORS.light100,
 		subtitle_color: COLORS.light300,
 		title_decoration: "none",
-		category_icon_background: COLORS.primary,
+		category_icon_background: COLORS.dark100,
 		media_status_icon: {
 			border_color: "transparent",
 			bg_color: COLORS.dark100,

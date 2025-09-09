@@ -33,6 +33,7 @@ interface AppState {
 	toggleCardPlayerIcon: (id: number) => void;
 	setCurrentTask: (id: number) => void;
 	incrementQuickTaskCounter: () => void;
+	completeTask: (id: number) => void;
 	stopTimer: () => void;
 	startTimer: (id: number) => void;
 	reset: () => void;
@@ -170,16 +171,16 @@ export const useAppStore = create<AppState>()(
 
 				const interval_id = setInterval(() => {
 					set((state) => {
-						const updated_tasks = state.tasks.map((t) => {
-							if (t.id === id && t.status === "tracking") {
-								const new_time = (t.time_elapsed || 0) + 1;
+						const updated_tasks = state.tasks.map((task) => {
+							if (task.id === id && task.status === "tracking") {
+								const new_time = (task.time_elapsed || 0) + 1;
 								return {
-									...t,
+									...task,
 									time_elapsed: new_time,
 									time_stamp: formatTime(new_time),
 								};
 							}
-							return t;
+							return task;
 						});
 						return { tasks: updated_tasks };
 					});
@@ -230,6 +231,38 @@ export const useAppStore = create<AppState>()(
 						get().stopTimer();
 					} else {
 						get().startTimer(id);
+					}
+
+					return { tasks: updated_tasks };
+				});
+			},
+
+			/**
+			 * DOCU: Mark tas as completed and update its details
+			 * If the task to be marked is the current task, stops timer and clear current task
+			 * @param id: Task ID to mark as complete
+			 */
+			completeTask: (id: number) => {
+				set((state) => {
+					let updated_tasks: Task[] = state.tasks.map((task) => {
+						if (task.id === id) {
+							const final_time = task.time_elapsed || 0;
+
+							return {
+								...task,
+								status: "completed",
+								media_icon: "check",
+								time_elapsed: final_time,
+								time_logged:
+									formatSecondsToHoursMinutes(final_time),
+							};
+						}
+						return task;
+					});
+
+					if (state.current_task_id === id) {
+						get().stopTimer();
+						return { tasks: updated_tasks, current_task_id: null };
 					}
 
 					return { tasks: updated_tasks };

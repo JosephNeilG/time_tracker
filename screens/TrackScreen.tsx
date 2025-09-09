@@ -11,6 +11,7 @@ import * as Progress from "react-native-progress";
 
 import Card from "@/components/card/Card";
 import DotSeparator from "@/components/DotSeparator";
+import EmptyTaskListText from "@/components/EmptyTaskListText";
 import EmptyTaskView from "@/components/EmptyTaskView";
 import Icon from "@/components/Icon";
 import LoadingIndicator from "@/components/LoadingIndicator";
@@ -128,7 +129,16 @@ const TrackScreen = () => {
 		}
 	};
 
-	const disabledStyle = current_task ? "opacity-100" : "opacity-70";
+	const is_task_list_empty = display_next_tasks.length === 0;
+
+	const playPauseStyle = current_task ? "opacity-100" : "opacity-70";
+
+	const active_tasks = all_tasks.filter(
+		(task) => task.status === "todo" || task.status === "tracking"
+	);
+	const is_last_task = active_tasks.length <= 1;
+	const prevNextDisabledStyle =
+		!current_task || is_last_task ? "opacity-70" : "opacity-100";
 
 	return (
 		<ScrollView showsVerticalScrollIndicator={false}>
@@ -190,8 +200,8 @@ const TrackScreen = () => {
 
 							<View className="flex-row gap-6 items-center">
 								<TouchableOpacity
-									disabled={!current_task}
-									className={disabledStyle}
+									disabled={!current_task || is_last_task}
+									className={prevNextDisabledStyle}
 									onPress={handlePrevTask}>
 									<Icon
 										name="backward"
@@ -208,7 +218,7 @@ const TrackScreen = () => {
 
 								<TouchableOpacity
 									disabled={!current_task}
-									className={disabledStyle}
+									className={playPauseStyle}
 									onPress={handleCardPlayerOnPress}>
 									<Icon
 										name={
@@ -223,8 +233,8 @@ const TrackScreen = () => {
 								</TouchableOpacity>
 
 								<TouchableOpacity
-									disabled={!current_task}
-									className={disabledStyle}
+									disabled={!current_task || is_last_task}
+									className={prevNextDisabledStyle}
 									onPress={handleNextTask}>
 									<Icon
 										name="forward"
@@ -259,6 +269,8 @@ const TrackScreen = () => {
 
 						{is_loading_tasks ? (
 							<LoadingIndicator />
+						) : is_task_list_empty ? (
+							<EmptyTaskListText list_name="Up Next" />
 						) : (
 							display_next_tasks.map((task) => (
 								<TrackTaskCard
