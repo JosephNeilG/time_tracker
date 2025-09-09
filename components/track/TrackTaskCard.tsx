@@ -17,6 +17,7 @@ interface TrackTaskCardProps {
 
 const TrackTaskCard = ({ task, onPress, onMediaPress }: TrackTaskCardProps) => {
 	const completeTask = useAppStore((state) => state.completeTask);
+	const deleteTask = useAppStore((state) => state.deleteTask);
 
 	const renderRightActions = () => {
 		return (
@@ -26,10 +27,27 @@ const TrackTaskCard = ({ task, onPress, onMediaPress }: TrackTaskCardProps) => {
 		);
 	};
 
+	const renderLeftActions = () => {
+		return (
+			<View className="bg-red-700 justify-center items-start flex-1 rounded-lg mb-4 pl-4">
+				<FontAwesome6 name="trash" size={20} color={COLORS.white} />
+			</View>
+		);
+	};
+
+	const handleSwipeOpen = (direction: string, taskId: number) => {
+		if (direction === "right") {
+			completeTask(taskId);
+		} else if (direction === "left") {
+			deleteTask(taskId);
+		}
+	};
+
 	return (
 		<Swipeable
 			renderRightActions={renderRightActions}
-			onSwipeableOpen={() => completeTask(task.id)}
+			renderLeftActions={renderLeftActions}
+			onSwipeableOpen={(direction) => handleSwipeOpen(direction, task.id)}
 			containerStyle={{ width: "100%" }}
 			rightThreshold={50}>
 			<Card
@@ -37,12 +55,12 @@ const TrackTaskCard = ({ task, onPress, onMediaPress }: TrackTaskCardProps) => {
 				background_color={COLORS.white}
 				border_color={COLORS.dark200}>
 				<CardBody
+					onMediaPress={() => onMediaPress?.(task)}
 					category_icon_name={task.category_icon_name}
 					task_title={task.task_title}
 					task_category_name={task.task_category_name}
 					task_time_estimate={task.task_time_estimate}
 					media_status_icon={task.media_status_icon}
-					onMediaPress={() => onMediaPress?.(task)}
 				/>
 			</Card>
 		</Swipeable>

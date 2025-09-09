@@ -17,6 +17,7 @@ import {
 
 import AnalyticsOverviewCard from "@/components/analytics/AnalyticsOverviewCard";
 import AnalyticsTaskCard from "@/components/analytics/AnalyticsTaskCard";
+import EmptyTaskListText from "@/components/EmptyTaskListText";
 import EmptyTaskView from "@/components/EmptyTaskView";
 import LoadingIndicator from "@/components/LoadingIndicator";
 import MenuBar from "@/components/MenuBar";
@@ -43,6 +44,7 @@ const AnalyticsScreen = () => {
 	const is_tasks_synced = useAppStore((state) => state.is_tasks_synced);
 	const tasks = useAppStore((state) => state.tasks);
 	const syncTasks = useAppStore((state) => state.syncTasks);
+	const is_task_list_empty = tasks.length === 0;
 
 	const [percentages, setPercentages] = useState<Record<number, number>>({});
 	const [refreshing, setRefreshing] = useState(false);
@@ -156,6 +158,8 @@ const AnalyticsScreen = () => {
 
 						{is_loading_tasks ? (
 							<LoadingIndicator />
+						) : is_task_list_empty ? (
+							<EmptyTaskListText list_name="Task Breakdown" />
 						) : (
 							analytics_tasks.map((task) => (
 								<AnalyticsTaskCard

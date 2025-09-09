@@ -34,6 +34,7 @@ interface AppState {
 	setCurrentTask: (id: number) => void;
 	incrementQuickTaskCounter: () => void;
 	completeTask: (id: number) => void;
+	deleteTask: (id: number) => void;
 	stopTimer: () => void;
 	startTimer: (id: number) => void;
 	reset: () => void;
@@ -184,7 +185,7 @@ export const useAppStore = create<AppState>()(
 						});
 						return { tasks: updated_tasks };
 					});
-				}, 1000);
+				}, 100);
 
 				set({ timer_interval_id: interval_id });
 			},
@@ -270,8 +271,29 @@ export const useAppStore = create<AppState>()(
 			},
 
 			/**
-			 * DOCU: Reset store to initial state
+			 * DOCU: Delete a task from the task list
+			 * If the deleted task is the current task, clear the current task ID
+			 * @param id - Task ID to be deleted
 			 */
+			deleteTask: (id: number) => {
+				set((state) => {
+					const updated_tasks = state.tasks.filter(
+						(task) => task.id !== id
+					);
+
+					let new_current_id = state.current_task_id;
+					if (state.current_task_id === id) {
+						new_current_id = null;
+					}
+
+					return {
+						tasks: updated_tasks,
+						current_task_id: new_current_id,
+					};
+				});
+			},
+
+			/** DOCU: Reset store to initial state */
 			reset: () => {
 				set(initial_state);
 			},
