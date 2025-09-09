@@ -14,7 +14,7 @@ const FloatingActionButton = ({ onPress }: FABProps) => {
 	return (
 		<TouchableOpacity
 			onPress={onPress}
-			className="absolute right-[15px] bottom-[100px]"
+			className="absolute right-[25px] bottom-[100px]"
 			style={NavigationStyles.fab}>
 			<Icon
 				name="bolt"
@@ -22,7 +22,7 @@ const FloatingActionButton = ({ onPress }: FABProps) => {
 				is_circle
 				size={60}
 				icon_size={20}
-				container_color={COLORS.primary}
+				container_color={COLORS.dark600}
 			/>
 		</TouchableOpacity>
 	);
