@@ -11,6 +11,7 @@ import EmptyTaskListText from "@/components/EmptyTaskListText";
 import FloatingActionButton from "@/components/FloatingActionButton";
 import LoadingIndicator from "@/components/LoadingIndicator";
 import MenuBar from "@/components/MenuBar";
+import SearchBar from "@/components/SearchBar";
 import TaskCard from "@/components/tasks/TaskCard";
 import TasksOverviewCard from "@/components/tasks/TasksOverviewCard";
 import {
@@ -137,6 +138,8 @@ const TasksScreen = () => {
 								overview_items={overview_items}
 								progress={0.56}
 							/>
+
+							<SearchBar container_style={{ marginBottom: 0 }} />
 
 							<MenuBar
 								tabs={TASKS_MENU_ITEMS}

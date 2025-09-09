@@ -14,6 +14,7 @@ import DotSeparator from "@/components/DotSeparator";
 import EmptyTaskView from "@/components/EmptyTaskView";
 import Icon from "@/components/Icon";
 import LoadingIndicator from "@/components/LoadingIndicator";
+import SearchBar from "@/components/SearchBar";
 import TrackTaskCard from "@/components/track/TrackTaskCard";
 import { COLORS } from "@/constants/Colors";
 import { EMPTY_PLAYER_PLACEHOLDER } from "@/constants/EmptyPlayerPlaceholder";
@@ -134,12 +135,18 @@ const TrackScreen = () => {
 			<View className="p-7 items-center w-full mb-[70px]">
 				{is_tasks_synced ? (
 					<>
+						<SearchBar
+							container_style={{
+								marginBottom: 0,
+							}}
+						/>
 						<Card
 							border_color="transparent"
 							background_color={COLORS.light400}
 							style={{
 								alignItems: "center",
 								paddingVertical: 25,
+								marginTop: 15,
 							}}>
 							<Icon
 								name={task.icon_name as string}

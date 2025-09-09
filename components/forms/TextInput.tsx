@@ -2,17 +2,21 @@ import { COLORS } from "@/constants/Colors";
 import { FontAwesome6 } from "@expo/vector-icons";
 import React, { useState } from "react";
 import {
+	StyleProp,
 	Text,
 	TextInput,
 	TextInputProps,
 	TouchableOpacity,
 	View,
+	ViewStyle,
 } from "react-native";
 
 interface AppTextInputProps extends TextInputProps {
-	label: string;
+	label?: string;
 	icon_name?: keyof typeof FontAwesome6.glyphMap;
 	is_password?: boolean;
+	text_input_style?: StyleProp<ViewStyle>;
+	container_style?: StyleProp<ViewStyle>;
 }
 
 const AppTextInput = ({
@@ -20,6 +24,8 @@ const AppTextInput = ({
 	placeholder,
 	icon_name,
 	is_password = false,
+	text_input_style,
+	container_style,
 	...other_props
 }: AppTextInputProps) => {
 	const [secure, setSecure] = useState(is_password);
@@ -27,12 +33,16 @@ const AppTextInput = ({
 	const toggleSecure = () => setSecure((prev) => !prev);
 
 	return (
-		<View className="w-full mb-4">
-			<Text className="mb-2 text-lg text-dark-500 font-medium">
-				{label}
-			</Text>
+		<View className="w-full mb-4" style={container_style}>
+			{label && (
+				<Text className="mb-2 text-lg text-dark-500 font-medium">
+					{label}
+				</Text>
+			)}
 
-			<View className="w-full border-[1px] border-secondary p-4 rounded-lg flex-row items-center gap-4">
+			<View
+				className="w-full border-[1px] border-secondary p-4 rounded-lg flex-row items-center gap-4"
+				style={text_input_style}>
 				<TextInput
 					placeholder={placeholder}
 					placeholderTextColor={COLORS.dark500}

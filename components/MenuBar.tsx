@@ -25,7 +25,7 @@ const MenuBar = ({ tabs, initial_index = 0, onTabPress }: MenuBarProps) => {
 
 	return (
 		<View
-			className="p-1 w-full flex-row bg-light-100 my-4 rounded-lg"
+			className="p-1 w-full flex-row bg-light-400 my-4 rounded-lg"
 			style={{ paddingHorizontal: 0 }}>
 			{tabs.map((tab, index) => {
 				const isActive = index === active_index;
@@ -36,7 +36,7 @@ const MenuBar = ({ tabs, initial_index = 0, onTabPress }: MenuBarProps) => {
 						style={{
 							backgroundColor: isActive
 								? COLORS.primary
-								: COLORS.light100,
+								: COLORS.light400,
 						}}
 						onPress={() => handlePress(index)}>
 						{tab.IconComponent && tab.icon_name && (
