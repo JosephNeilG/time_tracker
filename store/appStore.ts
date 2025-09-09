@@ -185,7 +185,7 @@ export const useAppStore = create<AppState>()(
 						});
 						return { tasks: updated_tasks };
 					});
-				}, 100);
+				}, 1000);
 
 				set({ timer_interval_id: interval_id });
 			},
