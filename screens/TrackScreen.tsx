@@ -161,7 +161,11 @@ const TrackScreen = () => {
 							<Icon
 								name={task.icon_name as string}
 								IconSet={FontAwesome6}
-								container_color={COLORS.primary}
+								container_color={
+									current_task
+										? COLORS.primary
+										: COLORS.light300
+								}
 								size={130}
 							/>
 
