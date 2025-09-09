@@ -25,14 +25,14 @@ interface TaskStatusStyles {
 
 export const TASK_STATUS_STYLES: Record<TaskStatus, TaskStatusStyles> = {
 	tracking: {
-		background_color: COLORS.primary,
+		background_color: COLORS.dark600,
 		border_color: "transparent",
 		card_text_color: COLORS.white,
 		badge: { text: "TRACKING NOW", bg: COLORS.dark100 },
 		title_color: COLORS.light100,
 		subtitle_color: COLORS.light300,
 		title_decoration: "none",
-		category_icon_background: COLORS.dark100,
+		category_icon_background: COLORS.primary,
 		media_status_icon: {
 			border_color: "transparent",
 			bg_color: COLORS.dark100,
@@ -49,12 +49,12 @@ export const TASK_STATUS_STYLES: Record<TaskStatus, TaskStatusStyles> = {
 		media_status_icon: {
 			border_color: "transparent",
 			bg_color: "transparent",
-			color: COLORS.secondary,
+			color: COLORS.dark200,
 		},
 		background_color: "transparent",
 		border_color: COLORS.dark200,
 		card_text_color: COLORS.secondary,
-		title_color: COLORS.primary,
+		title_color: COLORS.dark500,
 		subtitle_color: COLORS.dark100,
 		category_icon_background: COLORS.light300,
 	},
@@ -68,12 +68,12 @@ export const TASK_STATUS_STYLES: Record<TaskStatus, TaskStatusStyles> = {
 		media_status_icon: {
 			border_color: COLORS.dark200,
 			bg_color: "transparent",
-			color: COLORS.secondary,
+			color: COLORS.dark200,
 		},
 		background_color: "transparent",
 		border_color: COLORS.dark200,
 		card_text_color: COLORS.secondary,
-		title_color: COLORS.primary,
+		title_color: COLORS.dark500,
 		subtitle_color: COLORS.dark100,
 		category_icon_background: COLORS.light300,
 	},

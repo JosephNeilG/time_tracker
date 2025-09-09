@@ -19,6 +19,7 @@ const _layout = () => {
 				},
 				headerTitleStyle: {
 					fontSize: 20,
+					color: COLORS.primary,
 				},
 				sceneStyle: {
 					backgroundColor: COLORS.white,

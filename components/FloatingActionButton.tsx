@@ -2,6 +2,7 @@ import { FontAwesome6 } from "@expo/vector-icons";
 import React from "react";
 import { TouchableOpacity } from "react-native";
 
+import { COLORS } from "@/constants/Colors";
 import { NavigationStyles } from "@/stylesheets/NavigationStyles";
 import Icon from "./Icon";
 
@@ -21,6 +22,7 @@ const FloatingActionButton = ({ onPress }: FABProps) => {
 				is_circle
 				size={60}
 				icon_size={20}
+				container_color={COLORS.primary}
 			/>
 		</TouchableOpacity>
 	);

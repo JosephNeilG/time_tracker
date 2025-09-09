@@ -111,7 +111,7 @@ const AnalyticsScreen = () => {
 				{is_tasks_synced ? (
 					<>
 						<View className="flex-row justify-between items-center w-full mb-6">
-							<Text className="text-primary text-2xl font-medium">
+							<Text className="text-dark-500 text-2xl font-medium">
 								Today's Tracking
 							</Text>
 							<View className="flex-row gap-6">
@@ -149,7 +149,7 @@ const AnalyticsScreen = () => {
 						<TimelineTable />
 
 						<View className="w-full items-start my-4">
-							<Text className="text-primary text-2xl font-medium">
+							<Text className="text-dark-500 text-2xl font-medium">
 								Task Breakdown
 							</Text>
 						</View>

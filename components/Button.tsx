@@ -29,7 +29,7 @@ const Button = ({
 	icon_size = 17,
 	icon_color = COLORS.dark100,
 	background_color = "transparent",
-	text_color = COLORS.primary,
+	text_color = COLORS.dark500,
 	style,
 	width = "100%",
 	onPress,

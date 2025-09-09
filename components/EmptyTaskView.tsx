@@ -19,9 +19,8 @@ const EmptyTaskView = ({ onSync }: NoTaskProps) => {
 				name="list-check"
 				is_circle
 				icon_size={40}
-				icon_color={COLORS.dark200}
 				size={140}
-				container_color={COLORS.light100}
+				container_color={COLORS.primary}
 				style={{ marginBottom: 10 }}
 			/>
 
@@ -46,7 +45,7 @@ const EmptyTaskView = ({ onSync }: NoTaskProps) => {
 				text="Create Manual Task"
 				IconComponent={FontAwesome6}
 				icon_name="plus"
-				icon_color={COLORS.primary}
+				icon_color={COLORS.dark500}
 				style={{ marginBottom: 18 }}
 			/>
 
@@ -63,12 +62,12 @@ const EmptyTaskView = ({ onSync }: NoTaskProps) => {
 					<FontAwesome6
 						name="circle-info"
 						size={15}
-						color={COLORS.dark100}
+						color={COLORS.primary}
 					/>
 				</View>
 
 				<View className="ml-3 flex-1">
-					<Text className="text-base font-medium text-primary mb-1">
+					<Text className="text-base font-medium text-dark-500 mb-1">
 						Connect FocusTracker
 					</Text>
 					<Text className="text-sm font-medium text-dark-100">

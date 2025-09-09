@@ -28,18 +28,18 @@ const AppTextInput = ({
 
 	return (
 		<View className="w-full mb-4">
-			<Text className="mb-2 text-lg text-primary font-medium">
+			<Text className="mb-2 text-lg text-dark-500 font-medium">
 				{label}
 			</Text>
 
 			<View className="w-full border-[1px] border-secondary p-4 rounded-lg flex-row items-center gap-4">
 				<TextInput
 					placeholder={placeholder}
-					placeholderTextColor={COLORS.primary}
+					placeholderTextColor={COLORS.dark500}
 					style={{
 						flex: 1,
 						fontSize: 16,
-						color: COLORS.primary,
+						color: COLORS.dark500,
 						fontWeight: "500",
 						paddingVertical: 0,
 					}}

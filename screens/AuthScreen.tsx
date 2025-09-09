@@ -44,7 +44,7 @@ const AuthScreen = () => {
 	};
 
 	return (
-		<View className="flex-1 justify-center">
+		<View className="flex-1 justify-center bg-white">
 			<KeyboardAvoidingView
 				behavior="position"
 				keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 100}>
@@ -53,6 +53,7 @@ const AuthScreen = () => {
 						<Icon
 							IconSet={MaterialCommunityIcons}
 							name="clock-time-four"
+							container_color={COLORS.primary}
 						/>
 						<TextGroup
 							title="TimeTracker"

@@ -36,7 +36,7 @@ const TasksOverviewCard = ({
 					fontSize: 14,
 					fontWeight: "500",
 				}}>
-				<Text className="text-primary text-xl font-semibold">
+				<Text className="text-dark-100 text-xl font-semibold">
 					{sprint_label}
 				</Text>
 			</CardHeader>
@@ -52,6 +52,7 @@ const TasksOverviewCard = ({
 							style={{
 								marginLeft: index !== 0 ? 10 : 0,
 							}}
+							title_color={COLORS.primary}
 						/>
 					</View>
 				))}

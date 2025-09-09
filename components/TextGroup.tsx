@@ -18,7 +18,7 @@ const TextGroup = ({
 	return (
 		<View className="items-center mt-4" style={style}>
 			<Text
-				className="text-3xl font-medium text-primary mb-2 text-center"
+				className="text-3xl font-medium text-dark-500 mb-2 text-center"
 				style={{ fontSize: title_size }}>
 				{title}
 			</Text>

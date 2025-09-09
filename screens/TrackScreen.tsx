@@ -144,12 +144,12 @@ const TrackScreen = () => {
 							<Icon
 								name={task.icon_name as string}
 								IconSet={FontAwesome6}
-								container_color={COLORS.dark300}
+								container_color={COLORS.primary}
 								size={130}
 							/>
 
 							<View className="items-center my-5">
-								<Text className="text-primary text-2xl font-medium mb-2">
+								<Text className="text-dark-500 text-2xl font-medium mb-2">
 									{task.title}
 								</Text>
 								<View className="flex-row flex-wrap justify-center items-center gap-1">
@@ -177,7 +177,7 @@ const TrackScreen = () => {
 								/>
 							</View>
 
-							<Text className="text-primary text-4xl font-medium mt-5 mb-6">
+							<Text className="text-dark-500 text-4xl font-medium mt-5 mb-6">
 								{task.time_stamp}
 							</Text>
 
@@ -192,7 +192,7 @@ const TrackScreen = () => {
 										is_circle
 										size={50}
 										icon_size={17}
-										icon_color={COLORS.primary}
+										icon_color={COLORS.dark500}
 										container_color="transparent"
 										border_color={COLORS.dark200}
 										border_width={1}
@@ -225,7 +225,7 @@ const TrackScreen = () => {
 										is_circle
 										size={50}
 										icon_size={17}
-										icon_color={COLORS.primary}
+										icon_color={COLORS.dark500}
 										container_color="transparent"
 										border_color={COLORS.dark200}
 										border_width={1}
@@ -235,7 +235,7 @@ const TrackScreen = () => {
 						</Card>
 
 						<View className="flex-row justify-between items-center w-full mb-5 mt-1">
-							<Text className="text-primary text-2xl font-medium">
+							<Text className="text-dark-500 text-2xl font-medium">
 								Up Next
 							</Text>
 							{/* <TouchableOpacity className="flex-row items-center gap-2">

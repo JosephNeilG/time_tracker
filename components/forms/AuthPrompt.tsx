@@ -15,7 +15,7 @@ const AuthPrompt = ({ question, action_text, onPress }: AuthPromptProps) => {
 			</Text>
 
 			<TouchableOpacity onPress={onPress}>
-				<Text className="text-primary underline font-medium text-lg">
+				<Text className="text-dark-500 underline font-medium text-lg">
 					{action_text}
 				</Text>
 			</TouchableOpacity>

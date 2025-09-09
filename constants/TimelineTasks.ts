@@ -6,7 +6,7 @@ export const TIMELINE_TASKS = [
 		title: "API Integration",
 		startDate: moment().set({ hour: 9, minute: 0 }).toDate(),
 		endDate: moment().set({ hour: 11, minute: 15 }).toDate(),
-		color: COLORS.primary,
+		color: COLORS.dark500,
 		type: "work",
 	},
 	{
