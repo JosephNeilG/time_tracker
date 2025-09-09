@@ -1,5 +1,5 @@
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LayoutChangeEvent, View } from "react-native";
 import Animated, {
 	useAnimatedStyle,
@@ -25,6 +25,12 @@ function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
 	};
 
 	const tab_position_x = useSharedValue(0);
+
+	useEffect(() => {
+		tab_position_x.value = withSpring(button_width * state.index, {
+			duration: 1500,
+		});
+	}, [state.index, button_width, tab_position_x]);
 
 	const animated_style = useAnimatedStyle(() => {
 		return {
