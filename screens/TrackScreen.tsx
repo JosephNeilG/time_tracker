@@ -14,11 +14,12 @@ import DotSeparator from "@/components/DotSeparator";
 import EmptyTaskListText from "@/components/EmptyTaskListText";
 import EmptyTaskView from "@/components/EmptyTaskView";
 import Icon from "@/components/Icon";
-import LoadingIndicator from "@/components/LoadingIndicator";
 import SearchBar from "@/components/SearchBar";
+import TrackTaskCardSkeleton from "@/components/skeletons/TrackTaskCardSkeleton";
 import TrackTaskCard from "@/components/track/TrackTaskCard";
 import { COLORS } from "@/constants/Colors";
 import { EMPTY_PLAYER_PLACEHOLDER } from "@/constants/EmptyPlayerPlaceholder";
+import { SKELETONS } from "@/constants/Skeletons";
 import { TrackTask } from "@/entities/TrackTask";
 import { getSprintLabel } from "@/helpers/dateHelper";
 import { toTrackTask } from "@/helpers/taskToTrackTaskHelper";
@@ -272,7 +273,9 @@ const TrackScreen = () => {
 						</View>
 
 						{is_loading_tasks ? (
-							<LoadingIndicator />
+							SKELETONS.map((index) => (
+								<TrackTaskCardSkeleton key={index} />
+							))
 						) : is_task_list_empty ? (
 							<EmptyTaskListText list_name="Up Next" />
 						) : (

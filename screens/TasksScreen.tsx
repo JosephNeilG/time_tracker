@@ -9,11 +9,12 @@ import { ScrollView, View } from "react-native";
 
 import EmptyTaskListText from "@/components/EmptyTaskListText";
 import FloatingActionButton from "@/components/FloatingActionButton";
-import LoadingIndicator from "@/components/LoadingIndicator";
 import MenuBar from "@/components/MenuBar";
 import SearchBar from "@/components/SearchBar";
+import TaskCardSkeleton from "@/components/skeletons/TaskCardSkeleton";
 import TaskCard from "@/components/tasks/TaskCard";
 import TasksOverviewCard from "@/components/tasks/TasksOverviewCard";
+import { SKELETONS } from "@/constants/Skeletons";
 import {
 	TaskMenuItems,
 	TASKS_MENU_ITEMS,
@@ -148,7 +149,9 @@ const TasksScreen = () => {
 							/>
 
 							{is_loading_tasks ? (
-								<LoadingIndicator />
+								SKELETONS.map((index) => (
+									<TaskCardSkeleton key={index} />
+								))
 							) : is_task_list_empty ? (
 								<EmptyTaskListText list_name={selected_tab} />
 							) : (

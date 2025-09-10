@@ -19,11 +19,12 @@ import AnalyticsOverviewCard from "@/components/analytics/AnalyticsOverviewCard"
 import AnalyticsTaskCard from "@/components/analytics/AnalyticsTaskCard";
 import EmptyTaskListText from "@/components/EmptyTaskListText";
 import EmptyTaskView from "@/components/EmptyTaskView";
-import LoadingIndicator from "@/components/LoadingIndicator";
 import MenuBar from "@/components/MenuBar";
+import AnalyticsTaskCardSkeleton from "@/components/skeletons/AnalyticsTaskCardSkeleton";
 import TimelineTable from "@/components/timeline/TimelineTable";
 import { ANALYTICS_MENU_ITEMS } from "@/constants/analytics/AnalyticsMenuItems";
 import { COLORS } from "@/constants/Colors";
+import { SKELETONS } from "@/constants/Skeletons";
 import { getCurrentMonthDateYear } from "@/helpers/dateHelper";
 import { useAppStore } from "@/store/appStore";
 
@@ -157,7 +158,9 @@ const AnalyticsScreen = () => {
 						</View>
 
 						{is_loading_tasks ? (
-							<LoadingIndicator />
+							SKELETONS.map((index) => (
+								<AnalyticsTaskCardSkeleton key={index} />
+							))
 						) : is_task_list_empty ? (
 							<EmptyTaskListText list_name="Task Breakdown" />
 						) : (
