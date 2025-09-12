@@ -33,7 +33,7 @@ const AppTextInput = ({
 	const toggleSecure = () => setSecure((prev) => !prev);
 
 	return (
-		<View className="w-full mb-4" style={container_style}>
+		<View className="w-full mb-1" style={container_style}>
 			{label && (
 				<Text className="mb-2 text-lg text-dark-500 font-medium">
 					{label}
