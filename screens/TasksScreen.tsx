@@ -43,6 +43,9 @@ const TasksScreen = () => {
 	const { total, completed, logged } = getTaskOverview();
 	const toggleTrack = useAppStore((state) => state.toggleCardPlayerIcon);
 
+	/** Calculate progress dynamically for progress bar */
+	const progress = total === 0 ? 0 : completed / total;
+
 	/* Overview items for summary card */
 	const overview_items = [
 		{ id: 1, title: `${total} tasks`, subtitle: "assigned" },
@@ -130,14 +133,14 @@ const TasksScreen = () => {
 	return (
 		<View className="flex-1">
 			<ScrollView showsVerticalScrollIndicator={false}>
-				<View className="p-7 items-center w-full mb-[70px]">
+				<View className="p-7 items-center w-full mb-[130px]">
 					{is_tasks_synced ? (
 						<>
 							<TasksOverviewCard
 								sprint_label={sprint_label}
 								days_left={days_left}
 								overview_items={overview_items}
-								progress={0.56}
+								progress={progress}
 							/>
 
 							<SearchBar container_style={{ marginBottom: 0 }} />

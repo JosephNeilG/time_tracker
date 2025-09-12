@@ -25,7 +25,11 @@ import TimelineTable from "@/components/timeline/TimelineTable";
 import { ANALYTICS_MENU_ITEMS } from "@/constants/analytics/AnalyticsMenuItems";
 import { COLORS } from "@/constants/Colors";
 import { SKELETONS } from "@/constants/Skeletons";
-import { getCurrentMonthDateYear } from "@/helpers/dateHelper";
+import {
+	getCurrentMonthDateYear,
+	getNextDate,
+	getPrevDate,
+} from "@/helpers/dateHelper";
 import { useAppStore } from "@/store/appStore";
 
 /**
@@ -34,13 +38,18 @@ import { useAppStore } from "@/store/appStore";
  * Supports pull to refresh to recalculate percentages
  */
 const AnalyticsScreen = () => {
+	const [month_date_year, setCurrentDate] = useState(new Date());
+	const formatted_date = getCurrentMonthDateYear(month_date_year);
+
+	const handlePrevDate = () => setCurrentDate((prev) => getPrevDate(prev));
+	const handleNextDate = () => setCurrentDate((prev) => getNextDate(prev));
+
 	const getAnalyticsOverview = useAppStore(
 		(state) => state.getAnalyticsOverview
 	);
 	const { total_tracked_time, tasks_worked_count, efficiency } =
 		getAnalyticsOverview();
 
-	const current_date = getCurrentMonthDateYear();
 	const is_loading_tasks = useAppStore((state) => state.is_loading_tasks);
 	const is_tasks_synced = useAppStore((state) => state.is_tasks_synced);
 	const tasks = useAppStore((state) => state.tasks);
@@ -118,7 +127,9 @@ const AnalyticsScreen = () => {
 								Today's Tracking
 							</Text>
 							<View className="flex-row gap-6">
-								<TouchableOpacity className="flex-row items-center gap-2">
+								<TouchableOpacity
+									className="flex-row items-center gap-2"
+									onPress={handlePrevDate}>
 									<FontAwesome6
 										name="chevron-left"
 										size={16}
@@ -127,10 +138,12 @@ const AnalyticsScreen = () => {
 								</TouchableOpacity>
 
 								<Text className="text-dark-100 text-lg font-medium leading-6">
-									{current_date}
+									{formatted_date}
 								</Text>
 
-								<TouchableOpacity className="flex-row items-center gap-2">
+								<TouchableOpacity
+									className="flex-row items-center gap-2"
+									onPress={handleNextDate}>
 									<FontAwesome6
 										name="chevron-right"
 										size={16}
