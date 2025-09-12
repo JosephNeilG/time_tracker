@@ -3,27 +3,13 @@ import { router } from "expo-router";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { View } from "react-native";
-import { z as Zod } from "zod";
 
 import Button from "@/components/Button";
 import ErrorMessage from "@/components/ErrorMessage";
 import TextInput from "@/components/forms/TextInput";
 import { COLORS } from "@/constants/Colors";
+import { SignUpData, SignUpSchema } from "@/schema/signUpSchema";
 import RememberMeRow from "./RememberMeRow";
-
-const SignUpSchema = Zod.object({
-	email: Zod.email("Invalid email format"),
-	password: Zod.string().min(6, "Password must be at least 6 characters"),
-	confirm_password: Zod.string().min(
-		6,
-		"Confirm Password must be at least 6 characters"
-	),
-}).refine((data) => data.password === data.confirm_password, {
-	message: "Passwords do not match",
-	path: ["confirm_password"],
-});
-
-type SignUpData = Zod.infer<typeof SignUpSchema>;
 
 const SignUpForm = () => {
 	const [is_checked, setChecked] = useState(false);
