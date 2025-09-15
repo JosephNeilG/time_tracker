@@ -5,18 +5,19 @@
  */
 
 import { FontAwesome6 } from "@expo/vector-icons";
-import React, { useMemo, useRef } from "react";
-import { Button, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import React, { useMemo, useRef, useState } from "react";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import * as Progress from "react-native-progress";
 
 import Card from "@/components/card/Card";
-import CustomBottomSheet from "@/components/CustomBottomSheet";
 import DotSeparator from "@/components/DotSeparator";
 import EmptyTaskListText from "@/components/EmptyTaskListText";
 import EmptyTaskView from "@/components/EmptyTaskView";
 import Icon from "@/components/Icon";
 import SearchBar from "@/components/SearchBar";
 import TrackTaskCardSkeleton from "@/components/skeletons/TrackTaskCardSkeleton";
+import TaskConfirmationBottomSheet from "@/components/tasks/TasksConfirmationBottomSheet";
 import TrackTaskCard from "@/components/track/TrackTaskCard";
 import { COLORS } from "@/constants/Colors";
 import { EMPTY_PLAYER_PLACEHOLDER } from "@/constants/EmptyPlayerPlaceholder";
@@ -25,7 +26,6 @@ import { TrackTask } from "@/entities/TrackTask";
 import { getSprintLabel } from "@/helpers/dateHelper";
 import { toTrackTask } from "@/helpers/taskToTrackTaskHelper";
 import { useAppStore } from "@/store/appStore";
-import { BottomSheetModal, useBottomSheetModal } from "@gorhom/bottom-sheet";
 
 /**
  * DOCU: TrackScreen - Displays task player with playback controls
@@ -42,10 +42,27 @@ const TrackScreen = () => {
 	const all_tasks = tasks.filter((task) => task.status !== "completed");
 	const task = current_task ?? EMPTY_PLAYER_PLACEHOLDER;
 
-	const bottom_sheet_ref = useRef<BottomSheetModal>(null);
-	const { dismiss } = useBottomSheetModal();
+	const [pending_action, setPendingAction] = useState<{
+		type: "delete" | "complete";
+		task_id: number;
+		task_title: string;
+	} | null>(null);
 
-	const handlePresentModalPress = () => bottom_sheet_ref.current?.present();
+	const bottom_sheet_ref = useRef<BottomSheetModal>(null);
+
+	const handleSwipeRequest = (
+		action: "delete" | "complete",
+		task_id: number
+	) => {
+		const swiped_task = tasks.find((task) => task.id === task_id);
+
+		setPendingAction({
+			type: action,
+			task_id,
+			task_title: swiped_task?.title ?? "this task",
+		});
+		bottom_sheet_ref.current?.present();
+	};
 
 	/**
 	 * DOCU: Ensures current task appears first, followed by next tasks,
@@ -262,10 +279,6 @@ const TrackScreen = () => {
 										/>
 									</TouchableOpacity>
 								</View>
-								<Button
-									title="Present Modal"
-									onPress={handlePresentModalPress}
-								/>
 							</Card>
 
 							<View className="flex-row justify-between items-center w-full mb-5 mt-1">
@@ -287,6 +300,7 @@ const TrackScreen = () => {
 										task={task}
 										onPress={handleOnPress}
 										onMediaPress={handleOnPress}
+										onSwipeRequest={handleSwipeRequest}
 									/>
 								))
 							)}
@@ -298,17 +312,10 @@ const TrackScreen = () => {
 			</ScrollView>
 
 			{is_tasks_synced && (
-				<CustomBottomSheet
+				<TaskConfirmationBottomSheet
 					ref={bottom_sheet_ref}
-					title="Delete Task"
-					sub_title='You are about to delete "Task Title".'
-					confirm_button_text="Delete"
-					confirm_button_bg_color="#F04543"
-					icon_name="trash-can"
-					icon_color="#F04543"
-					icon_background="#FFF2F1"
-					onConfirm={() => console.log("delete pressed")}
-					onCancel={() => bottom_sheet_ref.current?.dismiss()}
+					pending_action={pending_action}
+					setPendingAction={setPendingAction}
 				/>
 			)}
 		</View>

@@ -12,4 +12,5 @@ export const COLORS = {
 	light300: "#D2D5DE",
 	light400: "#F9FAFC",
 	white: "#fff",
+	danger: "#F04543",
 };

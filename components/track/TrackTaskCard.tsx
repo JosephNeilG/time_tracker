@@ -1,11 +1,10 @@
 import { FontAwesome6 } from "@expo/vector-icons";
-import React from "react";
+import React, { useRef } from "react";
 import { View } from "react-native";
 import { Swipeable } from "react-native-gesture-handler";
 
 import { COLORS } from "@/constants/Colors";
 import { TrackTask } from "@/entities/TrackTask";
-import { useAppStore } from "@/store/appStore";
 import Card from "../card/Card";
 import CardBody from "../card/CardBody";
 
@@ -13,11 +12,16 @@ interface TrackTaskCardProps {
 	task: TrackTask;
 	onPress?: (task: TrackTask) => void;
 	onMediaPress?: (task: TrackTask) => void;
+	onSwipeRequest?: (action: "complete" | "delete", task_id: number) => void;
 }
 
-const TrackTaskCard = ({ task, onPress, onMediaPress }: TrackTaskCardProps) => {
-	const completeTask = useAppStore((state) => state.completeTask);
-	const deleteTask = useAppStore((state) => state.deleteTask);
+const TrackTaskCard = ({
+	task,
+	onPress,
+	onMediaPress,
+	onSwipeRequest,
+}: TrackTaskCardProps) => {
+	const swipeable_ref = useRef<any>(null);
 
 	const renderRightActions = () => {
 		return (
@@ -29,25 +33,28 @@ const TrackTaskCard = ({ task, onPress, onMediaPress }: TrackTaskCardProps) => {
 
 	const renderLeftActions = () => {
 		return (
-			<View className="bg-red-700 justify-center items-start flex-1 rounded-lg mb-4 pl-4">
+			<View className="bg-danger justify-center items-start flex-1 rounded-lg mb-4 pl-4">
 				<FontAwesome6 name="trash" size={20} color={COLORS.white} />
 			</View>
 		);
 	};
 
-	const handleSwipeOpen = (direction: string, taskId: number) => {
+	const handleSwipeOpen = (direction: string) => {
+		swipeable_ref.current?.close();
+
 		if (direction === "right") {
-			completeTask(taskId);
+			onSwipeRequest?.("complete", task.id);
 		} else if (direction === "left") {
-			deleteTask(taskId);
+			onSwipeRequest?.("delete", task.id);
 		}
 	};
 
 	return (
 		<Swipeable
+			ref={swipeable_ref}
 			renderRightActions={renderRightActions}
 			renderLeftActions={renderLeftActions}
-			onSwipeableOpen={(direction) => handleSwipeOpen(direction, task.id)}
+			onSwipeableOpen={(direction) => handleSwipeOpen(direction)}
 			containerStyle={{ width: "100%" }}
 			rightThreshold={50}>
 			<Card
