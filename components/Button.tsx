@@ -37,8 +37,15 @@ const Button = ({
 	return (
 		<TouchableOpacity
 			onPress={onPress}
-			className="border-[1px] border-secondary py-4 rounded-lg flex-row items-center gap-4 justify-center"
-			style={[{ backgroundColor: background_color, width }, style]}>
+			className="border-[1px] border-secondary rounded-lg flex-row items-center gap-4 justify-center"
+			style={[
+				{
+					backgroundColor: background_color,
+					width,
+					paddingVertical: 14,
+				},
+				style,
+			]}>
 			{IconComponent && icon_name && (
 				<IconComponent
 					name={icon_name}

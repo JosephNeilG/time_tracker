@@ -5,11 +5,12 @@
  */
 
 import { FontAwesome6 } from "@expo/vector-icons";
-import React, { useMemo } from "react";
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import React, { useMemo, useRef } from "react";
+import { Button, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import * as Progress from "react-native-progress";
 
 import Card from "@/components/card/Card";
+import CustomBottomSheet from "@/components/CustomBottomSheet";
 import DotSeparator from "@/components/DotSeparator";
 import EmptyTaskListText from "@/components/EmptyTaskListText";
 import EmptyTaskView from "@/components/EmptyTaskView";
@@ -24,6 +25,7 @@ import { TrackTask } from "@/entities/TrackTask";
 import { getSprintLabel } from "@/helpers/dateHelper";
 import { toTrackTask } from "@/helpers/taskToTrackTaskHelper";
 import { useAppStore } from "@/store/appStore";
+import { BottomSheetModal, useBottomSheetModal } from "@gorhom/bottom-sheet";
 
 /**
  * DOCU: TrackScreen - Displays task player with playback controls
@@ -39,6 +41,11 @@ const TrackScreen = () => {
 	const current_task = tasks.find((t) => t.id === current_task_id) || null;
 	const all_tasks = tasks.filter((task) => task.status !== "completed");
 	const task = current_task ?? EMPTY_PLAYER_PLACEHOLDER;
+
+	const bottom_sheet_ref = useRef<BottomSheetModal>(null);
+	const { dismiss } = useBottomSheetModal();
+
+	const handlePresentModalPress = () => bottom_sheet_ref.current?.present();
 
 	/**
 	 * DOCU: Ensures current task appears first, followed by next tasks,
@@ -142,158 +149,169 @@ const TrackScreen = () => {
 		!current_task || is_last_task ? "opacity-70" : "opacity-100";
 
 	return (
-		<ScrollView showsVerticalScrollIndicator={false}>
-			<View className="p-7 items-center w-full mb-[70px]">
-				{is_tasks_synced ? (
-					<>
-						<SearchBar
-							container_style={{
-								marginBottom: 0,
-							}}
-						/>
-						<Card
-							border_color="transparent"
-							background_color={COLORS.light400}
-							style={{
-								alignItems: "center",
-								paddingVertical: 25,
-								marginTop: 15,
-							}}>
-							<Icon
-								name={task.icon_name as string}
-								IconSet={FontAwesome6}
-								container_color={
-									current_task
-										? COLORS.primary
-										: COLORS.light300
-								}
-								size={130}
+		<View style={{ flex: 1 }}>
+			<ScrollView showsVerticalScrollIndicator={false}>
+				<View className="p-7 items-center w-full mb-[70px]">
+					{is_tasks_synced ? (
+						<>
+							<SearchBar
+								container_style={{
+									marginBottom: 0,
+								}}
 							/>
+							<Card
+								border_color="transparent"
+								background_color={COLORS.light400}
+								style={{
+									alignItems: "center",
+									paddingVertical: 25,
+									marginTop: 15,
+								}}>
+								<Icon
+									name={task.icon_name as string}
+									IconSet={FontAwesome6}
+									container_color={
+										current_task
+											? COLORS.primary
+											: COLORS.light300
+									}
+									size={130}
+								/>
 
-							<View className="items-center my-5">
-								<Text className="text-dark-500 text-2xl font-medium mb-2">
-									{task.title}
-								</Text>
-								<View className="flex-row flex-wrap justify-center items-center gap-1">
-									<Text className="text-secondary text-base font-medium leading-6">
-										{task.description || sprint_label}
+								<View className="items-center my-5">
+									<Text className="text-dark-500 text-2xl font-medium mb-2">
+										{task.title}
 									</Text>
-									<DotSeparator
-										color={COLORS.secondary}
-										size={3.5}
-									/>
-									<Text className="text-secondary text-base font-medium leading-6">
-										{task.category}
-									</Text>
+									<View className="flex-row flex-wrap justify-center items-center gap-1">
+										<Text className="text-secondary text-base font-medium leading-6">
+											{task.description || sprint_label}
+										</Text>
+										<DotSeparator
+											color={COLORS.secondary}
+											size={3.5}
+										/>
+										<Text className="text-secondary text-base font-medium leading-6">
+											{task.category}
+										</Text>
+									</View>
 								</View>
-							</View>
 
-							<View className="w-full">
-								<Progress.Bar
-									progress={task.progress_count}
-									width={null}
-									color={COLORS.primary}
-									unfilledColor="#E6E7EB"
-									borderWidth={0}
-									height={8}
-								/>
-							</View>
-
-							<Text className="text-dark-500 text-4xl font-medium mt-5 mb-6">
-								{task.time_stamp}
-							</Text>
-
-							<View className="flex-row gap-6 items-center">
-								<TouchableOpacity
-									disabled={!current_task || is_last_task}
-									className={prevNextDisabledStyle}
-									onPress={handlePrevTask}>
-									<Icon
-										name="backward"
-										IconSet={FontAwesome6}
-										is_circle
-										size={50}
-										icon_size={17}
-										icon_color={COLORS.dark500}
-										container_color="transparent"
-										border_color={COLORS.dark200}
-										border_width={1}
+								<View className="w-full">
+									<Progress.Bar
+										progress={task.progress_count}
+										width={null}
+										color={COLORS.primary}
+										unfilledColor="#E6E7EB"
+										borderWidth={0}
+										height={8}
 									/>
-								</TouchableOpacity>
+								</View>
 
-								<TouchableOpacity
-									disabled={!current_task}
-									className={playPauseStyle}
-									onPress={handleCardPlayerOnPress}>
-									<Icon
-										name={
-											current_task?.media_icon ||
-											task.media_icon
-										}
-										IconSet={FontAwesome6}
-										is_circle
-										size={70}
-										icon_size={22}
-									/>
-								</TouchableOpacity>
-
-								<TouchableOpacity
-									disabled={!current_task || is_last_task}
-									className={prevNextDisabledStyle}
-									onPress={handleNextTask}>
-									<Icon
-										name="forward"
-										IconSet={FontAwesome6}
-										is_circle
-										size={50}
-										icon_size={17}
-										icon_color={COLORS.dark500}
-										container_color="transparent"
-										border_color={COLORS.dark200}
-										border_width={1}
-									/>
-								</TouchableOpacity>
-							</View>
-						</Card>
-
-						<View className="flex-row justify-between items-center w-full mb-5 mt-1">
-							<Text className="text-dark-500 text-2xl font-medium">
-								Up Next
-							</Text>
-							{/* <TouchableOpacity className="flex-row items-center gap-2">
-								<FontAwesome6
-									name="shuffle"
-									size={16}
-									color={COLORS.dark100}
-								/>
-								<Text className="text-dark-100 text-lg font-medium leading-6">
-									Shuffle
+								<Text className="text-dark-500 text-4xl font-medium mt-5 mb-6">
+									{task.time_stamp}
 								</Text>
-							</TouchableOpacity> */}
-						</View>
 
-						{is_loading_tasks ? (
-							SKELETONS.map((index) => (
-								<TrackTaskCardSkeleton key={index} />
-							))
-						) : is_task_list_empty ? (
-							<EmptyTaskListText list_name="Up Next" />
-						) : (
-							display_next_tasks.map((task) => (
-								<TrackTaskCard
-									key={task.id}
-									task={task}
-									onPress={handleOnPress}
-									onMediaPress={handleOnPress}
+								<View className="flex-row gap-6 items-center">
+									<TouchableOpacity
+										disabled={!current_task || is_last_task}
+										className={prevNextDisabledStyle}
+										onPress={handlePrevTask}>
+										<Icon
+											name="backward"
+											IconSet={FontAwesome6}
+											is_circle
+											size={50}
+											icon_size={17}
+											icon_color={COLORS.dark500}
+											container_color="transparent"
+											border_color={COLORS.dark200}
+											border_width={1}
+										/>
+									</TouchableOpacity>
+
+									<TouchableOpacity
+										disabled={!current_task}
+										className={playPauseStyle}
+										onPress={handleCardPlayerOnPress}>
+										<Icon
+											name={
+												current_task?.media_icon ||
+												task.media_icon
+											}
+											IconSet={FontAwesome6}
+											is_circle
+											size={70}
+											icon_size={22}
+										/>
+									</TouchableOpacity>
+
+									<TouchableOpacity
+										disabled={!current_task || is_last_task}
+										className={prevNextDisabledStyle}
+										onPress={handleNextTask}>
+										<Icon
+											name="forward"
+											IconSet={FontAwesome6}
+											is_circle
+											size={50}
+											icon_size={17}
+											icon_color={COLORS.dark500}
+											container_color="transparent"
+											border_color={COLORS.dark200}
+											border_width={1}
+										/>
+									</TouchableOpacity>
+								</View>
+								<Button
+									title="Present Modal"
+									onPress={handlePresentModalPress}
 								/>
-							))
-						)}
-					</>
-				) : (
-					<EmptyTaskView onSync={syncTasks} />
-				)}
-			</View>
-		</ScrollView>
+							</Card>
+
+							<View className="flex-row justify-between items-center w-full mb-5 mt-1">
+								<Text className="text-dark-500 text-2xl font-medium">
+									Up Next
+								</Text>
+							</View>
+
+							{is_loading_tasks ? (
+								SKELETONS.map((index) => (
+									<TrackTaskCardSkeleton key={index} />
+								))
+							) : is_task_list_empty ? (
+								<EmptyTaskListText list_name="Up Next" />
+							) : (
+								display_next_tasks.map((task) => (
+									<TrackTaskCard
+										key={task.id}
+										task={task}
+										onPress={handleOnPress}
+										onMediaPress={handleOnPress}
+									/>
+								))
+							)}
+						</>
+					) : (
+						<EmptyTaskView onSync={syncTasks} />
+					)}
+				</View>
+			</ScrollView>
+
+			{is_tasks_synced && (
+				<CustomBottomSheet
+					ref={bottom_sheet_ref}
+					title="Delete Task"
+					sub_title='You are about to delete "Task Title".'
+					confirm_button_text="Delete"
+					confirm_button_bg_color="#F04543"
+					icon_name="trash-can"
+					icon_color="#F04543"
+					icon_background="#FFF2F1"
+					onConfirm={() => console.log("delete pressed")}
+					onCancel={() => bottom_sheet_ref.current?.dismiss()}
+				/>
+			)}
+		</View>
 	);
 };
 

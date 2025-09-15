@@ -1,15 +1,24 @@
 import { Stack } from "expo-router";
 
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import "./global.css";
 
 export default function RootLayout() {
 	return (
 		<GestureHandlerRootView>
-			<Stack>
-				<Stack.Screen name="auth" options={{ headerShown: false }} />
-				<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-			</Stack>
+			<BottomSheetModalProvider>
+				<Stack>
+					<Stack.Screen
+						name="auth"
+						options={{ headerShown: false }}
+					/>
+					<Stack.Screen
+						name="(tabs)"
+						options={{ headerShown: false }}
+					/>
+				</Stack>
+			</BottomSheetModalProvider>
 		</GestureHandlerRootView>
 	);
 }
