@@ -36,3 +36,13 @@ export const formatSecondsToMinutes = (total_seconds: number): string => {
 
 	return `${minutes}m`;
 };
+
+/**
+ * DOCU: Converts total seconds into hours
+ * @param total_seconds - Total seconds to convert
+ * @returns string formatted as "${hour}h"
+ */
+export const formatSecondsToHours = (total_seconds: number): string => {
+	const hours = Math.floor(total_seconds / 3600);
+	return `${hours}h`;
+};

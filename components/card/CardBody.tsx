@@ -4,6 +4,7 @@ import { Text, TextStyle, TouchableOpacity, View } from "react-native";
 
 import DotSeparator from "@/components/DotSeparator";
 import { COLORS } from "@/constants/Colors";
+import { formatSecondsToHours } from "@/helpers/timeHelper";
 import Icon from "../Icon";
 
 interface CardBodyProps {
@@ -13,7 +14,7 @@ interface CardBodyProps {
 	title_color?: string;
 	title_decoration?: TextStyle["textDecorationLine"];
 	task_category_name: string;
-	task_time_estimate: string;
+	task_time_estimate: number;
 	subtitle_color?: string;
 	media_status_icon?: keyof typeof FontAwesome6.glyphMap;
 	media_status_icon_color?: string;
@@ -80,7 +81,7 @@ const CardBody = ({
 							style={{ color: subtitle_color }}
 							numberOfLines={1}
 							ellipsizeMode="tail">
-							{task_time_estimate}
+							{`${formatSecondsToHours(task_time_estimate)} estimated`}
 						</Text>
 					</View>
 				</View>

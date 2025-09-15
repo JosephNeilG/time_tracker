@@ -4,7 +4,7 @@ export interface Task {
 	id: number;
 	title: string;
 	category: string;
-	time_estimate: string;
+	time_estimate: number;
 	status: "todo" | "completed" | "tracking";
 	media_icon: keyof typeof FontAwesome6.glyphMap;
 	icon_name: keyof typeof FontAwesome6.glyphMap;
