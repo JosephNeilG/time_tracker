@@ -41,6 +41,7 @@ const TrackScreen = () => {
 	const current_task = tasks.find((t) => t.id === current_task_id) || null;
 	const all_tasks = tasks.filter((task) => task.status !== "completed");
 	const task = current_task ?? EMPTY_PLAYER_PLACEHOLDER;
+	const [search_query, setSearchQuery] = useState<string>("");
 
 	const [pending_action, setPendingAction] = useState<{
 		type: "delete" | "complete";
@@ -92,6 +93,18 @@ const TrackScreen = () => {
 		task_time_estimate: task.time_estimate,
 		media_status_icon: task.media_icon,
 	}));
+
+	/**
+	 * DOCU: Filters "Up Next" tasks based on search query.
+	 * If search query is empty, all tasks are displayed.
+	 */
+	const filtered_display_next_tasks = useMemo(() => {
+		if (search_query.trim() === "") return display_next_tasks;
+
+		return display_next_tasks.filter((task) =>
+			task.task_title.toLowerCase().includes(search_query.toLowerCase())
+		);
+	}, [display_next_tasks, search_query]);
 
 	/**
 	 * DOCU: Handle card press to set the selected task as current
@@ -175,6 +188,8 @@ const TrackScreen = () => {
 								container_style={{
 									marginBottom: 0,
 								}}
+								value={search_query}
+								onChangeText={setSearchQuery}
 							/>
 							<Card
 								border_color="transparent"
@@ -294,7 +309,7 @@ const TrackScreen = () => {
 							) : is_task_list_empty ? (
 								<EmptyTaskListText list_name="Up Next" />
 							) : (
-								display_next_tasks.map((task) => (
+								filtered_display_next_tasks.map((task) => (
 									<TrackTaskCard
 										key={task.id}
 										task={task}

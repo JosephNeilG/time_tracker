@@ -34,6 +34,7 @@ const TasksScreen = () => {
 	const sprint_label = getSprintLabel();
 	const days_left = getRemainingDays();
 	const [selected_tab, setSelectedTab] = useState<TaskMenuItems>("All");
+	const [search_query, setSearchQuery] = useState<string>("");
 
 	const is_loading_tasks = useAppStore((state) => state.is_loading_tasks);
 	const is_tasks_synced = useAppStore((state) => state.is_tasks_synced);
@@ -112,21 +113,34 @@ const TasksScreen = () => {
 		setSelectedTab(TASKS_MENU_ITEMS[index].label as TaskMenuItems);
 	};
 
-	/** DOCU: Filter tasks based on selected tab (All, In Progress, Completed) */
+	/** DOCU: Filter tasks based on selected tab (All, In Progress, Completed) and search query */
 	const filtered_tasks = useMemo(() => {
+		let filtered = tasks;
+
 		switch (selected_tab) {
-			case "All":
-				return tasks;
 			case "In Progress":
-				return tasks.filter(
-					(t) => t.status === "tracking" || t.status === "todo"
+				filtered = filtered.filter(
+					(task) =>
+						task.status === "tracking" || task.status === "todo"
 				);
+				break;
 			case "Completed":
-				return tasks.filter((t) => t.status === "completed");
+				filtered = filtered.filter(
+					(task) => task.status === "completed"
+				);
+				break;
 			default:
-				return tasks;
+				break;
 		}
-	}, [tasks, selected_tab]);
+
+		if (search_query.trim() !== "") {
+			filtered = filtered.filter((task) =>
+				task.title.toLowerCase().includes(search_query.toLowerCase())
+			);
+		}
+
+		return filtered;
+	}, [tasks, selected_tab, search_query]);
 
 	const is_task_list_empty = filtered_tasks.length === 0;
 
@@ -143,7 +157,11 @@ const TasksScreen = () => {
 								progress={progress}
 							/>
 
-							<SearchBar container_style={{ marginBottom: 0 }} />
+							<SearchBar
+								container_style={{ marginBottom: 0 }}
+								value={search_query}
+								onChangeText={setSearchQuery}
+							/>
 
 							<MenuBar
 								tabs={TASKS_MENU_ITEMS}
