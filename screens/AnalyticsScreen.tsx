@@ -65,7 +65,7 @@ const AnalyticsScreen = () => {
 	/* Overview summary items */
 	const overview_items = [
 		{ id: 1, title: `${total_tracked_time} `, subtitle: "Total Tracked" },
-		{ id: 2, title: tasks_worked_count, subtitle: "completed" },
+		{ id: 2, title: tasks_worked_count, subtitle: "Completed" },
 		{ id: 3, title: `${efficiency}%`, subtitle: "Efficiency" },
 	];
 
