@@ -30,10 +30,6 @@ const _layout = () => {
 				options={{
 					title: "Track",
 					headerTitle: "TimeTracker",
-
-					tabBarIcon: ({ color }) => (
-						<FontAwesome6 name="play" size={22} color={color} />
-					),
 				}}
 			/>
 			<Tabs.Screen
@@ -41,9 +37,6 @@ const _layout = () => {
 				options={{
 					title: "Tasks",
 					headerTitle: "TimeTracker",
-					tabBarIcon: ({ color }) => (
-						<FontAwesome6 name="list-ul" size={22} color={color} />
-					),
 				}}
 			/>
 			<Tabs.Screen
@@ -51,13 +44,6 @@ const _layout = () => {
 				options={{
 					title: "Analytics",
 					headerTitle: "Analytics",
-					tabBarIcon: ({ color }) => (
-						<FontAwesome6
-							name="chart-bar"
-							size={22}
-							color={color}
-						/>
-					),
 				}}
 			/>
 		</Tabs>
