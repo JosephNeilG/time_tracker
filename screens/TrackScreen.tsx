@@ -17,7 +17,7 @@ import EmptyTaskView from "@/components/EmptyTaskView";
 import Icon from "@/components/Icon";
 import SearchBar from "@/components/SearchBar";
 import TrackTaskCardSkeleton from "@/components/skeletons/TrackTaskCardSkeleton";
-import TaskConfirmationBottomSheet from "@/components/tasks/TasksConfirmationBottomSheet";
+import TaskConfirmationBottomSheet from "@/components/track/TasksConfirmationBottomSheet";
 import TrackTaskCard from "@/components/track/TrackTaskCard";
 import { COLORS } from "@/constants/Colors";
 import { EMPTY_PLAYER_PLACEHOLDER } from "@/constants/EmptyPlayerPlaceholder";

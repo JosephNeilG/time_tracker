@@ -9,7 +9,7 @@ import { Text } from "react-native";
 import Button from "./Button";
 import Icon from "./Icon";
 
-interface ConfirmationBottomSheetProps {
+interface CustomBottomSheetProps {
 	title: string;
 	sub_title: string;
 	confirm_button_text: string;
@@ -24,7 +24,7 @@ interface ConfirmationBottomSheetProps {
 
 type Ref = BottomSheetModal;
 
-const ConfirmationBottomSheet = forwardRef<Ref, ConfirmationBottomSheetProps>(
+const CustomBottomSheet = forwardRef<Ref, CustomBottomSheetProps>(
 	(
 		{
 			title,
@@ -98,4 +98,4 @@ const ConfirmationBottomSheet = forwardRef<Ref, ConfirmationBottomSheetProps>(
 	}
 );
 
-export default ConfirmationBottomSheet;
+export default CustomBottomSheet;
