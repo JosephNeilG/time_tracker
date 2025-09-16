@@ -17,4 +17,5 @@ export interface Task {
 	time_stamp?: string;
 	progress_count?: number;
 	time_elapsed?: number;
+	start_time?: string;
 }

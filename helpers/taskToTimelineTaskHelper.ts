@@ -12,12 +12,13 @@ export const mapTasksToTimeline = (tasks: Task[]): TimelineTask[] => {
 	const active_tasks = tasks.filter(
 		(task) =>
 			(task.time_elapsed && task.time_elapsed > 0) ||
-			task.status === "completed"
+			task.status === "completed" ||
+			task.status === "tracking"
 	);
 
 	/* Calculate start and end dates, then returns tasks with TimelineTask shape */
 	return active_tasks.map((task) => {
-		const start_date = new Date();
+		const start_date = new Date(task.start_time!);
 		const end_date = new Date(
 			start_date.getTime() + (task.time_elapsed ?? 0) * 1000
 		);

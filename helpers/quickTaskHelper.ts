@@ -20,6 +20,8 @@ const createQuickTask = () => {
 		icon_name: "bolt",
 		right_text: "Low Priority",
 		time_stamp: "00:00:00",
+		start_time: new Date().toISOString(),
+		time_elapsed: 0,
 	};
 
 	useAppStore.getState().incrementQuickTaskCounter();

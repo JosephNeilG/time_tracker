@@ -5,8 +5,8 @@ import { createJSONStorage, persist } from "zustand/middleware";
 import { TASKS } from "@/constants/Tasks";
 import { Task } from "@/entities/Task";
 import {
+	formatSecondsToHours,
 	formatSecondsToHoursMinutes,
-	formatSecondsToMinutes,
 	formatTime,
 } from "@/helpers/timeHelper";
 
@@ -101,7 +101,7 @@ export const useAppStore = create<AppState>()(
 					0
 				);
 
-				const logged = formatSecondsToMinutes(logged_seconds);
+				const logged = formatSecondsToHours(logged_seconds);
 
 				return { total, completed, logged };
 			},
@@ -213,6 +213,10 @@ export const useAppStore = create<AppState>()(
 								media_icon: is_currently_tracking
 									? "play"
 									: "pause",
+								start_time:
+									!is_currently_tracking && !task.start_time
+										? new Date().toISOString()
+										: task.start_time,
 							} as Task;
 						}
 						if (
