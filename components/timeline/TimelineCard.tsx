@@ -4,6 +4,10 @@ import { Text, View, ViewStyle } from "react-native";
 
 import { COLORS } from "@/constants/Colors";
 import { TimelineTask } from "@/entities/TimelineTask";
+import {
+	formatSecondsToHoursMinutes,
+	formatTimeRange,
+} from "@/helpers/timeHelper";
 
 interface TimelineCardProps {
 	style?: ViewStyle;
@@ -11,16 +15,12 @@ interface TimelineCardProps {
 }
 
 const TimelineCard = ({ style, item }: TimelineCardProps) => {
-	const duration_minutes = moment(item.endDate).diff(
+	const duration_seconds = moment(item.endDate).diff(
 		moment(item.startDate),
-		"minutes"
+		"seconds"
 	);
-	const hours = Math.floor(duration_minutes / 60);
-	const minutes = duration_minutes % 60;
-	const duration_string =
-		hours > 0
-			? `${hours}h ${minutes > 0 ? minutes + "m" : ""}`
-			: `${minutes}m`;
+
+	const duration_string = formatSecondsToHoursMinutes(duration_seconds);
 
 	const is_break = item.type === "break";
 
@@ -45,8 +45,7 @@ const TimelineCard = ({ style, item }: TimelineCardProps) => {
 			{!is_break && (
 				<>
 					<Text className="text-light-100 font-medium">
-						{moment(item.startDate).format("h:mm")} -{" "}
-						{moment(item.endDate).format("h:mm")}
+						{formatTimeRange(item.startDate, item.endDate)}
 					</Text>
 
 					<Text className="text-light-200 font-medium">

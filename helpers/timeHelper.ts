@@ -1,3 +1,5 @@
+import moment from "moment";
+
 /**
  * DOCU: formatTime - Conver total seconds into HH:MM:SS format
  * @param total_seconds: Total secods to format
@@ -45,4 +47,16 @@ export const formatSecondsToMinutes = (total_seconds: number): string => {
 export const formatSecondsToHours = (total_seconds: number): string => {
 	const hours = Math.floor(total_seconds / 3600);
 	return `${hours}h`;
+};
+
+/**
+ * DOCU: formatTimeRange - Format a start and end Date into a "h:mm - h:mm" string
+ * @param start_date - Start time as Date
+ * @param end_date - End time as Date
+ * @returns string like "2:15 - 3:45"
+ */
+export const formatTimeRange = (start_date: Date, end_date: Date): string => {
+	const start = moment(start_date).format("h:mm");
+	const end = moment(end_date).format("h:mm");
+	return `${start} - ${end}`;
 };
