@@ -73,16 +73,18 @@ const CardBody = ({
 						</Text>
 
 						{task_time_estimate && (
-							<DotSeparator color={subtitle_color} />
-						)}
+							<>
+								<DotSeparator color={subtitle_color} />
 
-						<Text
-							className="text-base font-medium"
-							style={{ color: subtitle_color }}
-							numberOfLines={1}
-							ellipsizeMode="tail">
-							{`${formatSecondsToHours(task_time_estimate)} estimated`}
-						</Text>
+								<Text
+									className="text-base font-medium"
+									style={{ color: subtitle_color }}
+									numberOfLines={1}
+									ellipsizeMode="tail">
+									{`${formatSecondsToHours(task_time_estimate)} estimated`}
+								</Text>
+							</>
+						)}
 					</View>
 				</View>
 			</View>
