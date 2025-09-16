@@ -25,11 +25,13 @@ import TimelineTable from "@/components/timeline/TimelineTable";
 import { ANALYTICS_MENU_ITEMS } from "@/constants/analytics/AnalyticsMenuItems";
 import { COLORS } from "@/constants/Colors";
 import { SKELETONS } from "@/constants/Skeletons";
+import { TimelineTask } from "@/entities/TimelineTask";
 import {
 	getCurrentMonthDateYear,
 	getNextDate,
 	getPrevDate,
 } from "@/helpers/dateHelper";
+import { mapTasksToTimeline } from "@/helpers/taskToTimelineTaskHelper";
 import { useAppStore } from "@/store/appStore";
 
 /**
@@ -58,6 +60,7 @@ const AnalyticsScreen = () => {
 
 	const [percentages, setPercentages] = useState<Record<number, number>>({});
 	const [refreshing, setRefreshing] = useState(false);
+	const [timeline_tasks, setTimelineTasks] = useState<TimelineTask[]>([]);
 
 	/* Overview summary items */
 	const overview_items = [
@@ -99,18 +102,27 @@ const AnalyticsScreen = () => {
 		setPercentages(task_percentages);
 	}, []);
 
+	/** DOCU: Converts raw store task into timeline task format, then updates local state */
+	const updateTimelineTasks = useCallback(() => {
+		const store = useAppStore.getState();
+		const updated_timeline_tasks = mapTasksToTimeline(store.tasks);
+		setTimelineTasks(updated_timeline_tasks);
+	}, []);
+
 	/** DOCU: Handles pull-to-refresh action, recalculates task percentages */
 	const onRefresh = useCallback(() => {
 		setRefreshing(true);
 		calculatePercentages();
+		updateTimelineTasks();
 		setRefreshing(false);
-	}, [calculatePercentages]);
+	}, [calculatePercentages, updateTimelineTasks]);
 
 	/** DOCU: Ensures percentages are recalculated whenever screen is focused */
 	useFocusEffect(
 		useCallback(() => {
 			calculatePercentages();
-		}, [calculatePercentages])
+			updateTimelineTasks();
+		}, [calculatePercentages, updateTimelineTasks])
 	);
 
 	return (
@@ -162,7 +174,7 @@ const AnalyticsScreen = () => {
 							initial_index={1}
 						/>
 
-						<TimelineTable />
+						<TimelineTable timeline_tasks={timeline_tasks} />
 
 						<View className="w-full items-start my-4">
 							<Text className="text-dark-500 text-2xl font-medium">

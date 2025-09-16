@@ -1,33 +1,26 @@
 import React, { useState } from "react";
 import Timetable from "react-native-calendar-timetable";
 
-import { COLORS } from "@/constants/Colors";
-import { TIMELINE_TASKS } from "@/constants/TimelineTasks";
+import { TimelineTask } from "@/entities/TimelineTask";
 import TimelineCard from "./TimelineCard";
 
-const TimelineTable = () => {
+interface TimelineTableProps {
+	timeline_tasks: TimelineTask[];
+}
+
+const TimelineTable = ({ timeline_tasks }: TimelineTableProps) => {
 	const [date] = useState(new Date());
 
 	return (
 		<Timetable
-			items={TIMELINE_TASKS}
+			items={timeline_tasks}
 			renderItem={({ key, ...props }) => (
 				<TimelineCard key={key} {...props} />
 			)}
 			date={date}
-			fromHour={9}
+			fromHour={8}
 			toHour={18}
 			is12Hour
-			style={{
-				nowLine: {
-					dot: {
-						backgroundColor: COLORS.dark400,
-					},
-					line: {
-						backgroundColor: COLORS.dark400,
-					},
-				},
-			}}
 		/>
 	);
 };

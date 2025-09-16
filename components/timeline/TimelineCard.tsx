@@ -26,7 +26,7 @@ const TimelineCard = ({ style, item }: TimelineCardProps) => {
 
 	return (
 		<View
-			className="rounded-lg p-3"
+			className="rounded-lg p-1"
 			style={{
 				...style,
 				backgroundColor: is_break ? "#E6E7EB" : item.color,
