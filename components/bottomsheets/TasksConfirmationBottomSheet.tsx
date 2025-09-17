@@ -1,4 +1,4 @@
-import CustomBottomSheet from "@/components/CustomBottomSheet";
+import ConfirmationBottomSheet from "@/components/bottomsheets/ConfirmationBottomSheet";
 import { COLORS } from "@/constants/Colors";
 import { PendingAction } from "@/entities/PendingActionTypes";
 import { useAppStore } from "@/store/appStore";
@@ -43,7 +43,7 @@ const TaskConfirmationBottomSheet = forwardRef<
 	};
 
 	return (
-		<CustomBottomSheet
+		<ConfirmationBottomSheet
 			onConfirm={handleConfirm}
 			onCancel={handleCancel}
 			ref={ref}

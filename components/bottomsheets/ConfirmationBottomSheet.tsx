@@ -6,10 +6,10 @@ import {
 } from "@gorhom/bottom-sheet";
 import React, { forwardRef, useCallback, useMemo } from "react";
 import { Text } from "react-native";
-import Button from "./Button";
-import Icon from "./Icon";
+import Button from "../Button";
+import Icon from "../Icon";
 
-interface CustomBottomSheetProps {
+interface ConfirmationBottomSheetProps {
 	title: string;
 	sub_title: string;
 	confirm_button_text: string;
@@ -24,7 +24,7 @@ interface CustomBottomSheetProps {
 
 type Ref = BottomSheetModal;
 
-const CustomBottomSheet = forwardRef<Ref, CustomBottomSheetProps>(
+const ConfirmationBottomSheet = forwardRef<Ref, ConfirmationBottomSheetProps>(
 	(
 		{
 			title,
@@ -98,4 +98,4 @@ const CustomBottomSheet = forwardRef<Ref, CustomBottomSheetProps>(
 	}
 );
 
-export default CustomBottomSheet;
+export default ConfirmationBottomSheet;

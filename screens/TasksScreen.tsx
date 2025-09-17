@@ -7,6 +7,7 @@ import { useRouter } from "expo-router";
 import React, { useMemo, useRef, useState } from "react";
 import { ScrollView, View } from "react-native";
 
+import TaskConfirmationBottomSheet from "@/components/bottomsheets/TasksConfirmationBottomSheet";
 import EmptyTaskListText from "@/components/EmptyTaskListText";
 import MenuBar from "@/components/MenuBar";
 import SearchBar from "@/components/SearchBar";
@@ -14,7 +15,6 @@ import TaskCardSkeleton from "@/components/skeletons/TaskCardSkeleton";
 import TaskCard from "@/components/tasks/TaskCard";
 import TasksFabGroup from "@/components/tasks/TasksFabGroup";
 import TasksOverviewCard from "@/components/tasks/TasksOverviewCard";
-import TaskConfirmationBottomSheet from "@/components/track/TasksConfirmationBottomSheet";
 import { SKELETONS } from "@/constants/Skeletons";
 import {
 	TaskMenuItems,

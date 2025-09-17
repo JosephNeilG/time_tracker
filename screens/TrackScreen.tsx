@@ -10,6 +10,7 @@ import React, { useMemo, useRef, useState } from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import * as Progress from "react-native-progress";
 
+import TaskConfirmationBottomSheet from "@/components/bottomsheets/TasksConfirmationBottomSheet";
 import Card from "@/components/card/Card";
 import DotSeparator from "@/components/DotSeparator";
 import EmptyTaskListText from "@/components/EmptyTaskListText";
@@ -17,7 +18,6 @@ import EmptyTaskView from "@/components/EmptyTaskView";
 import Icon from "@/components/Icon";
 import SearchBar from "@/components/SearchBar";
 import TrackTaskCardSkeleton from "@/components/skeletons/TrackTaskCardSkeleton";
-import TaskConfirmationBottomSheet from "@/components/track/TasksConfirmationBottomSheet";
 import TrackTaskCard from "@/components/track/TrackTaskCard";
 import { COLORS } from "@/constants/Colors";
 import { EMPTY_PLAYER_PLACEHOLDER } from "@/constants/EmptyPlayerPlaceholder";
