@@ -36,10 +36,18 @@ const TasksFabGroup = () => {
 	const handleBreak = () => {
 		const break_time = startBreak();
 
-		useAppStore.setState((state: any) => ({
-			tasks: [...state.tasks, break_time],
-			current_task_id: break_time.id,
-		}));
+		useAppStore.setState((state: any) => {
+			const updated_tasks = state.tasks.map((task: any) =>
+				task.status === "tracking"
+					? { ...task, status: "todo", media_icon: "play" }
+					: task
+			);
+
+			return {
+				tasks: [...updated_tasks, break_time],
+				current_task_id: break_time.id,
+			};
+		});
 
 		useAppStore.getState().startTimer(break_time.id);
 
