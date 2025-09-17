@@ -5,6 +5,7 @@ import { FAB } from "react-native-paper";
 
 import { COLORS } from "@/constants/Colors";
 import createQuickTask from "@/helpers/quickTaskHelper";
+import startBreak from "@/helpers/startBreakHelper";
 import { useAppStore } from "@/store/appStore";
 
 const TasksFabGroup = () => {
@@ -28,6 +29,19 @@ const TasksFabGroup = () => {
 		});
 
 		useAppStore.getState().startTimer(quickTask.id);
+
+		router.navigate("/");
+	};
+
+	const handleBreak = () => {
+		const break_time = startBreak();
+
+		useAppStore.setState((state: any) => ({
+			tasks: [...state.tasks, break_time],
+			current_task_id: break_time.id,
+		}));
+
+		useAppStore.getState().startTimer(break_time.id);
 
 		router.navigate("/");
 	};
@@ -60,7 +74,7 @@ const TasksFabGroup = () => {
 					...fab_item_props,
 				},
 				{
-					onPress: () => console.log("Break time"),
+					onPress: handleBreak,
 					icon: "coffee",
 					label: "Start Break",
 					...fab_item_props,

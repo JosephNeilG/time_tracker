@@ -16,6 +16,7 @@ interface AppState {
 	is_loading_tasks: boolean;
 	current_task_id: number | null;
 	quick_task_counter: number;
+	break_counter: number;
 	timer_interval_id: number | null;
 
 	syncTasks: () => void;
@@ -33,6 +34,7 @@ interface AppState {
 	toggleCardPlayerIcon: (id: number) => void;
 	setCurrentTask: (id: number) => void;
 	incrementQuickTaskCounter: () => void;
+	incrementBreakCounter: () => void;
 	completeTask: (id: number) => void;
 	undoCompleteTask: (id: number) => void;
 	deleteTask: (id: number) => void;
@@ -47,6 +49,7 @@ const initial_state = {
 	tasks: [],
 	current_task_id: null,
 	quick_task_counter: 1,
+	break_counter: 1,
 	timer_interval_id: null,
 };
 
@@ -151,6 +154,11 @@ export const useAppStore = create<AppState>()(
 					quick_task_counter: state.quick_task_counter + 1,
 				})),
 
+			incrementBreakCounter: () =>
+				set((state) => ({
+					break_counter: state.break_counter + 1,
+				})),
+
 			/**
 			 * DOCU: Stop the task timer
 			 * Clears interval and resets timer state
@@ -175,8 +183,7 @@ export const useAppStore = create<AppState>()(
 					set((state) => {
 						const updated_tasks = state.tasks.map((task) => {
 							if (task.id === id && task.status === "tracking") {
-								const new_time =
-									(task.time_elapsed || 0) + 1800;
+								const new_time = (task.time_elapsed || 0) + 90;
 								return {
 									...task,
 									time_elapsed: new_time,
