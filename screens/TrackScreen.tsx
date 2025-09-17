@@ -22,6 +22,10 @@ import TrackTaskCard from "@/components/track/TrackTaskCard";
 import { COLORS } from "@/constants/Colors";
 import { EMPTY_PLAYER_PLACEHOLDER } from "@/constants/EmptyPlayerPlaceholder";
 import { SKELETONS } from "@/constants/Skeletons";
+import {
+	PendingAction,
+	TrackPendingActionType,
+} from "@/entities/PendingActionTypes";
 import { TrackTask } from "@/entities/TrackTask";
 import { getSprintLabel } from "@/helpers/dateHelper";
 import { toTrackTask } from "@/helpers/taskToTrackTaskHelper";
@@ -43,16 +47,13 @@ const TrackScreen = () => {
 	const task = current_task ?? EMPTY_PLAYER_PLACEHOLDER;
 	const [search_query, setSearchQuery] = useState<string>("");
 
-	const [pending_action, setPendingAction] = useState<{
-		type: "delete" | "complete";
-		task_id: number;
-		task_title: string;
-	} | null>(null);
-
+	const [pending_action, setPendingAction] = useState<PendingAction | null>(
+		null
+	);
 	const bottom_sheet_ref = useRef<BottomSheetModal>(null);
 
 	const handleSwipeRequest = (
-		action: "delete" | "complete",
+		action: TrackPendingActionType,
 		task_id: number
 	) => {
 		const swiped_task = tasks.find((task) => task.id === task_id);

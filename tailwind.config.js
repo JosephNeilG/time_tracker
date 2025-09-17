@@ -27,6 +27,7 @@ module.exports = {
 					600: "#192031",
 				},
 				danger: "#F04543",
+				warning: "#F17D35",
 			},
 		},
 	},

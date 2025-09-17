@@ -1,5 +1,6 @@
 export const COLORS = {
 	primary: "#426E63",
+	primary_light: "#F0F9FF",
 	secondary: "#6B7580",
 	dark100: "#414851",
 	dark200: "#384152",
@@ -13,4 +14,7 @@ export const COLORS = {
 	light400: "#F9FAFC",
 	white: "#fff",
 	danger: "#F04543",
+	danger_light: "#FFF2F1",
+	warning: "#F17D35",
+	warning_light: "#FDF0E9",
 };

@@ -4,7 +4,7 @@
  */
 
 import { useRouter } from "expo-router";
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import { ScrollView, View } from "react-native";
 
 import EmptyTaskListText from "@/components/EmptyTaskListText";
@@ -14,15 +14,21 @@ import SearchBar from "@/components/SearchBar";
 import TaskCardSkeleton from "@/components/skeletons/TaskCardSkeleton";
 import TaskCard from "@/components/tasks/TaskCard";
 import TasksOverviewCard from "@/components/tasks/TasksOverviewCard";
+import TaskConfirmationBottomSheet from "@/components/track/TasksConfirmationBottomSheet";
 import { SKELETONS } from "@/constants/Skeletons";
 import {
 	TaskMenuItems,
 	TASKS_MENU_ITEMS,
 } from "@/constants/tasks/TasksMenuItems";
+import {
+	PendingAction,
+	PendingActionType,
+} from "@/entities/PendingActionTypes";
 import { Task } from "@/entities/Task";
 import { getRemainingDays, getSprintLabel } from "@/helpers/dateHelper";
 import createQuickTask from "@/helpers/quickTaskHelper";
 import { useAppStore } from "@/store/appStore";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import EmptyTaskView from "../components/EmptyTaskView";
 
 /**
@@ -35,6 +41,10 @@ const TasksScreen = () => {
 	const days_left = getRemainingDays();
 	const [selected_tab, setSelectedTab] = useState<TaskMenuItems>("All");
 	const [search_query, setSearchQuery] = useState<string>("");
+	const [pending_action, setPendingAction] = useState<PendingAction | null>(
+		null
+	);
+	const bottom_sheet_ref = useRef<BottomSheetModal>(null);
 
 	const is_loading_tasks = useAppStore((state) => state.is_loading_tasks);
 	const is_tasks_synced = useAppStore((state) => state.is_tasks_synced);
@@ -142,6 +152,17 @@ const TasksScreen = () => {
 		return filtered;
 	}, [tasks, selected_tab, search_query]);
 
+	const handleSwipeRequest = (action: PendingActionType, task_id: number) => {
+		const swiped_task = tasks.find((task) => task.id === task_id);
+
+		setPendingAction({
+			type: action,
+			task_id,
+			task_title: swiped_task?.title ?? "this task",
+		});
+		bottom_sheet_ref.current?.present();
+	};
+
 	const is_task_list_empty = filtered_tasks.length === 0;
 
 	return (
@@ -182,6 +203,7 @@ const TasksScreen = () => {
 										task={task}
 										onPress={handleCardOnPress}
 										onMediaPress={handleOnMediaPress}
+										onSwipeRequest={handleSwipeRequest}
 									/>
 								))
 							)}
@@ -193,7 +215,15 @@ const TasksScreen = () => {
 			</ScrollView>
 
 			{is_tasks_synced && (
-				<FloatingActionButton onPress={handleFABOnPress} />
+				<>
+					<FloatingActionButton onPress={handleFABOnPress} />
+
+					<TaskConfirmationBottomSheet
+						ref={bottom_sheet_ref}
+						pending_action={pending_action}
+						setPendingAction={setPendingAction}
+					/>
+				</>
 			)}
 		</View>
 	);

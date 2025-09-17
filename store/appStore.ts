@@ -34,6 +34,7 @@ interface AppState {
 	setCurrentTask: (id: number) => void;
 	incrementQuickTaskCounter: () => void;
 	completeTask: (id: number) => void;
+	undoCompleteTask: (id: number) => void;
 	deleteTask: (id: number) => void;
 	stopTimer: () => void;
 	startTimer: (id: number) => void;
@@ -174,7 +175,8 @@ export const useAppStore = create<AppState>()(
 					set((state) => {
 						const updated_tasks = state.tasks.map((task) => {
 							if (task.id === id && task.status === "tracking") {
-								const new_time = (task.time_elapsed || 0) + 1;
+								const new_time =
+									(task.time_elapsed || 0) + 1800;
 								return {
 									...task,
 									time_elapsed: new_time,
@@ -269,6 +271,27 @@ export const useAppStore = create<AppState>()(
 						get().stopTimer();
 						return { tasks: updated_tasks, current_task_id: null };
 					}
+
+					return { tasks: updated_tasks };
+				});
+			},
+
+			/**
+			 * DOCU: Undo completion of a task
+			 * Change its status back to "todo" and reset media_icon to "play".
+			 * @param id - Task ID to be reverted from completed to todo
+			 */
+			undoCompleteTask: (id: number) => {
+				set((state) => {
+					const updated_tasks: Task[] = state.tasks.map((task) =>
+						task.id === id
+							? {
+									...task,
+									status: "todo",
+									media_icon: "play",
+								}
+							: task
+					);
 
 					return { tasks: updated_tasks };
 				});
