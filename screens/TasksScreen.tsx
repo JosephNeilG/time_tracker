@@ -8,11 +8,11 @@ import React, { useMemo, useRef, useState } from "react";
 import { ScrollView, View } from "react-native";
 
 import EmptyTaskListText from "@/components/EmptyTaskListText";
-import FloatingActionButton from "@/components/FloatingActionButton";
 import MenuBar from "@/components/MenuBar";
 import SearchBar from "@/components/SearchBar";
 import TaskCardSkeleton from "@/components/skeletons/TaskCardSkeleton";
 import TaskCard from "@/components/tasks/TaskCard";
+import TasksFabGroup from "@/components/tasks/TasksFabGroup";
 import TasksOverviewCard from "@/components/tasks/TasksOverviewCard";
 import TaskConfirmationBottomSheet from "@/components/track/TasksConfirmationBottomSheet";
 import { SKELETONS } from "@/constants/Skeletons";
@@ -26,7 +26,6 @@ import {
 } from "@/entities/PendingActionTypes";
 import { Task } from "@/entities/Task";
 import { getRemainingDays, getSprintLabel } from "@/helpers/dateHelper";
-import createQuickTask from "@/helpers/quickTaskHelper";
 import { useAppStore } from "@/store/appStore";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import EmptyTaskView from "../components/EmptyTaskView";
@@ -87,31 +86,6 @@ const TasksScreen = () => {
 			toggleTrack(task.id);
 			useAppStore.getState().setCurrentTask(task.id);
 		}
-	};
-
-	/**
-	 * DOCU: Handle floating action button press
-	 * Create a quick task, updates store, starts timer, and navigates to track screen
-	 */
-	const handleFABOnPress = () => {
-		const quickTask = createQuickTask();
-
-		useAppStore.setState((state) => {
-			const updated_tasks = state.tasks.map((task: any) =>
-				task.status === "tracking"
-					? { ...task, status: "todo", media_icon: "play" }
-					: task
-			);
-
-			return {
-				tasks: [...updated_tasks, quickTask],
-				current_task_id: quickTask.id,
-			};
-		});
-
-		useAppStore.getState().startTimer(quickTask.id);
-
-		router.navigate("/");
 	};
 
 	/**
@@ -216,7 +190,7 @@ const TasksScreen = () => {
 
 			{is_tasks_synced && (
 				<>
-					<FloatingActionButton onPress={handleFABOnPress} />
+					<TasksFabGroup />
 
 					<TaskConfirmationBottomSheet
 						ref={bottom_sheet_ref}

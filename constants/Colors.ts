@@ -17,4 +17,5 @@ export const COLORS = {
 	danger_light: "#FFF2F1",
 	warning: "#F17D35",
 	warning_light: "#FDF0E9",
+	overlay: "rgba(0, 0, 0, 0.38)",
 };
