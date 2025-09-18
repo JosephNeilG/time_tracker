@@ -34,7 +34,7 @@ const AnalyticsTaskCard = ({ task_id, percent }: AnalyticsTaskCardProps) => {
 				<View className="flex-row items-center gap-3">
 					<DotSeparator
 						size={12}
-						color={task?.dot_color || COLORS.dark500}
+						color={task?.dot_color || COLORS.primary}
 					/>
 					<OverviewItem
 						title={task?.title || ""}

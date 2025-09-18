@@ -21,7 +21,9 @@ import {
 	HOUR_OPTIONS,
 	PRIORITY_OPTIONS,
 } from "@/constants/tasks/AddTaskDropdownOptions";
+import createTaskHelper, { CreateTask } from "@/helpers/createTaskHelper";
 import { AddTaskFormValues, AddTaskSchema } from "@/schema/addTaskSchema";
+import { useAppStore } from "@/store/appStore";
 import Button from "../Button";
 import ErrorMessage from "../ErrorMessage";
 import Icon from "../Icon";
@@ -45,7 +47,7 @@ const AddTaskBottomSheet = forwardRef<BottomSheetModal>((props, ref) => {
 			title: "",
 			category: "",
 			time_estimate: 0,
-			priority: "low",
+			priority: "Low Priority",
 		},
 	});
 
@@ -65,11 +67,15 @@ const AddTaskBottomSheet = forwardRef<BottomSheetModal>((props, ref) => {
 		Keyboard.dismiss();
 	};
 
-	const handleSubmitForm = (data: AddTaskFormValues) => {
-		console.log("Task added:", data);
+	const handleSubmitForm = (form_data: CreateTask) => {
+		const new_task = createTaskHelper(form_data);
 
-		reset();
+		useAppStore.setState((state) => ({
+			tasks: [...state.tasks, new_task],
+		}));
+
 		handleDismissSheet();
+		reset();
 	};
 
 	return (

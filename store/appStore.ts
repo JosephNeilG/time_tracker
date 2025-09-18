@@ -183,7 +183,7 @@ export const useAppStore = create<AppState>()(
 					set((state) => {
 						const updated_tasks = state.tasks.map((task) => {
 							if (task.id === id && task.status === "tracking") {
-								const new_time = (task.time_elapsed || 0) + 90;
+								const new_time = (task.time_elapsed || 0) + 1;
 								return {
 									...task,
 									time_elapsed: new_time,
