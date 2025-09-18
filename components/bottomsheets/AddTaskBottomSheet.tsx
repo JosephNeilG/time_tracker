@@ -131,10 +131,11 @@ const AddTaskBottomSheet = forwardRef<BottomSheetModal>((props, ref) => {
 							render={({ field: { onChange, value } }) => (
 								<>
 									<AppDropdown
+										onChange={onChange}
 										label="Category"
 										data={CATEGORY_OPTIONS}
 										value={value}
-										onChange={onChange}
+										placeholder="Category"
 									/>
 									<ErrorMessage
 										message={errors.category?.message}
@@ -151,10 +152,11 @@ const AddTaskBottomSheet = forwardRef<BottomSheetModal>((props, ref) => {
 							render={({ field: { onChange, value } }) => (
 								<>
 									<AppDropdown
+										onChange={onChange}
 										label="Time Estimate"
 										data={HOUR_OPTIONS}
 										value={value}
-										onChange={onChange}
+										placeholder="Time"
 									/>
 									<ErrorMessage
 										message={errors.time_estimate?.message}

@@ -1,12 +1,20 @@
 import { COLORS } from "@/constants/Colors";
 import React, { useState } from "react";
-import { StyleProp, StyleSheet, Text, View, ViewStyle } from "react-native";
+import {
+	Keyboard,
+	StyleProp,
+	StyleSheet,
+	Text,
+	View,
+	ViewStyle,
+} from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 
 interface AppDropdownProps {
 	label?: string;
 	data: DropdownOption[];
 	value?: string | number | null;
+	placeholder: string;
 	onChange: (value: string | number) => void;
 	container_style?: StyleProp<ViewStyle>;
 }
@@ -17,6 +25,7 @@ const AppDropdown = ({
 	label,
 	data,
 	value,
+	placeholder,
 	onChange,
 	container_style,
 }: AppDropdownProps) => {
@@ -43,13 +52,16 @@ const AppDropdown = ({
 					setSelected(item.value);
 					onChange(item.value);
 				}}
+				onFocus={() => {
+					Keyboard.dismiss();
+				}}
 				renderItem={renderItem}
 				style={styles.dropdown}
 				data={data}
 				value={selected}
 				labelField="label"
 				valueField="value"
-				placeholder="Select..."
+				placeholder={placeholder}
 				selectedTextStyle={styles.selected_text_style}
 				placeholderStyle={styles.placeholder_style}
 				maxHeight={300}

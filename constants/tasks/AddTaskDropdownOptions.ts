@@ -1,6 +1,6 @@
 export const CATEGORY_OPTIONS = [
-	{ label: "Frontend Development", value: "Frontend" },
-	{ label: "Backend Development", value: "Backend" },
+	{ label: "Frontend", value: "Frontend" },
+	{ label: "Backend", value: "Backend" },
 	{ label: "Quality Assurance", value: "QA" },
 ];
 
