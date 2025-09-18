@@ -29,7 +29,7 @@ const TimelineCard = ({ style, item }: TimelineCardProps) => {
 			className="rounded-lg p-1"
 			style={{
 				...style,
-				backgroundColor: is_break ? "#E6E7EB" : item.color,
+				backgroundColor: is_break ? COLORS.dark300 : item.color,
 				borderWidth: is_break ? 2 : 0,
 				borderStyle: is_break ? "dashed" : "solid",
 				borderColor: is_break ? "gray" : "transparent",

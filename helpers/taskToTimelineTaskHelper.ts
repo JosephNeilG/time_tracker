@@ -1,3 +1,4 @@
+import { COLORS } from "@/constants/Colors";
 import { Task } from "@/entities/Task";
 import { TimelineTask } from "@/entities/TimelineTask";
 
@@ -27,8 +28,8 @@ export const mapTasksToTimeline = (tasks: Task[]): TimelineTask[] => {
 			title: task.title,
 			startDate: start_date,
 			endDate: end_date,
-			color: "#29344C",
-			type: "work",
+			color: COLORS.dark600,
+			type: task.category === "Break" ? "break" : "work",
 		};
 	});
 };
