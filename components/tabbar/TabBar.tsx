@@ -62,14 +62,14 @@ function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
 					typeof options.tabBarLabel === "string"
 						? options.tabBarLabel
 						: options.title !== undefined
-							? options.title
-							: route.name;
+						? options.title
+						: route.name;
 
 				const is_focused = state.index === index;
 
 				const onPress = () => {
 					tab_position_x.value = withSpring(button_width * index, {
-						duration: 1500,
+						duration: 500,
 					});
 					const event = navigation.emit({
 						type: "tabPress",
