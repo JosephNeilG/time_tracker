@@ -1,6 +1,6 @@
 import { COLORS } from "@/constants/Colors";
 import { FontAwesome6 } from "@expo/vector-icons";
-import React, { useState } from "react";
+import React, { forwardRef, useState } from "react";
 import {
 	StyleProp,
 	Text,
@@ -19,64 +19,70 @@ interface AppTextInputProps extends TextInputProps {
 	container_style?: StyleProp<ViewStyle>;
 }
 
-const AppTextInput = ({
-	label,
-	placeholder,
-	icon_name,
-	is_password = false,
-	text_input_style,
-	container_style,
-	...other_props
-}: AppTextInputProps) => {
-	const [secure, setSecure] = useState(is_password);
+const AppTextInput = forwardRef<TextInput, AppTextInputProps>(
+	(
+		{
+			label,
+			placeholder,
+			icon_name,
+			is_password = false,
+			text_input_style,
+			container_style,
+			...other_props
+		},
+		ref
+	) => {
+		const [secure, setSecure] = useState(is_password);
 
-	const toggleSecure = () => setSecure((prev) => !prev);
+		const toggleSecure = () => setSecure((prev) => !prev);
 
-	return (
-		<View className="w-full mb-1" style={container_style}>
-			{label && (
-				<Text className="mb-2 text-lg text-dark-500 font-medium">
-					{label}
-				</Text>
-			)}
+		return (
+			<View className="w-full mb-1" style={container_style}>
+				{label && (
+					<Text className="mb-2 text-lg text-dark-500 font-medium">
+						{label}
+					</Text>
+				)}
 
-			<View
-				className="w-full border-[1px] border-secondary p-4 rounded-lg flex-row items-center gap-4"
-				style={text_input_style}>
-				<TextInput
-					placeholder={placeholder}
-					placeholderTextColor={COLORS.dark500}
-					style={{
-						flex: 1,
-						fontSize: 16,
-						color: COLORS.dark500,
-						fontWeight: "500",
-						paddingVertical: 0,
-					}}
-					secureTextEntry={secure}
-					{...other_props}
-				/>
+				<View
+					className="w-full border-[1px] border-secondary p-4 rounded-lg flex-row items-center gap-4"
+					style={text_input_style}>
+					<TextInput
+						ref={ref}
+						placeholder={placeholder}
+						placeholderTextColor={COLORS.dark500}
+						style={{
+							flex: 1,
+							fontSize: 16,
+							color: COLORS.dark500,
+							fontWeight: "500",
+							paddingVertical: 0,
+						}}
+						secureTextEntry={secure}
+						{...other_props}
+					/>
 
-				{is_password && (
-					<TouchableOpacity onPress={toggleSecure}>
+					{is_password && (
+						<TouchableOpacity onPress={toggleSecure}>
+							<FontAwesome6
+								name={secure ? "eye" : "eye-slash"}
+								size={17}
+								color={COLORS.secondary}
+							/>
+						</TouchableOpacity>
+					)}
+
+					{!is_password && icon_name && (
 						<FontAwesome6
-							name={secure ? "eye" : "eye-slash"}
+							name={icon_name}
 							size={17}
 							color={COLORS.secondary}
 						/>
-					</TouchableOpacity>
-				)}
-
-				{!is_password && icon_name && (
-					<FontAwesome6
-						name={icon_name}
-						size={17}
-						color={COLORS.secondary}
-					/>
-				)}
+					)}
+				</View>
 			</View>
-		</View>
-	);
-};
+		);
+	}
+);
 
 export default AppTextInput;

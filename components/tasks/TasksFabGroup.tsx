@@ -1,5 +1,5 @@
 import { useRouter } from "expo-router";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { StyleSheet } from "react-native";
 import { FAB } from "react-native-paper";
 
@@ -7,10 +7,13 @@ import { COLORS } from "@/constants/Colors";
 import createQuickTask from "@/helpers/quickTaskHelper";
 import startBreak from "@/helpers/startBreakHelper";
 import { useAppStore } from "@/store/appStore";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import AddTaskBottomSheet from "../bottomsheets/AddTaskBottomSheet";
 
 const TasksFabGroup = () => {
 	const router = useRouter();
 	const [open, setOpen] = useState(false);
+	const add_task_sheet_ref = useRef<BottomSheetModal>(null);
 
 	const handleQuickTask = () => {
 		const quickTask = createQuickTask();
@@ -54,43 +57,50 @@ const TasksFabGroup = () => {
 		router.navigate("/");
 	};
 
+	const handleAddTask = () => {
+		add_task_sheet_ref.current?.present();
+	};
+
 	const handleStateChange = ({ open }: { open: boolean }) => {
 		setOpen(open);
 	};
 
 	return (
-		<FAB.Group
-			open={open}
-			visible
-			icon={open ? "close" : "plus"}
-			color={COLORS.white}
-			fabStyle={{
-				backgroundColor: open ? COLORS.light200 : COLORS.primary,
-			}}
-			backdropColor={COLORS.overlay}
-			actions={[
-				{
-					onPress: () => console.log("Add task"),
-					icon: "plus",
-					label: "Add Task",
-					...fab_item_props,
-				},
-				{
-					onPress: handleQuickTask,
-					icon: "lightning-bolt",
-					label: "Quick Task",
-					...fab_item_props,
-				},
-				{
-					onPress: handleBreak,
-					icon: "coffee",
-					label: "Start Break",
-					...fab_item_props,
-				},
-			]}
-			onStateChange={handleStateChange}
-			style={styles.main_fab}
-		/>
+		<>
+			<FAB.Group
+				open={open}
+				visible
+				icon={open ? "close" : "plus"}
+				color={COLORS.white}
+				fabStyle={{
+					backgroundColor: open ? COLORS.light200 : COLORS.primary,
+				}}
+				backdropColor={COLORS.overlay}
+				actions={[
+					{
+						onPress: handleAddTask,
+						icon: "plus",
+						label: "Add Task",
+						...fab_item_props,
+					},
+					{
+						onPress: handleQuickTask,
+						icon: "lightning-bolt",
+						label: "Quick Task",
+						...fab_item_props,
+					},
+					{
+						onPress: handleBreak,
+						icon: "coffee",
+						label: "Start Break",
+						...fab_item_props,
+					},
+				]}
+				onStateChange={handleStateChange}
+				style={styles.main_fab}
+			/>
+			<AddTaskBottomSheet ref={add_task_sheet_ref} />
+		</>
 	);
 };
 
